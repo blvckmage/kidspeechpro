@@ -1,0 +1,48 @@
+<!-- public/specialist-results.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Результаты — Специалист</title>
+  <link rel="stylesheet" href="css/styles2.css">
+</head>
+<body>
+  <header>
+    <h1>Результаты ребёнка</h1>
+    <nav><a href="/specialist-dashboard">⬅ Назад</a></nav>
+  </header>
+  <main class="dashboard">
+    <form method="GET" action="/specialist-results">
+      <label>Выберите ребёнка:
+        <select name="child_name"><!-- CHILD_OPTIONS --></select>
+      </label>
+      <button type="submit">Показать</button>
+    </form>
+
+    <!-- Форма добавления/изменения результата -->
+    <!-- public/specialist-results.html -->
+<form action="/api/save-result" method="POST">
+  <input type="hidden" name="parent_email" value="{{PARENT_EMAIL}}">
+  <input type="hidden" name="child_name" value="{{CHILD_NAME}}">
+
+  <label>Курс:
+    <select name="course_name">
+  <option value="Название курса">Название курса</option>
+
+</select>
+
+  </label>
+
+  <input type="date" name="date" required>
+  <input type="number" name="result" min="0" max="100" placeholder="Оценка (%)" required>
+  <button type="submit">Сохранить</button>
+</form>
+
+
+
+    <!-- Таблица результатов -->
+    <!-- RESULTS_TABLE -->
+  </main>
+</body>
+</html>

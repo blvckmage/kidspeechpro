@@ -1,0 +1,179 @@
+<!-- Файл: public/parent-courses.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Курсы — Родитель</title>
+  <style>
+  /* Общие стили страницы */
+  body {
+    background-image: url('../images/background.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    color: #4CAF50;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 20px 30px;
+    margin-bottom: 2rem;
+  }
+
+  header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    width: max-content;
+  }
+
+  header nav {
+    margin-left: auto;
+  }
+
+  header a {
+    background: #4CAF50;
+    color: white!important;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.3s;
+  }
+
+  header a:hover {
+    opacity: 0.9;
+  }
+
+  /* Затемнение фона */
+  main.dashboard {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Стили списка курсов */
+  ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  li {
+    background: rgba(255,255,255,0.95);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  h3 {
+    margin-top: 0;
+    color: #4CAF50;
+    font-size: 1.4em;
+  }
+
+  /* Стили форм */
+  form {
+    margin-top: 20px;
+  }
+
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin: 10px 0;
+    background: white;
+    color: #4CAF50;
+  }
+
+  button[type="submit"] {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
+    transition: opacity 0.3s;
+  }
+
+  button[type="submit"]:hover {
+    opacity: 0.9;
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    main.dashboard {
+      padding: 15px;
+    }
+
+    li {
+      padding: 20px;
+    }
+  }
+</style>
+  <link rel="stylesheet" href="/css/styles2.css">
+<script defer src="/js/scripts.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Курсы для развития речи</h1>
+    <nav><a href="/parent-dashboard">⬅ Назад</a></nav>
+  </header>
+  <main class="dashboard">
+    <h2>Доступные курсы</h2>
+    <ul>
+      <li>
+        <h3>Курс «Чистая дикция»</h3>
+        <p>Упражнения на звук [р], [ш], [л].</p>
+        <form action="/api/assign-course" method="POST">
+          <input type="hidden" name="course" value="Чистая дикция">
+          <label>Выберите ребёнка:
+            <select name="child_name"><!-- CHILD_OPTIONS --></select>
+          </label>
+          <button type="submit">Привязать курс</button>
+        </form>
+      </li>
+      <li>
+        <h3>Курс «Ясная речь»</h3>
+        <p>Дыхательные и артикуляционные упражнения.</p>
+        <form action="/api/assign-course" method="POST">
+          <input type="hidden" name="course" value="Ясная речь">
+          <label>Выберите ребёнка:
+            <select name="child_name"><!-- CHILD_OPTIONS --></select>
+          </label>
+          <button type="submit">Привязать курс</button>
+        </form>
+      </li>
+      <li>
+        <h3>Курс «Весёлая фонетика»</h3>
+        <p>Игровые задания на звуки и слоги.</p>
+        <form action="/api/assign-course" method="POST">
+          <input type="hidden" name="course" value="Весёлая фонетика">
+          <label>Выберите ребёнка:
+            <select name="child_name"><!-- CHILD_OPTIONS --></select>
+          </label>
+          <button type="submit">Привязать курс</button>
+        </form>
+      </li>
+    </ul>
+    <!-- .... после списка курсов -->
+<!--ASSIGNMENTS_TABLE-->
+</main>
+</body>
+</html>

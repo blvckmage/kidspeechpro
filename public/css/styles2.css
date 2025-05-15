@@ -1,0 +1,130 @@
+/* ===== ДАШБОРД ===== */
+.dashboard {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard h2,
+.dashboard h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.dashboard ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.dashboard ul li a {
+  display: block;
+  padding: 14px 20px;
+  background-color: #f0f8ff;
+  border: 1px solid #cce;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background 0.2s ease;
+  min-width: 220px;
+  text-align: center;
+}
+
+.dashboard ul li a:hover {
+  background-color: #e0f0ff;
+}
+
+/* ===== ФОРМЫ ДОБАВЛЕНИЯ И ПРИВЯЗКИ ===== */
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+form input,
+form select {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background-color: #45a047;
+}
+
+a.btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 24px;
+  background-color: #0077cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+a.btn:hover {
+  background-color: #005fa3;
+}
+
+/* ===== ОБЩИЕ КОМПОНЕНТЫ ===== */
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  text-align: center;
+}
+
+header nav a {
+  color: white;
+  margin-left: 16px;
+  text-decoration: none;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+body {
+  background-color: #f6f9fc;
+}
+
+#childrenList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+#childrenList li {
+  background: #f0f8ff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

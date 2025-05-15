@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Регистрация — KidSpeech PRO</title>
+  <link rel="stylesheet" href="public/css/styles.css">
+  <script defer src="/js/scripts.js"></script>
+</head>
+<body>
+  <main class="form-page">
+    <h2>Регистрация</h2>
+    <form id="registerForm" action="/api/register" method="POST">
+      <label>
+        <input type="radio" name="role" value="parent" checked /> Я родитель
+      </label>
+      <label>
+        <input type="radio" name="role" value="specialist" /> Я специалист
+      </label>
+
+      <input type="text" name="name" placeholder="Ваше имя" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Пароль" required />
+
+
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p>Уже есть аккаунт? <a href="/login">Войти</a></p>
+    <p><a href="/">← На главную страницу</a></p>
+  </main>
+</body>
+</html>

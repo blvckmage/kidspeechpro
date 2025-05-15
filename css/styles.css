@@ -1,0 +1,11 @@
+body { font-family: 'Comic Neue', sans-serif; background-color: #f4faff; margin:0; padding:0; color:#333; }
+header { background-color:#8ecae6; padding:1em; text-align:center; border-bottom:4px solid #219ebc; }
+nav a { margin:0 1em; color:#fff; text-decoration:none; }
+.hero { padding:2em; text-align:center; }
+.btn { background-color:#ffb703; color:#fff; padding:1em 2em; border:none; border-radius:1em; text-decoration:none; display:inline-block; cursor:pointer; }
+.features { display:flex; justify-content:center; flex-wrap:wrap; }
+.card { background:#fff; border-radius:1em; padding:1em; margin:1em; box-shadow:0 2px 5px rgba(0,0,0,0.1); flex:1 1 150px; text-align:center; }
+.form-page { max-width:400px; margin:2em auto; padding:1em; background:#fff; border-radius:1em; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+input, button, select { width:100%; padding:0.75em; margin:0.5em 0; border:1px solid #ccc; border-radius:0.5em; box-sizing:border-box; }
+#childFields { display:none; }
+@media(max-width:600px){ .features { flex-direction:column; } nav a { display:block; margin:0.5em 0; } }

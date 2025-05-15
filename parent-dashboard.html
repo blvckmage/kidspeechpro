@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Кабинет родителя — KidSpeech PRO</title>
+  <style>
+    /* === Общие стили === */
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('images/background.jpg'); /* Замените на нужный путь к фото */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #333;
+}
+
+header {
+  background-color: white;
+  color: #4CAF50;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 28px;
+  margin: 0 auto;
+  flex: 1;
+  text-align: center;
+  color: #4CAF50;
+}
+
+header nav a {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+
+    /* === Основной раздел === */
+    .dashboard {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .dashboard ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 30px;
+    }
+
+    .dashboard ul li {
+      margin: 15px 0;
+      font-size: 18px;
+    }
+
+    /* === Кнопки === */
+    .btn,
+    button,
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 6px 4px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn:hover,
+    button:hover,
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    /* === Форма добавления ребёнка === */
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    h3 {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Кабинет родителя</h1>
+    <nav><a href="/logout">Выйти</a></nav>
+  </header>
+
+  <main>
+    <section class="dashboard">
+
+      <div class="btn-group">
+        <a href="/parent-courses" class="btn">📚 Курсы для ребёнка</a>
+        <a href="/parent-results" class="btn">📋 Результаты ребёнка</a>
+      </div>
+
+      <h3>Добавить ребёнка</h3>
+      <form action="/api/add-child" method="POST">
+        <input type="text" name="name" placeholder="Имя ребёнка" required />
+        <input type="number" name="age" placeholder="Возраст" min="1" max="18" required />
+        <button type="submit">Добавить</button>
+      </form>
+
+      <div class="btn-group">
+        <a href="/assign-specialist" class="btn">🔗 Назначить специалиста</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!-- public/parent-results.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Результаты — Родитель</title>
+  <style>
+  /* Общие стили */
+  body {
+    background-image: url('../images/background.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    color: #4CAF50;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  /* Хедер */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 20px 30px;
+    margin-bottom: 2rem;
+  }
+
+  header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    width: max-content;
+  }
+
+  header nav {
+    margin-left: auto;
+  }
+
+  header a {
+    background: #4CAF50;
+    color: white!important;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.3s;
+  }
+
+  header a:hover {
+    opacity: 0.9;
+  }
+
+  /* Основной контент */
+  main.dashboard {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Форма выбора */
+  form {
+    margin-bottom: 30px;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+
+  select {
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    background: white;
+    color: #4CAF50;
+    width: 250px;
+  }
+
+  button[type="submit"] {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  button[type="submit"]:hover {
+    opacity: 0.9;
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    main.dashboard {
+      padding: 20px;
+    }
+
+    form {
+      grid-template-columns: 1fr;
+    }
+
+    select {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Результаты ребёнка</h1>
+    <nav><a href="/parent-dashboard">⬅ Назад</a></nav>
+  </header>
+  <main class="dashboard">
+    <form method="GET" action="/parent-results">
+      <label>Выберите ребёнка:
+        <select name="child_name"><!-- CHILD_OPTIONS --></select>
+      </label>
+      <button type="submit">Показать</button>
+    </form>
+
+    <!-- Только таблица, без формы -->
+    <!-- RESULTS_TABLE -->
+  </main>
+</body>
+</html>
