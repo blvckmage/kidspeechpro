@@ -29,12 +29,16 @@ header {
 }
 
 header h1 {
-  font-size: 28px;
-  margin: 0 auto;
-  flex: 1;
-  text-align: center;
-  color: #4CAF50;
-}
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    margin: 0;
+    font-size: 28px;
+    color: #4CAF50;
+    z-index: 1;
+  }
+
 
 header nav a {
   font-weight: bold;
@@ -42,7 +46,7 @@ header nav a {
 }
 
 header nav a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 
@@ -120,15 +124,39 @@ header nav a:hover {
 <body>
   <header>
     <h1>Кабинет родителя</h1>
-    <nav><a href="/logout">Выйти</a></nav>
+
+    <nav><a href="/" class="btn" style="
+        background: #4CAF50;
+        color: white;
+        font-size: 1rem;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s;
+      "> Личный кабинет </a></nav>
+
+
+    <nav><a href="/logout" class="btn" style="
+        background: #4CAF50;
+        color: white;
+        font-size: 1rem;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s;
+      "> Выйти </a></nav>
   </header>
 
   <main>
     <section class="dashboard">
 
       <div class="btn-group">
-        <a href="/parent-courses" class="btn">📚 Курсы для ребёнка</a>
-        <a href="/parent-results" class="btn">📋 Результаты ребёнка</a>
+        <a href="/parent-courses" class="btn">КУРСЫ ДЛЯ РЕБЁНКА</a>
+        <a href="/parent-results" class="btn">РЕЗУЛЬТАТЫ РЕБЁНКА</a>
       </div>
 
       <h3>Добавить ребёнка</h3>
@@ -139,7 +167,7 @@ header nav a:hover {
       </form>
 
       <div class="btn-group">
-        <a href="/assign-specialist" class="btn">🔗 Назначить специалиста</a>
+        <a href="/assign-specialist" class="btn">НАЗНАЧИТЬ СПЕЦИАЛИСТА</a>
       </div>
     </section>
   </main>

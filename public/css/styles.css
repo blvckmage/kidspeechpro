@@ -10,6 +10,32 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.team-carousel {
+  color: #4CAF50;
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+.team-carousel h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+
+
+/* Секция с курсами */
+.cta {
+  position: relative;
+  z-index: 1;
+  padding: 40px 20px;
 }
 
 
@@ -41,7 +67,7 @@ header {
 }
 
 .logo img {
-  height: 50px;
+  height: 100px;
   object-fit: contain;
 }
 
@@ -138,8 +164,7 @@ input[type="submit"]:hover,
 
 /* === Призыв к действию === */
 .cta {
-  background-color: #4CAF50;
-  color: white;
+  color: #4CAF50;
   text-align: center;
   padding: 40px 20px;
   margin-top: 50px;
@@ -222,7 +247,7 @@ footer {
   background-color: white;
   color: black;
   padding: 2em 1em;
-  border-top: 4px solid #219ebc;
+  border-top: 4px solid white;
 }
 
 .footer-container {

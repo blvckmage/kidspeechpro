@@ -15,17 +15,71 @@
 </a>
 
     <nav>
-      <a href="/login" class="btn">Вход</a>
+      <a href="/login" class="btn" style="
+        background: #4CAF50;
+        color: white;
+        font-size: 1.6rem;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s;
+      "> Вход </a>
     </nav>
   </div>
 </header>
 
   <main>
-  <section class="hero">
-    <h2>Помогаем детям развивать речь с помощью ИИ</h2>
-    <p>Диагностика, упражнения и мониторинг прогресса</p>
-    <a href="/register" class="btn">Начать</a>
-  </section>
+  <section class="hero" style="
+  text-align: center;
+  padding: 80px 20px;
+  color: #4CAF50;
+  position: relative;
+  overflow: hidden;
+">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h2 style="
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    ">
+      Помогаем детям развивать речь с помощью ИИ
+    </h2>
+
+    <div style="
+      display: inline-flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+    ">
+      <a href="#courses" class="btn" style="
+        background: white;
+        color: #4CAF50;
+        font-size: 1.6rem;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s;
+      ">
+        Выбрать занятия
+      </a>
+
+      <a href="/register" style="
+        color: #4CAF50;
+        font-size: 1.6rem;
+        align-self: center;
+        text-decoration: underline;
+        cursor: pointer;
+      ">
+  Бесплатная диагностика
+</a>
+    </div>
+  </div>
+</section>
 
   <section class="features">
     <div class="card">
@@ -48,6 +102,7 @@
   <!-- НОВАЯ СЕКЦИЯ: Наша команда -->
 <!-- UPDATED OUR TEAM CAROUSEL -->
 <section class="team-carousel">
+  <h2>НАШИ СПЕЦИАЛИСТЫ</h2>
   <div class="carousel-container">
     <button class="carousel-btn left-btn" aria-label="Previous"></button>
 
@@ -82,7 +137,6 @@
   }
   .carousel-content {
     display: flex;
-    background: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
@@ -208,72 +262,143 @@
 
 
   <!-- НОВАЯ СЕКЦИЯ: Прайс-лист -->
-<section class="cta" style="color: #4CAF50;">
-  <h2 style="color: #4CAF50;">Курсы для развития речи</h2>
-  <p>Выберите курс и ознакомьтесь с условиями:</p>
+<section class="cta" id="courses" style="padding: 40px 20px;">
+
+  <h2>КУРСЫ ДЛЯ РАЗВИТИЯ РЕЧИ</h2>
 
   <div class="turbo-plans" style="display: flex; gap: 20px; overflow-x: auto; padding: 20px 0;">
     <!-- Чистая дикция -->
-    <div style="min-width:250px; background:white; border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); color:#4CAF50;">
+    <div style="min-width:250px; background:white; border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); color:black;">
       <h3 style="margin:0 0 15px;">Чистая дикция</h3>
       <div style="margin-bottom:20px;">
         <p style="margin:8px 0;">Упражнения на звуки «р», «ш», «л»</p>
         <p style="margin:8px 0;">Длительность: 4 недели</p>
       </div>
-      <p style="font-size:24px; margin:20px 0; font-weight:bold;">2 500 ₽</p>
+      <p style="font-size:24px; margin:20px 0; font-weight:bold; color:#4CAF50">25 000 тг</p>
       <div style="display:flex; flex-direction:column; gap:10px;">
         <button style="background:#4CAF50; color:white; border:none; padding:12px; border-radius:4px; cursor:pointer;">
-          Заказать
+          Записаться на курс
         </button>
       </div>
     </div>
 
     <!-- Весёлая фонетика -->
-    <div style="min-width:250px; background:white; border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); color:#4CAF50;">
+    <div style="min-width:250px; background:white; border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); color:black;">
       <h3 style="margin:0 0 15px;">Весёлая фонетика</h3>
       <div style="margin-bottom:20px;">
         <p style="margin:8px 0;">Игровые задания на слоги и ритм</p>
         <p style="margin:8px 0;">Длительность: 6 недель</p>
       </div>
-      <p style="font-size:24px; margin:20px 0; font-weight:bold;">3 200 ₽</p>
+      <p style="font-size:24px; margin:20px 0; font-weight:bold; color:#4CAF50">32 000 тг</p>
       <div style="display:flex; flex-direction:column; gap:10px;">
         <button style="background:#4CAF50; color:white; border:none; padding:12px; border-radius:4px; cursor:pointer;">
-          Заказать
+          Записаться на курс
         </button>
       </div>
     </div>
 
     <!-- Ясная речь -->
-    <div style="min-width:250px; background:white; border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); color:#4CAF50;">
+    <div style="min-width:250px; background:white; border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); color:black;">
       <h3 style="margin:0 0 15px;">Ясная речь</h3>
       <div style="margin-bottom:20px;">
         <p style="margin:8px 0;">Дыхательные и артикуляционные упражнения</p>
         <p style="margin:8px 0;">Длительность: 8 недель</p>
       </div>
-      <p style="font-size:24px; margin:20px 0; font-weight:bold;">4 500 ₽</p>
+      <p style="font-size:24px; margin:20px 0; font-weight:bold; color:#4CAF50">45 000 тг</p>
       <div style="display:flex; flex-direction:column; gap:10px;">
         <button style="background:#4CAF50; color:white; border:none; padding:12px; border-radius:4px; cursor:pointer;">
-          Заказать
+          Записаться на курс
         </button>
       </div>
     </div>
 
     <!-- Мастер звукопроизношения -->
-    <div style="min-width:250px; background:white; border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); color:#4CAF50;">
+    <div style="min-width:250px; background:white; border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); color:black;">
       <h3 style="margin:0 0 15px;">Мастер звукопроизношения</h3>
       <div style="margin-bottom:20px;">
         <p style="margin:8px 0;">Индивидуальные занятия</p>
         <p style="margin:8px 0;">Длительность: 10 недель</p>
       </div>
-      <p style="font-size:24px; margin:20px 0; font-weight:bold;">6 800 ₽</p>
+      <p style="font-size:24px; margin:20px 0; font-weight:bold; color:#4CAF50">68 000 тг</p>
       <div style="display:flex; flex-direction:column; gap:10px;">
         <button style="background:#4CAF50; color:white; border:none; padding:12px; border-radius:4px; cursor:pointer;">
-          Заказать
+          Записаться на курс
         </button>
       </div>
     </div>
   </div>
 </section>
+
+
+    <!-- Chat bot stub -->
+<div id="chatbot-button" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1000;
+" title="Поддержка">💬</div>
+
+<!-- Chat popup -->
+<div id="chatbot-popup" style="
+  display: none;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 16px;
+  font-family: sans-serif;
+  z-index: 1000;
+">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <strong>Бот-ассистент</strong>
+    <button id="chatbot-close" style="
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #999;
+    ">&times;</button>
+  </div>
+  <p style="margin: 0 0 10px;">Здравствуйте! Чем мы можем помочь?</p>
+  <button style="
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+  ">Написать</button>
+</div>
+
+<script>
+  const button = document.getElementById('chatbot-button');
+  const popup = document.getElementById('chatbot-popup');
+  const close = document.getElementById('chatbot-close');
+
+  button.addEventListener('click', () => {
+    popup.style.display = 'block';
+  });
+
+  close.addEventListener('click', () => {
+    popup.style.display = 'none';
+  });
+</script>
+
 
 
 
@@ -292,9 +417,9 @@
       <!-- Социальные сети -->
       <div class="footer-section">
         <h4>Мы в социальных сетях</h4>
-        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a><br>
-        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br>
-        <a href="https://vk.com" target="_blank" rel="noopener">VK</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook KidSpeech</a><br>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram KidSpeech</a><br>
+        <a href="https://vk.com" target="_blank" rel="noopener">VK KidSpeech</a>
       </div>
 
       <!-- Авторские права -->
