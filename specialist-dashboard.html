@@ -18,14 +18,24 @@
     }
 
     header {
-      background-color: white;
-      color: #4CAF50;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+  background-color: white;
+  color: #4CAF50;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  margin: 0;
+  color: #4CAF50;
+}
+
 
     header h1 {
       font-size: 28px;
@@ -101,32 +111,18 @@
 </head>
 <body>
   <header>
-    <h1>Кабинет специалиста</h1>
-    <nav><a href="/" class="btn" style="
-        background: #4CAF50;
-        color: white;
-        font-size: 1rem;
-        padding: 15px 40px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        transition: transform 0.3s;
-      "> Личный кабинет </a></nav>
+  <h1 class="header-center">Кабинет специалиста</h1>
 
+  <div style="margin-left: auto; display: flex; gap: 10px;">
+    <nav>
+      <a href="/" class="btn" style="...">Личный кабинет</a>
+    </nav>
+    <nav>
+      <a href="/logout" class="btn" style="...">Выйти</a>
+    </nav>
+  </div>
+</header>
 
-    <nav><a href="/logout" class="btn" style="
-        background: #4CAF50;
-        color: white;
-        font-size: 1rem;
-        padding: 15px 40px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        transition: transform 0.3s;
-      "> Выйти </a></nav>
-  </header>
 
   <main>
     <section class="dashboard">
