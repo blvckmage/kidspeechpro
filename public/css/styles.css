@@ -7,9 +7,6 @@ body {
   color: #333;
 
   background-image: url('/images/background.jpg'); /* путь к картинке */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 
 }
 html {
@@ -60,31 +57,6 @@ header {
   flex: 1;
 }
 
-.logo {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.logo img {
-  height: 100px;
-  object-fit: contain;
-}
-
-.header-container nav {
-  position: absolute;
-  right: 20px;
-}
-
-nav a {
-  margin: 0 15px;
-  color: #4CAF50;
-  text-decoration: none;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
 
 button,
 input[type="submit"],
@@ -193,6 +165,14 @@ footer p {
   font-size: 16px;
 }
 
+footer a {
+  font-size: 16px;
+}
+
+footer h4 {
+  font-size: 23px;
+}
+
 /* === Страница формы === */
 .form-page {
   max-width: 400px;
@@ -271,4 +251,31 @@ footer {
 .footer-section a:hover {
   text-decoration: underline;
 }
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    margin-right: auto;
+  }
+
+  .nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    color: #4CAF50;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
