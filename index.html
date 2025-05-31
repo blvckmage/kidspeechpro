@@ -21,7 +21,7 @@
       transition: color 0.3s;
     }
     .nav-links a:hover {
-      color: #4CAF50;
+      color: #A78CE2;
     }
     .logo img {
       width: 220px; /* Уменьшенный размер лого */
@@ -45,17 +45,17 @@
       <nav>
         <div class="nav-links" style="">
           <a href="#about">О нас</a>
-          <a href="#courses">Стоимость</a>
+          <a href="#courses">Прайс</a>
           <a href="#results">Наши результаты</a>
-          <a href="footer">Контакты</a>
+          <a href="#footer">Контакты</a>
           <a href="/login" class="btn" style="
-        background: #4CAF50;
+        background: #A78CE2;
         color: white;
         font-size: 1rem;
         padding: 15px 40px;
         border-radius: 30px;
         text-decoration: none;
-        font-weight: bold;
+        font-weight: 3000;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         transition: transform 0.3s;
         white-space: nowrap;
@@ -67,89 +67,113 @@
 
 
   <main>
-  <section class="hero" style="
-  text-align: center;
-  padding: 80px 20px;
-  color: #4CAF50;
-  position: relative;
-  overflow: hidden;
+<section class="hero" style="
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+  background-image: url('/images/background.jpg');
+  font-family: 'Arial', sans-serif;
+  flex-wrap: wrap;
 ">
-  <div style="max-width: 800px; margin: 0 auto;">
-    <h2 style="
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    ">
-      Помогаем детям развивать речь с помощью ИИ
-    </h2>
-
+  <!-- Левая часть -->
+  <div style="max-width: 50%; min-width: 320px;">
     <div style="
-      display: inline-flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 2rem;
+      display: inline-block;
+      background-color: #A78CE2;
+      color: white;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-bottom: 20px;
     ">
-      <a href="#courses" class="btn" style="
-        background: white;
-        color: #4CAF50;
-        font-size: 1.6rem;
-        padding: 15px 40px;
-        border-radius: 30px;
+      ДЛЯ ДЕТЕЙ ОТ 3 ЛЕТ
+    </div>
+
+    <h1 style="
+      font-size: 3rem;
+      font-weight: 900;
+      color: #1C1B1F;
+      margin-bottom: 20px;
+    ">
+      Логопедия будущего —<br> уже сегодня.
+    </h1>
+
+    <p style="
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 30px;
+    ">
+      В ERKETAY мы сочетаем заботу специалиста и силу искусственного интеллекта,
+чтобы помочь детям заговорить, <br>мыслить свободно и чувствовать себя уверенно в этом мире.
+    </p>
+
+    <div style="display: flex; gap: 40px; flex-wrap: wrap; margin-left: 100px;">
+      <a href="#courses" style="
+        background: #A78CE2;
+        color: white;
+        font-size: 1rem;
+        padding: 14px 28px;
+        border-radius: 9999px;
         text-decoration: none;
         font-weight: bold;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        transition: transform 0.3s;
       ">
         Выбрать занятия
       </a>
 
-      <a href="/register" class="btn" style="
-        background: #4CAF50;
-        color: white;
-        font-size: 1.6rem;
-        padding: 15px 40px;
-        border-radius: 30px;
+      <a href="/register" style="
+        background: white;
+        color: #1C1B1F;
+        border: 2px solid #A78CE2;
+        font-size: 1rem;
+        padding: 14px 28px;
+        border-radius: 9999px;
         text-decoration: none;
         font-weight: bold;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        transition: transform 0.3s;
       ">
         Бесплатная диагностика
-        <svg width="30" height="30" viewBox="-4 0 24 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 12h14M12 5l7 7-7 7"/>
-  </svg>
       </a>
     </div>
   </div>
+
+  <!-- Правая часть -->
+  <div style="max-width: 30%; min-width: 280px; text-align: left; position: relative;">
+    <img src="/images/child.png" alt="Девочка с наушниками" style="
+      max-width: 100%;
+      border-radius: 20px;
+      z-index: 2;
+    ">
+  </div>
 </section>
 
-  <section class="features">
+
+  <section class="features" >
   <div class="card">
     <div class="card-img-container">
       <img src="images/diagnosis-icon.png" alt="Диагностика речи" class="card-img">
     </div>
-    <a href="diagnosis.html" class="feature-btn">
-      Диагностика
-    </a>
-    <p>С помощью ИИ диагностика речи становится доступной и точной.</p>
+    <a href="images/diagnosis.MOV" class="feature-btn" target="_blank">
+  Наша Консультация
+</a>
+    <p>С нами вы точно будете знать, куда двигаться дальше.</p>
   </div>
   <div class="card">
     <div class="card-img-container">
-      <img src="images/monitoring-icon.png" alt="Мониторинг прогресса" class="card-img">
+      <img src="images/before_after.jpeg" alt="Мониторинг прогресса" class="card-img">
     </div>
-    <a href="monitoring.html" class="feature-btn">
-      Мониторинг прогресса
-    </a>
-    <p>Следите за развитием речи вашего ребёнка в реальном времени.</p>
+    <a href="images/before_after.mp4" class="feature-btn" target="_blank">
+  До/После
+</a>
+    <p>Технологии + забота = первые слова, большие шаги.</p>
   </div>
   <div class="card">
     <div class="card-img-container">
-      <img src="images/games-icon.png" alt="Игровые упражнения" class="card-img">
+      <img src="images/benefits.jpeg" alt="Игровые упражнения" class="card-img">
     </div>
-    <a href="/games.html" class="feature-btn">
-      Наши преимущества
-    </a>
+    <a href="images/benefits.MOV" class="feature-btn" target="_blank">
+  Наши преимущества
+</a>
     <p>Учите ребёнка через игровые задания для улучшения речи.</p>
   </div>
 </section>
@@ -157,6 +181,7 @@
 <style>
   .features {
     display: flex;
+    background: white;
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
@@ -165,7 +190,7 @@
 
   .card {
     width: 300px;
-    background: white;
+    background-image: url('/images/background.jpg');
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -190,12 +215,13 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    border-radius: 42px;
   }
 
   .feature-btn {
     display: inline-block;
-    background: #4CAF50;
-    color: white;
+    background: white;
+    color: #A78CE2;
     padding: 12px 25px;
     border-radius: 30px;
     text-decoration: none;
@@ -207,7 +233,7 @@
   }
 
   .feature-btn:hover {
-    background: #3e8e41;
+    background: white;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
@@ -228,8 +254,7 @@
 <style>
   .feature-btn {
     display: inline-block;
-    background: #4CAF50;
-    color: white;
+    background: white;
     padding: 10px 20px;
     border-radius: 30px;
     text-decoration: none;
@@ -243,7 +268,7 @@
   }
 
   .feature-btn:hover {
-    background: #3e8e41;
+    background: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
@@ -256,16 +281,14 @@
 
 
 
-    <section id="about" style="padding: 60px 20px; background-image: url('/images/background.jpg'); /* путь к картинке */">
+    <section id="about" style="padding: 60px 20px; background-color: white;); /* путь к картинке */">
   <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-    <h2 style="color:green">О НАС</h2>
+    <h2 style="color:#A78CE2">ПОЧЕМУ ИМЕННО МЫ?</h2>
 
     <div class="accordion" style="margin-top: 30px; text-align: left;">
-      <!-- Пример 3 пунктов, остальные добавляются аналогично -->
-
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(1)">
-          <h3>О нас</h3>
+          <h3>✅ О нас</h3>
           <span class="arrow">▼</span>
         </div>
         <div class="accordion-content" id="content-1">
@@ -281,139 +304,69 @@
 
 «Еркетай» — место, где ребёнок развивается с радостью!
 </p>
+
+          <img src="images/about_us.jpeg" alt="Игровые упражнения" class="card-img">
         </div>
       </div>
 
-
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(1)">
-          <h3>Индивидуальный подход</h3>
-          <span class="arrow">▼</span>
-        </div>
-        <div class="accordion-content" id="content-1">
-          <p>Индивидуальный подход к каждому ребенку
-(Әр балаға жеке көзқарас)
-</p>
-        </div>
-      </div>
 
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(2)">
-          <h3>Профессиональные специалисты</h3>
+          <h3>✅ Индивидуальный подход </h3>
           <span class="arrow">▼</span>
         </div>
         <div class="accordion-content" id="content-2">
-          <p>Квалифицированные специалисты: логопед, дефектолог, психолог
-(Білікті мамандар: логопед, дефектолог, психолог)
+          <p>В нашем центре у каждого ребёнка — свой маршрут развития.
+После первичной диагностики мы составляем персональный план занятий с учётом возраста, диагноза, уровня развития и семейных запросов.
+Программа включает логопедию, нейрокоррекцию, АФК, сенсорную терапию и психологическую поддержку — в нужной комбинации и нужном ритме.
 </p>
         </div>
       </div>
-
-
 
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(3)">
-          <h3>Безопасность</h3>
+          <h3>✅ Специалисты:</h3>
           <span class="arrow">▼</span>
         </div>
         <div class="accordion-content" id="content-3">
-          <p>Безопасная и уютная среда
-(Қауіпсіз әрі жайлы орта)
+          <p>	•	Логопед-дефектолог <br>
+	•	Нейропсихолог<br>
+	•	Психолог<br>
+	•	АФК-тренер (лечебная физкультура)<br>
+	•	Сенсорный терапевт<br>
+	•	ABA-специалист
+
 </p>
         </div>
       </div>
-
 
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(4)">
-          <h3>Современные методы</h3>
+          <h3>✅ Методы:</h3>
           <span class="arrow">▼</span>
         </div>
         <div class="accordion-content" id="content-4">
-          <p>Современные методики обучения и развития
-(Қазіргі заманға сай оқыту және дамыту әдістемелері)
+          <p>	•	JASPER<br>
+	•	ABA-терапия<br>
+	•	Сенсорная интеграция<br>
+	•	Нейрокоррекция<br>
+	•	Артикуляционная и дыхательная гимнастика<br>
+	•	АФК (адаптивная физкультура)
 </p>
         </div>
       </div>
-
-
 
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(5)">
-          <h3>Эффективность</h3>
+          <h3>✅ Забота и поддержка</h3>
           <span class="arrow">▼</span>
         </div>
         <div class="accordion-content" id="content-5">
-          <p>Небольшие группы для эффективного взаимодействия
-(Тиімді жұмыс үшін шағын топтар)
+          <p>В нашем центре каждый ребёнок — как родной.
+Мы не просто обучаем, а принимаем, понимаем и поддерживаем.
+Замечаем настроение, охраняем спокойствие и искренне радуемся каждому маленькому успеху.
+В Еркетай главное — тёплая атмосфера, доверие и забота о душе ребёнка.
 </p>
-        </div>
-      </div>
-
-
-
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(6)">
-          <h3>Интересные формы обучения</h3>
-          <span class="arrow">▼</span>
-        </div>
-        <div class="accordion-content" id="content-6">
-          <p>Игровая форма обучения
-(Ойын арқылы оқыту)
-</p>
-        </div>
-      </div>
-
-
-
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(7)">
-          <h3>Обратная связь</h3>
-          <span class="arrow">▼</span>
-        </div>
-        <div class="accordion-content" id="content-7">
-          <p>Регулярная обратная связь с родителями
-(Ата-аналармен тұрақты байланыс)
-</p>
-        </div>
-      </div>
-
-
-
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(8)">
-          <h3>АВА Терапия</h3>
-          <span class="arrow">▼</span>
-        </div>
-        <div class="accordion-content" id="content-8">
-          <p>АВА терапия Джаспер терапия , АФК, Сенсорный интеграция
-</p>
-        </div>
-      </div>
-
-
-
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(9)">
-          <h3>Поддержка детей</h3>
-          <span class="arrow">▼</span>
-        </div>
-        <div class="accordion-content" id="content-9">
-          <p>Поддержка детей с особыми образовательными потребностями
-</p>
-        </div>
-      </div>
-
-
-
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(10)">
-          <h3>Любовь и забота</h3>
-          <span class="arrow">▼</span>
-        </div>
-        <div class="accordion-content" id="content-10">
-          <p>Любовь и забота к каждому малышу
-(Әр балаға сүйіспеншілік пен қамқорлық)</p>
         </div>
       </div>
 
@@ -464,7 +417,7 @@
   }
 
   .accordion-item.active .accordion-content {
-    max-height: 500px;
+    max-height: 1000px;
     padding: 15px 20px;
     border-top: 1px solid #eee;
   }
@@ -481,9 +434,8 @@
   }
 </script>
 
-  <!-- НОВАЯ СЕКЦИЯ: Наша команда -->
 <!-- UPDATED OUR TEAM CAROUSEL -->
-<section class="team-carousel">
+<section class="team-carousel" style="background-color: white">
   <h2>НАША КОМАНДА</h2>
   <div class="carousel-container">
     <button class="carousel-btn left-btn" aria-label="Previous"></button>
@@ -495,7 +447,7 @@
           <h3 id="team-name">Анна, логопед</h3>
           <h3 id="team-role" style="color: black">Анна, логопед</h3>
           <p class="team-stage" id="team-stage">10+ лет опыта в работе с детьми с нарушениями речи.</p>
-          <blockquote id="team-quote">«Каждый звук — это шаг ребёнка к миру!»</blockquote>
+          <blockquote id="team-quote">«Маленькие шаги — начало больших перемен.»</blockquote>
         </div>
       </div>
     </div>
@@ -507,7 +459,8 @@
 <style>
   .team-carousel {
     margin: 60px auto;
-    max-width: 600px;
+    max-width: 1000px;
+    background-color: white;
   }
   .carousel-container {
     position: relative;
@@ -549,7 +502,7 @@
     margin: 0;
     font-style: italic;
     color: #666;
-    border-left: 4px solid #4CAF50;
+    border-left: 4px solid #A78CE2;
     padding-left: 12px;
   }
   .carousel-btn {
@@ -576,14 +529,14 @@
 .left-btn {
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
-  border-right: 20px solid rgba(76,175,80,0.5);
+  border-right: 20px solid #A78CE2;
   margin-right: 10px;
 }
 
 .right-btn {
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
-  border-left: 20px solid rgba(76,175,80,0.5);
+  border-left: 20px solid #A78CE2;
   margin-left: 10px;
 }
 
@@ -598,91 +551,91 @@
         name: 'Султанмуратова Жанна Турсинхановна',
         role: 'Директор центра',
         stage: 'Стаж 21 год.',
-        quote: '«Каждый звук — это шаг ребёнка к миру!»'
+        quote: '«Маленькие шаги — начало больших перемен.»'
       },
       {
         photo: 'images/defec1.jpeg',
         name: 'Амандыкова Асемкуль Сембаевна',
         role: 'Дефектолог',
         stage: 'Стаж 18 лет.',
-        quote: '«Успех ребенка — наша главная награда.»'
+        quote: '«Каждое усилие сегодня — уверенность завтра.»'
       },
       {
         photo: 'images/defec2.jpeg',
         name: 'Кыстаубаева Жанат Жумагелдиевна',
         role: 'Дефектолог',
         stage: 'Стаж 18 лет.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Развитие — это путь, а не гонка.»'
       },
             {
         photo: 'images/defec3.jpeg',
         name: 'Калтаева Макпал Аксакалкызы',
               role: 'Дефектолог',
         stage: 'Стаж 17 лет.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Терпение — это язык любви к ребёнку.»'
       },
             {
         photo: 'images/defec4.jpeg',
         name: 'Бакирова Жанерке Фархатқызы',
               role: 'Дефектолог',
         stage: 'Стаж 10 лет.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Дети растут там, где их понимают.»'
       },
             {
         photo: 'images/defec5.jpeg',
         name: 'Бекенова Дилобар Низамиддинқызы',
               role: 'Дефектолог',
         stage: 'Стаж 9 лет.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Слова приходят туда, где ждут, а не торопят.»'
       },
             {
         photo: 'images/defec6.jpeg',
         name: 'Тұрсынхан Гүлнара Нұрмаханқызы',
               role: 'Дефектолог',
         stage: 'Стаж 8 лет.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Сначала контакт — потом результат.»'
       },
             {
         photo: 'images/defec7.jpeg',
         name: 'СейділдаТоғжан Полатқызы',
               role: 'Дефектолог',
         stage: 'Стаж 6 лет.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«У каждого ребёнка — свой темп и своя история.»'
       },
             {
         photo: 'images/defec8.jpeg',
         name: 'Мирзахметова Айсара Байтурсынқызы',
               role: 'Дефектолог',
         stage: 'Стаж 4 года.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Понимание важнее оценки.»'
       },
             {
         photo: 'images/defec9.jpeg',
         name: 'Мамирова Элдора Кадирманқызы',
               role: 'Дефектолог',
         stage: 'Стаж 3 года.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Даже шаг назад — часть большого движения вперёд.»'
       },
             {
         photo: 'images/defec10.jpeg',
         name: 'Мәдіқызы Нұрай',
               role: 'Дефектолог',
         stage: 'Стаж 2 года.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Слово начинается с доверия.»'
       },
             {
         photo: 'images/afk.jpeg',
         name: 'Әбдіқұл Олжас Фархатұлы',
               role: 'АФК специалист',
         stage: 'Стаж 2 года.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«С любовью и принятием развивается всё.»'
       },
             {
         photo: 'images/defec11.jpeg',
         name: 'Калжанова Айгерим Калдибаевна',
               role: 'Дефектолог',
         stage: 'Стаж 1 год.',
-        quote: '«Технологии должны вдохновлять на развитие.»'
+        quote: '«Главное — не говорить красиво, а чувствовать смело.»'
       }
     ];
 
@@ -720,132 +673,118 @@
 
 
   <!-- НОВАЯ СЕКЦИЯ: Прайс-лист -->
-<section class="pricing" id="courses" style="padding: 40px 15px; background-image: url('/images/background.jpg');">
+<section class="pricing" id="courses" style="padding: 40px 15px; background-color: white;">
   <div style="max-width: 7000px; max-height: 3000px; margin: 0 auto;">
-    <h2 style="text-align: center; margin-bottom: 25px; color: #4CAF50; font-size: 1.8rem;">ТАРИФЫ НА ОБУЧЕНИЕ</h2>
+    <h2 style="text-align: center; margin-bottom: 25px; color: #A78CE2; font-size: 1.8rem;">ТАРИФЫ НА ОБУЧЕНИЕ</h2>
 
     <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 10px;">
       <!-- Начальный тариф -->
-      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
         <a href="/" class="logo" style="display: block; text-align: center; margin-bottom: 10px;">
           <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
         </a>
-        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #4CAF50; text-align: center;">Начальный</h3>
+        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;">Бесплатные занятия</h3>
         <div style="margin-bottom: 15px; flex-grow: 1;">
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Индивидуальная программа и план занятий</span>
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Пробные занятия</span>
           </div>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Обратная связь от преподавателя</span>
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Простые упражнения</span>
           </div>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Отчёты в личном кабинете</span>
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Диагностические тесты</span>
           </div>
+
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.2rem;">
+            <span>1 раз в неделю (20–30 мин)</span>
+          </div>
+
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.2rem;">
             <span>2 занятий</span>
           </div>
         </div>
-        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #4CAF50;">
+        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
           Бесплатно
         </div>
         <div style="text-align: center;">
-          <button style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%;">
+          <button style="background: #A78CE2; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%;">
             Записаться
           </button>
         </div>
       </div>
 
+
+
       <!-- Базовый тариф -->
-      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
+
         <a href="/" class="logo" style="display: block; text-align: center; margin-bottom: 10px;">
           <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
         </a>
-        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #4CAF50; text-align: center;">Базовый</h3>
+        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;">Говори смело</h3>
         <div style="margin-bottom: 15px; flex-grow: 1;">
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Индивидуальная программа и план занятий</span>
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Расширение словарного запаса</span>
           </div>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Обратная связь от преподавателя</span>
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Построение фраз и предложений</span>
           </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Отчёты в личном кабинете</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>До 3 переносов занятий в месяц</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Преподаватели с высоким рейтингом</span>
+
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.2rem;">
+            <span>2–3 раза в неделю (по 40 мин)</span>
           </div>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.2rem;">
-            <span>6 занятий</span>
+            <span>4 занятий</span>
           </div>
         </div>
-        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #4CAF50;">
-          32 000 тг
+        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
+          36 000 тг/мес
         </div>
         <div style="text-align: center;">
-          <button style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%;">
+          <button style="background: #A78CE2; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%;">
             Записаться
           </button>
         </div>
       </div>
 
       <!-- Профессиональный тариф -->
-      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #4CAF50; position: relative; display: flex; flex-direction: column;">
-        <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #4CAF50; color: white; padding: 3px 12px; border-radius: 15px; font-weight: bold; font-size: 0.8rem;">
-          ПОПУЛЯРНЫЙ
-        </div>
+      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
+
         <a href="/" class="logo" style="display: block; text-align: center; margin-bottom: 10px; margin-top: 10px;">
           <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
         </a>
-        <h3 style="margin: 10px 0 15px; font-size: 1.3rem; color: #4CAF50; text-align: center;">Профессиональный</h3>
+        <h3 style="margin: 10px 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;">Особая речь + консультации для родителей</h3>
         <div style="margin-bottom: 15px; flex-grow: 1;">
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Индивидуальная программа и план занятий</span>
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Участие родителей</span>
           </div>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Обратная связь от преподавателя</span>
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Социальные навыки</span>
           </div>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Отчёты в личном кабинете</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Безлимитные переносы занятий</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Преподаватели с высоким рейтингом</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>1 курс в подарок</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #4CAF50; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Поддержка в мессенджерах</span>
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Сенсорные игры</span>
           </div>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.2rem;">
-            <span>8 занятий</span>
+            <span>2–3 раза в неделю (30–40 мин)</span>
           </div>
         </div>
-        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #4CAF50;">
-          45 000 тг
+
+        <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.2rem;">
+            <span>6 занятий</span>
+          </div>
+        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
+          42 000 тг/мес
         </div>
         <div style="text-align: center;">
-          <button style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%; box-shadow: 0 2px 10px rgba(76,175,80,0.3);">
+          <button style="background: #A78CE2; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%; box-shadow: 0 2px 10px rgba(76,175,80,0.3);">
             Записаться
           </button>
         </div>
@@ -856,9 +795,9 @@
 
 
 
-    <section id="results" style="padding: 60px 20px; background-image: url('/images/background.jpg'); /* путь к картинке */;">
+    <section id="results" style="padding: 60px 20px; background-color: white; /* путь к картинке */;">
   <div style="max-width: 1200px; margin: 0 auto;">
-    <h2 style="text-align: center; margin-bottom: 40px; color: #4CAF50;">НАШИ РЕЗУЛЬТАТЫ</h2>
+    <h2 style="text-align: center; margin-bottom: 40px; color: #A78CE2;">НАШИ РЕЗУЛЬТАТЫ</h2>
 
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
       <!-- Video 1 with Thumbnail -->
@@ -913,19 +852,18 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4CAF50;
-  color: white;
   border-radius: 50%;
   width: 60px;
   height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
   z-index: 1000;
-" title="Поддержка">💬</div>
+" title="Поддержка">
+  <img src="/images/chatbot.png" alt="Chatbot Icon" style="width: 136px; height: 136px; object-fit: cover;">
+</div>
 
 <!-- Chat popup -->
 <div id="chatbot-popup" style="
@@ -942,7 +880,7 @@
   z-index: 1000;
 ">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-    <strong>Бот-ассистент</strong>
+    <strong>SOYLE Bot</strong>
     <button id="chatbot-close" style="
       background: transparent;
       border: none;
@@ -953,7 +891,7 @@
   </div>
   <p style="margin: 0 0 10px;">Здравствуйте! Чем мы можем помочь?</p>
   <button style="
-    background-color: #4CAF50;
+    background-color: #A78CE2;
     color: white;
     border: none;
     padding: 10px;
@@ -980,30 +918,73 @@
 
 </main>
 
-  <footer>
-    <div class="footer-container">
-      <!-- Контакты -->
-      <div class="footer-section">
-        <h4>Контакты</h4>
-        <p>📍 Еркетай-1 Таукехан 290</p>
-        <p>📍 Еркетай-2 Толеби 50/1</p>
-        <p>📞 87773407390</p>
-        <p>📞 87013407390</p>
-      </div>
+<footer id="footer" style="
+  background-image: url('/images/footer_background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: black;
+  padding: 40px 20px;
+">
+  <div class="footer-container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; max-width: 1200px; margin: auto;">
 
-      <!-- Социальные сети -->
-      <div class="footer-section">
-        <h4>Мы в социальных сетях</h4>
-        <a href="https://www.instagram.com/turkestan_logoped?igsh=MXA4YWt2NGIyaTBpOQ%3D%3D&utm_source=qr" target="_blank" rel="noopener">Instagram</a><br>
-      </div>
+    <!-- Контакты -->
+    <div class="footer-section" style="flex: 1; min-width: 250px;">
+      <h4>КОНТАКТЫ</h4>
 
-      <!-- Авторские права -->
-      <div class="footer-section">
-        <h4>Kid Speech Pro</h4>
-        <p>Все права защищены.</p>
-      </div>
+      <p>
+        <img src="/images/icons/locat.png" alt="map icon" style="width:50px; vertical-align:middle; margin-right:6px;">
+        <a href="https://2gis.kz/turkestan/geo/70030076333206295" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+          Еркетай - 1 Таукехан 290
+        </a>
+      </p>
+
+      <p>
+        <img src="/images/icons/locat.png" alt="map icon" style="width:50px; vertical-align:middle; margin-right:6px;">
+        <a href="https://2gis.kz/turkestan/geo/70030076259062236/68.215277%2C43.2899" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+          Еркетай - 2 Толеби 50/1
+        </a>
+      </p>
+
+      <p>
+        <img src="/images/icons/whats.png" alt="phone icon" style="width:32px; vertical-align:middle; margin-right:6px;">
+        +7(777)-340-73-90
+      </p>
+
+      <p>
+        <img src="/images/icons/whats.png" alt="phone icon" style="width:32px; vertical-align:middle; margin-right:6px;">
+        +7(701)-340-73-90
+      </p>
     </div>
-  </footer>
+
+    <!-- Социальные сети -->
+    <div class="footer-section" style="flex: 1; min-width: 250px;">
+      <h4>СОЦИАЛЬНЫЕ СЕТИ</h4>
+
+      <p>
+        <img src="/images/icons/inst.png" alt="inst icon" style="width:50px; vertical-align:middle; margin-right:6px;">
+        <a href="https://www.instagram.com/turkestan_logoped" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">
+          Turkestan_logoped
+        </a>
+      </p>
+
+      <p>
+        <img src="/images/icons/tiktok.png" alt="tiktok icon" style="width:50px; vertical-align:middle; margin-right:6px;">
+        <a href="https://www.instagram.com/turkestan_logoped" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">
+          Turkestan_logoped
+        </a>
+      </p>
+    </div>
+
+    <!-- Авторские права -->
+    <div class="footer-section" style="flex: 1; min-width: 250px;">
+      <h4>KID SPEECH PRO</h4>
+      <p>Все права защищены.</p>
+    </div>
+
+  </div>
+</footer>
+
 
 </body>
 </html>
