@@ -43,6 +43,78 @@ function authRequired(req, res, next) {
 
 
 
+
+
+
+app.get('/children-list', (req, res) => {
+  const children = [];
+  fs.createReadStream('children.csv')
+    .pipe(csv())
+    .on('data', (row) => {
+      children.push(row);
+    })
+    .on('end', () => {
+      let html = `
+      <!DOCTYPE html>
+      <html lang="ru">
+      <head>
+        <meta charset="UTF-8" />
+        <title>Список заявок — KidSpeech PRO</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 20px; }
+          table { border-collapse: collapse; width: 100%; }
+          th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+          th { background-color: #A78CE2; color: white; }
+          tr:nth-child(even) { background-color: #f9f9f9; }
+          a.btn { display: inline-block; margin-top: 20px; background: #A78CE2; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; }
+        </style>
+      </head>
+      <body>
+        <h1>Список заявок</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Имя ребёнка</th>
+              <th>Возраст</th>
+              <th>Имя родителя</th>
+              <th>Номер телефона</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      for (const c of children) {
+        html += `
+          <tr>
+            <td>${c.name || ''}</td>
+            <td>${c.age || ''}</td>
+            <td>${c.parent_name || ''}</td>
+            <td>${c.number || c.phone || ''}</td>
+          </tr>
+        `;
+      }
+
+      html += `
+          </tbody>
+        </table>
+        <a href="/parent-dashboard" class="btn">Назад в кабинет</a>
+      </body>
+      </html>
+      `;
+
+      res.send(html);
+    });
+});
+
+
+
+
+
+
+
+
+
+
 app.get('/parent-dashboard', authRequired, (req, res) => {
   if (req.session.user.role !== 'parent') return res.status(403).send('Доступ запрещён');
   res.sendFile(path.join(__dirname, 'parent-dashboard.html'));
@@ -664,9 +736,5 @@ app.post('/api/add-result', authRequired, (req, res) => {
         });
     });
 });
-
-
-
-
 
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

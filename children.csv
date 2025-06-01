@@ -1,4 +1,3 @@
-parent_email,name,age,specialist_email
-zxc@mail.ru,qwe,3,spec@mail.ru
-zxc@mail.ru,asd,4,spec@mail.ru
-ilyas@mail.ru,gfhjfchjfg,5,spec@mail.ru
+parent_email,parent_name,name,age,specialist_email,number
+kuatbayeva01@mail.ru,Куатбаева Маржан,Куатбаев Диас,3,spec@mail.ru,87776665544
+zxc@mail.ru,Парпиев Ядгорбек,Парпиев Магжан,4,spec@mail.ru,89991112233
