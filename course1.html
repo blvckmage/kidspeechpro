@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Заготовки на зиму</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+    }
+
+    header {
+      background-color: white;
+      color: #A78CE2;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      margin: 0;
+      color: #A78CE2;
+    }
+
+    header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      margin: 0;
+      font-size: 28px;
+      color: #A78CE2;
+      z-index: 1;
+    }
+
+    header nav a {
+      font-weight: bold;
+      color: #A78CE2;
+    }
+
+    header nav a:hover {
+      text-decoration: none;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      gap: 20px;
+    }
+
+    /* === Левая панель === */
+    .left-panel {
+      flex: 0 0 250px;
+      border-right: 2px solid #f0f0f0;
+      padding-right: 20px;
+    }
+
+    .task-progress {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .tab-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      padding: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      text-align: left;
+    }
+
+    .tab-btn.active {
+      color: #A78CE2;
+      font-weight: bold;
+      background-color: #f5f2fa;
+      border-radius: 6px;
+    }
+
+    /* === Правая панель === */
+    .right-panel {
+      flex: 1;
+      padding-left: 20px;
+    }
+
+    .task-title {
+      font-size: 24px;
+      color: #A78CE2;
+      margin-bottom: 10px;
+    }
+
+    .task-xp {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .content-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  .custom-video {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background-color: #000;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  .custom-video .preview {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .custom-video .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    background: url('images/play_button.svg') no-repeat center center;
+    background-size: contain;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+    .back-button {
+  display: inline-block;
+  margin-left: 250px;
+  margin-top: 50px;
+  background-color: #A78CE2;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #8b6dc7;
+  transform: translateY(-2px);
+}
+
+  </style>
+</head>
+<body>
+<header>
+  <!-- Логотип -->
+  <img src="/images/logo.png" alt="KidSpeech PRO" style="height: 40px;">
+</header>
+
+<button onclick="history.back()" class="back-button">← Вернуться назад</button>
+
+  <div class="dashboard">
+    <!-- Левая панель -->
+    <div class="left-panel">
+      <div class="task-progress">Артикуляционная гимнастика</div>
+      <div class="tab-menu">
+        <button class="tab-btn active" data-title="Язычок покажись!" data-index="0">Язычок покажись!</button>
+        <button class="tab-btn" data-title="Качели" data-index="1">Качели</button>
+        <button class="tab-btn" data-title=" Лошадка (цоканье языком)" data-index="2"> Лошадка (цоканье языком)</button>
+        <button class="tab-btn" data-title="Вкусное варенье" data-index="3">Вкусное варенье</button>
+      </div>
+    </div>
+
+    <!-- Правая панель -->
+    <div class="right-panel">
+      <h1 class="task-title" style="margin-left: 250px">Язычок покажись!
+</h1>
+
+      <div class="content-section active">
+          <div class="custom-video" data-video-id="qsXzTDQXNGE">
+  <img class="preview" src="images/preview.jpg" alt="Превью">
+  <div class="play-button"></div>
+</div>
+        <h3>Описание урока</h3>
+        <p>Попросите ребёнка: <br>
+	•	«Покажи язычок»<br>
+	•	«Спрячь язычок»<br>
+	•	«Достань до носика/подбородка»<br>
+
+Что оцениваем: подвижность, контроль, выдвигается ли язык вперёд.</p>
+      </div>
+
+      <div class="content-section">
+          <div class="custom-video" data-video-id="qsXzTDQXNGE">
+  <img class="preview" src="images/preview.jpg" alt="Превью">
+  <div class="play-button"></div>
+</div>
+        <h3>Описание урока</h3> <br>
+        <p>«Сделай качели: язычок вверх – вниз». Например: к нёбу, затем к нижним зубам. <br>
+
+Оценка: чёткие ли движения, быстро устает или нет?
+</p>
+      </div>
+
+      <div class="content-section">
+          <div class="custom-video" data-video-id="qsXzTDQXNGE">
+  <img class="preview" src="images/preview.jpg" alt="Превью">
+  <div class="play-button"></div>
+</div>
+        <h3>Описание урока</h3>
+        <p>«Покажи, как цокает лошадка»<br>
+Повторить 3–5 раз<br>
+
+Оценка: есть ли сила, удерживает ли ритм?</p>
+      </div>
+
+      <div class="content-section">
+          <div class="custom-video" data-video-id="qsXzTDQXNGE">
+  <img class="preview" src="images/preview.jpg" alt="Превью">
+  <div class="play-button"></div>
+</div>
+        <h3>Описание урока</h3>
+        <p>«Оближи верхнюю губу — как будто там варенье» <br>
+Сделать 3 раза справа налево<br>
+Оценка: круговые движения, симметрия.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.content-section');
+    const title = document.querySelector('.task-title');
+  document.querySelectorAll('.custom-video').forEach(el => {
+    el.addEventListener('click', () => {
+      const videoId = el.dataset.videoId;
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.style.position = 'absolute';
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.top = '0';
+      iframe.style.left = '0';
+      el.innerHTML = ''; // clear preview
+      el.appendChild(iframe);
+    });
+  });
+
+
+
+tabButtons.forEach(btn => {
+btn.addEventListener('click', () => {
+// Toggle active button
+tabButtons.forEach(b => b.classList.remove('active'));
+btn.classList.add('active');
+
+// Toggle content section
+const index = btn.getAttribute('data-index');
+sections.forEach(s => s.classList.remove('active'));
+sections[index].classList.add('active');
+
+// Change title
+title.textContent = btn.getAttribute('data-title');
+});
+});
+const menuButton = document.getElementById('menuButton');
+const menuPopup = document.getElementById('menuPopup');
+
+menuButton.addEventListener('click', () => {
+menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+});
+
+// Закрытие по клику вне меню
+    document.addEventListener('click', function (event) {
+      if (!menuPopup.contains(event.target) && !menuButton.contains(event.target)) {
+        menuPopup.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

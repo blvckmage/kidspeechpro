@@ -7,61 +7,58 @@
   <style>
     /* === Общие стили === */
     body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-image: url('images/background.jpg'); /* Замените на нужный путь к фото */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #333;
-}
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+    }
 
-header {
-  background-color: white;
-  color: #4CAF50;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
+    header {
+      background-color: white;
+      color: #A78CE2;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
 
-.header-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 28px;
-  margin: 0;
-  color: #4CAF50;
-}
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      margin: 0;
+      color: #A78CE2;
+    }
 
+    header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      margin: 0;
+      font-size: 28px;
+      color: #A78CE2;
+      z-index: 1;
+    }
 
-header h1 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
-    margin: 0;
-    font-size: 28px;
-    color: #4CAF50;
-    z-index: 1;
-  }
+    header nav a {
+      font-weight: bold;
+      color: #A78CE2;
+    }
 
-
-header nav a {
-  font-weight: bold;
-  color: #4CAF50;
-}
-
-header nav a:hover {
-  text-decoration: none;
-}
-
+    header nav a:hover {
+      text-decoration: none;
+    }
 
     /* === Основной раздел === */
     .dashboard {
-      max-width: 600px;
+      max-width: 800px;
       margin: 40px auto;
       background-color: #fff;
       padding: 30px;
@@ -69,22 +66,60 @@ header nav a:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
-    .dashboard ul {
-      list-style: none;
-      padding: 0;
+    /* === Таб-меню === */
+    .tab-menu {
+      display: flex;
+      justify-content: center;
       margin-bottom: 30px;
+      border-bottom: 2px solid #f0f0f0;
     }
 
-    .dashboard ul li {
-      margin: 15px 0;
-      font-size: 18px;
+    .tab-btn {
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      position: relative;
+      margin: 0 5px;
+    }
+
+    .tab-btn.active {
+      color: #A78CE2;
+      font-weight: bold;
+    }
+
+    .tab-btn.active:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #A78CE2;
+    }
+
+    /* Секции контента */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* === Кнопки === */
     .btn,
     button,
     input[type="submit"] {
-      background-color: #4CAF50;
+      background-color: #A78CE2;
       color: white;
       padding: 12px 20px;
       border: none;
@@ -96,10 +131,21 @@ header nav a:hover {
       text-align: center;
     }
 
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #A78CE2;
+      color: #A78CE2;
+    }
+
     .btn:hover,
     button:hover,
     input[type="submit"]:hover {
-      background-color: #45a049;
+      background-color: #A78CE2;
+      opacity: 0.9;
+    }
+
+    .btn-outline:hover {
+      background: #f0e6ff;
     }
 
     /* === Форма добавления ребёнка === */
@@ -128,42 +174,257 @@ header nav a:hover {
       text-align: center;
       margin: 20px 0;
     }
+
+    /* Стили для секции курсов */
+    .courses-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .courses-title {
+      font-size: 24px;
+      color: #333;
+      margin: 0;
+    }
+
+    .courses-title span {
+      color: #A78CE2;
+    }
+
+    .find-courses {
+      color: #A78CE2;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .find-courses:hover {
+      text-decoration: underline;
+    }
+
+    .find-courses::after {
+      content: "→";
+      margin-left: 5px;
+    }
+
+    .course-recommendations {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .course-card {
+      background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+    }
+
+    .course-content {
+      flex: 1;
+      min-width: 0;
+      margin-top: 40px;
+    }
+    .course-logo {
+  width: 200px;
+  height: auto;
+  transform: rotate(-90deg);
+
+}
+
+    .course-card h4 {
+      margin-top: 0;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .course-card p {
+      color: #666;
+      margin: 10px 0;
+    }
+
+    .course-tag {
+      display: inline-block;
+      background: #f0e6ff;
+      color: #A78CE2;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .course-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .course-free {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .course-image {
+      width: 240px;
+      height: 240px;
+      border-radius: 8px;
+      object-fit: cover;
+
+    }
+
+    .btn-left {
+      align-self: flex-start;
+    }
   </style>
 </head>
+
 <body>
   <header>
-  <h1 class="header-center">Кабинет родителя</h1>
+    <!-- Логотип -->
+    <img src="/images/logo.png" alt="KidSpeech PRO" style="height: 40px;">
 
-  <div style="margin-left: auto; display: flex; gap: 10px;">
-    <nav>
-      <a href="/" class="btn" style="...">Личный кабинет</a>
-    </nav>
-    <nav>
-      <a href="/logout" class="btn" style="...">Выйти</a>
-    </nav>
-  </div>
-</header>
+    <!-- Меню-кнопка справа -->
+    <button id="menuButton" class="btn" style="margin-left: auto;">☰</button>
 
+    <!-- Всплывающее меню -->
+    <div id="menuPopup" style="
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 10px;
+      text-align: right;
+    ">
+      <a href="/" class="btn" style="display:block; margin: 6px 0;">Личный кабинет</a>
+      <a href="/logout" class="btn" style="display:block; margin: 6px 0;">Выйти</a>
+    </div>
+  </header>
 
   <main>
     <section class="dashboard">
-
-      <div class="btn-group">
-        <a href="/parent-courses" class="btn">КУРСЫ ДЛЯ РЕБЁНКА</a>
-        <a href="/parent-results" class="btn">РЕЗУЛЬТАТЫ РЕБЁНКА</a>
+      <!-- Таб-меню -->
+      <div class="tab-menu">
+        <button class="tab-btn active" data-tab="courses">Мои курсы / 2</button>
+        <button class="tab-btn" data-tab="achievements">Достижения</button>
       </div>
 
-      <h3>Добавить ребёнка</h3>
-      <form action="/api/add-child" method="POST">
-        <input type="text" name="name" placeholder="Имя ребёнка" required />
-        <input type="number" name="age" placeholder="Возраст" min="1" max="18" required />
-        <button type="submit">Добавить</button>
-      </form>
+      <!-- Секция Мои курсы -->
+      <div id="courses-section" class="content-section active">
+        <div class="courses-header">
+          <h2 class="courses-title">Мои курсы <span>/ 2</span></h2>
+          <a href="index.html#courses" class="find-courses">Подобрать новые курсы</a>
+        </div>
 
-      <div class="btn-group">
-        <a href="/assign-specialist" class="btn">НАЗНАЧИТЬ СПЕЦИАЛИСТА</a>
+        <div class="course-recommendations">
+          <div class="course-card">
+            <img src="/images/logo.png" alt="logo" class="course-logo">
+            <div class="course-content">
+              <h4>Бесплатные занятия</h4>
+              <p>Пробные занятия</p>
+              <p>Простые упражнения</p>
+              <p>Диагностические тесты</p>
+              <div>
+                <span class="course-tag">1 раз в неделю (20–30 мин)</span>
+                <span class="course-tag">2 занятий</span>
+              </div>
+              <div class="course-actions">
+                <a href="course1.html" class="btn" style="display:block; margin: 6px 0;">Начать обучение</a>
+              </div>
+            </div>
+            <img src="/images/free-lessons.jpg" alt="Бесплатные занятия" class="course-image">
+          </div>
+
+          <div class="course-card">
+            <img src="/images/logo.png" alt="logo" class="course-logo">
+            <div class="course-content">
+              <h4>Говори смело</h4>
+              <p>Расширение словарного запаса</p>
+              <p>Построение фраз и предложений</p>
+              <div>
+                <span class="course-tag">2–3 раза в неделю (по 40 мин)</span>
+                <span class="course-tag">4 занятий</span>
+              </div>
+              <div class="course-actions">
+                <a href="course2.html" class="btn" style="display:block; margin: 6px 0;">Начать обучение</a>
+              </div>
+            </div>
+            <img src="/images/speak-boldly.jpg" alt="Говори смело" class="course-image">
+          </div>
+        </div>
+      </div>
+
+      <!-- Секция Достижения -->
+      <div id="achievements-section" class="content-section">
+        <h3>Мои достижения</h3>
+
+        <div class="achievement-card">
+          <h4>Сертификат об окончании курса</h4>
+          <p>Курс: Логопедический курс</p>
+          <p>Дата получения: 15.05.2025</p>
+          <button class="btn">Скачать сертификат</button>
+        </div>
+
+        <div class="achievement-card">
+          <h4>Медаль "Успешный старт"</h4>
+          <p>За успешное прохождение первых 5 уроков</p>
+          <button class="btn">Поделиться</button>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn">Мой прогресс</button>
+        </div>
       </div>
     </section>
   </main>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const menuPopup = document.getElementById('menuPopup');
+
+    menuButton.addEventListener('click', () => {
+      menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Закрытие по клику вне меню
+    document.addEventListener('click', function (event) {
+      if (!menuPopup.contains(event.target) && !menuButton.contains(event.target)) {
+        menuPopup.style.display = 'none';
+      }
+    });
+
+    // Переключение табов
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Удаляем active у всех кнопок и секций
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        contentSections.forEach(section => section.classList.remove('active'));
+
+        // Добавляем active к текущей кнопке
+        button.classList.add('active');
+
+        // Показываем соответствующую секцию
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(`${tabId}-section`).classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>

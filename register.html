@@ -5,7 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Регистрация — KidSpeech PRO</title>
   <link rel="stylesheet" href="public/css/styles.css">
-  <script defer src="/js/scripts.js"></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const roleRadios = document.querySelectorAll('input[name="role"]');
+      const parentFields = document.getElementById('parent-fields');
+
+      function toggleParentFields() {
+        const selectedRole = document.querySelector('input[name="role"]:checked').value;
+        parentFields.style.display = selectedRole === "parent" ? "block" : "none";
+      }
+
+      roleRadios.forEach(radio => radio.addEventListener("change", toggleParentFields));
+      toggleParentFields(); // initial check
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('gradeSelect');
+  const updateColor = () => {
+    const selectedOption = select.options[select.selectedIndex];
+    select.style.color = selectedOption.value === "" ? '#888888' : '#000000';
+  };
+
+  updateColor(); // При загрузке
+  select.addEventListener('change', updateColor); // При смене
+});
+
+  </script>
 </head>
 <body>
   <main class="form-page">
@@ -18,10 +43,27 @@
         <input type="radio" name="role" value="specialist" /> Я специалист
       </label>
 
-      <input type="text" name="name" placeholder="Ваше имя" required />
+      <div id="parent-fields">
+        <input type="text" name="name" placeholder="Ваше имя" required />
+        <input type="text" name="childrenName" placeholder="Имя ребёнка" required />
+        <select id="gradeSelect" name="grade" required style="color: #888;">
+          <option value="" disabled selected>Выберите класс/группу</option>
+          <option value="дошкольник">Дошкольник</option>
+          <option value="1">1 класс</option>
+          <option value="2">2 класс</option>
+          <option value="3">3 класс</option>
+          <option value="4">4 класс</option>
+          <option value="5">5 класс</option>
+          <option value="6">6 класс</option>
+          <option value="7">7 класс</option>
+          <option value="8">8 класс</option>
+          <option value="9">9 класс</option>
+          <option value="10">10 класс</option>
+          <option value="11">11 класс</option>
+        </select>
+      </div>
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Пароль" required />
-
 
       <button type="submit">Зарегистрироваться</button>
     </form>

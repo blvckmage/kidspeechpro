@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Кабинет специалиста — KidSpeech PRO</title>
+  <title>Кабинет родителя — KidSpeech PRO</title>
   <style>
     /* === Общие стили === */
     body {
@@ -18,46 +18,47 @@
     }
 
     header {
-  background-color: white;
-  color: #4CAF50;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
+      background-color: white;
+      color: #A78CE2;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
 
-.header-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 28px;
-  margin: 0;
-  color: #4CAF50;
-}
-
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      margin: 0;
+      color: #A78CE2;
+    }
 
     header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      margin: 0;
       font-size: 28px;
-      margin: 0 auto;
-      flex: 1;
-      text-align: center;
-      color: #4CAF50;
+      color: #A78CE2;
+      z-index: 1;
     }
 
     header nav a {
       font-weight: bold;
-      color: #4CAF50;
-      text-decoration: none;
+      color: #A78CE2;
     }
 
     header nav a:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     /* === Основной раздел === */
     .dashboard {
-      max-width: 600px;
+      max-width: 800px;
       margin: 40px auto;
       background-color: #fff;
       padding: 30px;
@@ -65,26 +66,60 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
-    .dashboard h2 {
-      margin-bottom: 20px;
-    }
-
-    .dashboard ul {
-      list-style: none;
-      padding: 0;
+    /* === Таб-меню === */
+    .tab-menu {
+      display: flex;
+      justify-content: center;
       margin-bottom: 30px;
+      border-bottom: 2px solid #f0f0f0;
     }
 
-    .dashboard ul li {
-      margin: 10px 0;
-      font-size: 18px;
+    .tab-btn {
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      position: relative;
+      margin: 0 5px;
+    }
+
+    .tab-btn.active {
+      color: #A78CE2;
+      font-weight: bold;
+    }
+
+    .tab-btn.active:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #A78CE2;
+    }
+
+    /* Секции контента */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* === Кнопки === */
     .btn,
     button,
     input[type="submit"] {
-      background-color: #4CAF50;
+      background-color: #A78CE2;
       color: white;
       padding: 12px 20px;
       border: none;
@@ -94,42 +129,196 @@
       margin: 6px 4px;
       display: inline-block;
       text-align: center;
-      text-decoration: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #A78CE2;
+      color: #A78CE2;
     }
 
     .btn:hover,
     button:hover,
     input[type="submit"]:hover {
-      background-color: #45a049;
+      background-color: #A78CE2;
+      opacity: 0.9;
+    }
+
+    .btn-outline:hover {
+      background: #f0e6ff;
+    }
+
+    /* === Форма добавления ребёнка === */
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    h3 {
+      margin-top: 30px;
+      font-size: 20px;
     }
 
     .btn-group {
       text-align: center;
       margin: 20px 0;
     }
+
+    /* Стили для секции курсов */
+    .courses-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .courses-title {
+      font-size: 24px;
+      color: #333;
+      margin: 0;
+    }
+
+    .courses-title span {
+      color: #A78CE2;
+    }
+
+    .find-courses {
+      color: #A78CE2;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .find-courses:hover {
+      text-decoration: underline;
+    }
+
+    .find-courses::after {
+      content: "→";
+      margin-left: 5px;
+    }
+
+    .course-recommendations {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .course-card {
+      background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+    }
+
+    .course-content {
+      flex: 1;
+      min-width: 0;
+      margin-top: 40px;
+    }
+    .course-logo {
+  width: 200px;
+  height: auto;
+  transform: rotate(-90deg);
+
+}
+
+    .course-card h4 {
+      margin-top: 0;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .course-card p {
+      color: #666;
+      margin: 10px 0;
+    }
+
+    .course-tag {
+      display: inline-block;
+      background: #f0e6ff;
+      color: #A78CE2;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .course-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .course-free {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .course-image {
+      width: 240px;
+      height: 240px;
+      border-radius: 8px;
+      object-fit: cover;
+
+    }
+
+    .btn-left {
+      align-self: flex-start;
+    }
   </style>
 </head>
+
 <body>
   <header>
-  <h1 class="header-center">Кабинет специалиста</h1>
+    <!-- Логотип -->
+    <img src="/images/logo.png" alt="KidSpeech PRO" style="height: 40px;">
 
-  <div style="margin-left: auto; display: flex; gap: 10px;">
-    <nav>
-      <a href="/" class="btn" style="...">Личный кабинет</a>
-    </nav>
-    <nav>
-      <a href="/logout" class="btn" style="...">Выйти</a>
-    </nav>
-  </div>
-</header>
+    <!-- Меню-кнопка справа -->
+    <button id="menuButton" class="btn" style="margin-left: auto;">☰</button>
+
+    <!-- Всплывающее меню -->
+    <div id="menuPopup" style="
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 10px;
+      text-align: right;
+    ">
+      <a href="/" class="btn" style="display:block; margin: 6px 0;">Личный кабинет</a>
+      <a href="/logout" class="btn" style="display:block; margin: 6px 0;">Выйти</a>
+    </div>
+  </header>
 
 
   <main>
     <section class="dashboard">
-      <h2>Список детей</h2>
-      <ul id="childrenList">
-        <!-- Контент подставляется сервером -->
-      </ul>
+
 
       <div class="btn-group">
         <a href="/specialist-diagnosis" class="btn">ДИАГНОСТИКА РЕЧИ</a>
@@ -138,5 +327,39 @@
       </div>
     </section>
   </main>
+<script>
+    const menuButton = document.getElementById('menuButton');
+    const menuPopup = document.getElementById('menuPopup');
+
+    menuButton.addEventListener('click', () => {
+      menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Закрытие по клику вне меню
+    document.addEventListener('click', function (event) {
+      if (!menuPopup.contains(event.target) && !menuButton.contains(event.target)) {
+        menuPopup.style.display = 'none';
+      }
+    });
+
+    // Переключение табов
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Удаляем active у всех кнопок и секций
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        contentSections.forEach(section => section.classList.remove('active'));
+
+        // Добавляем active к текущей кнопке
+        button.classList.add('active');
+
+        // Показываем соответствующую секцию
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(`${tabId}-section`).classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>

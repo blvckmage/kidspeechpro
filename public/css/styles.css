@@ -190,7 +190,7 @@ footer h4 {
 
 .form-page input[type="text"],
 .form-page input[type="email"],
-.form-page input[type="password"] {
+.form-page input[type="password"]{
   width: 100%;
   padding: 12px;
   margin: 8px 0 16px;
@@ -199,6 +199,22 @@ footer h4 {
   box-sizing: border-box;
   font-size: 16px;
 }
+.form-page select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: white;
+  appearance: none; /* Убирает стандартные стрелки в некоторых браузерах */
+}
+.form-page select option.placeholder-option {
+  color: #888888; /* светло-серый или любой нужный цвет */
+}
+
+
 
 .form-page label {
   display: inline-block;
