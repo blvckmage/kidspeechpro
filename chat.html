@@ -11,81 +11,103 @@
     }
 
     .chat-container {
+      background-color: white;
       max-width: 400px;
       margin: 0 auto;
-
-        background-image: url('/images/background.jpg');
       padding: 20px;
       border-radius: 40px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-
+      min-height: 500px; /* Minimum height to ensure container grows */
     }
 
     .chat-buttons{
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 
     .chat-message {
-      background-color: white;
+      background-color: aliceblue;
       color: rgb(37, 38, 44);
       padding: 10px 14px;
       border-radius: 5px;
       margin-bottom: 12px;
       max-width: 80%;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      line-height: 1.4;
     }
 
     #chat-area {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* по умолчанию сообщения слева */
-  gap: 10px; /* расстояние между сообщениями */
-}
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
 
-.user-message {
-  align-self: flex-end; /* сдвигает это сообщение вправо */
-  display: inline-block; /* ширина по тексту */
-  background-color: #A78CE2;
-  color: black;
-  border-radius: 40px;
-  text-align: center;
-  white-space: nowrap;
-  padding: 8px 16px;
-  max-width: 80%; /* чтобы не вылезало слишком */
-}
-
+    .user-message {
+      align-self: flex-end;
+      display: inline-block;
+      background-color: #A78CE2;
+      color: black;
+      border-radius: 40px;
+      text-align: center;
+      padding: 8px 16px;
+      max-width: 80%;
+      word-wrap: break-word;
+      white-space: normal;
+      line-height: 1.3;
+    }
 
     .chat-buttons button {
-  display: inline-block;
-  padding: 10px 16px;
-  margin: 6px 0;
-  border: none;
-  border-radius: 25px;
-  background-color: #fff5e6;
-  color: black;
-  cursor: pointer;
-  width: auto;
-  max-width: 100%;
-  white-space: nowrap;
-}
-
+      display: block;
+      padding: 10px 16px;
+      margin: 6px 0;
+      border: none;
+      border-radius: 25px;
+      background-color: #e8ba76;
+      color: #333;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      white-space: normal;
+      word-wrap: break-word;
+      line-height: 1.3;
+      min-height: 40px;
+    }
 
     .chat-buttons button:hover {
       background-color: #A78CE2;
     }
 
     #back-button {
-  display: none; /* изначально скрыта */
-  align-self: center; /* показывать справа */
-  background-color: #A78CE2;
-  color: black;
-  border: none;
-  border-radius: 40px;
-  padding: 8px 16px;
-  cursor: pointer;
-  white-space: nowrap;
-  display: inline-block;
-}
+      display: none;
+      align-self: center;
+      background-color: #A78CE2;
+      color: black;
+      border: none;
+      border-radius: 40px;
+      padding: 8px 16px;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-top: 10px;
+    }
 
+    /* Responsive design for smaller screens */
+    @media (max-width: 480px) {
+      .chat-container {
+        max-width: 95%;
+        margin: 10px auto;
+        padding: 15px;
+      }
+
+      .chat-message, .user-message {
+        max-width: 90%;
+        font-size: 14px;
+      }
+    }
   </style>
     <header style="
   display: flex;
@@ -105,7 +127,6 @@
     </div>
   </div>
 
-
         <a href="index.html" style="text-decoration: none; color: #A78CE2; font-weight: bold; margin-right: 10px;">
       Выйти из чата
     </a>
@@ -116,95 +137,428 @@
 
   <div class="chat-container">
     <div id="chat-area">
-      <div class="chat-message">Приветствую! Я — SOYLE Bot, ваш виртуальный логопед, который поможет на каждом этапе: от диагностики и выбора упражнений до составления индивидуального плана занятий!</div>
-        <div class="chat-message"> Выберите, пожалуйста, с чего начнем диагностику?</div>
     </div>
 
-    <div class="chat-buttons" id="role-buttons">
-      <button onclick="handleRole('Речевое развитие: нормы и отклонения')">Речевое развитие: нормы и отклонения</button>
-      <button onclick="handleRole('Поведение и особенности общения')">Поведение и особенности общения</button>
-        <button onclick="handleRole('Мифы и популярные вопросы')">Мифы и популярные вопросы</button>
-        <button onclick="handleRole('Проблемы со слухом')">Проблемы со слухом</button>
-        <button onclick="handleRole('Признаки аутизма и сенсорных нарушений')">Признаки аутизма и сенсорных нарушений</button>
-        <button onclick="handleRole('Помощь, коррекция и развитие')">Помощь, коррекция и развитие</button>
+    <div class="typing-indicator" id="typing-indicator">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
     </div>
+
+    <div class="chat-buttons" id="role-buttons"></div>
       <button id="back-button" style="display:none;" onclick="goBack()">Вернуться</button>
-
 
   </div>
 
-  <script>
-    const chatArea = document.getElementById('chat-area');
-    const roleButtons = document.getElementById('role-buttons');
-    const questionButtons = document.getElementById('question-buttons');
+<script>
+  const chatArea = document.getElementById('chat-area');
+  const roleButtons = document.getElementById('role-buttons');
+  const backButton = document.getElementById('back-button');
 
-    function goBack() {
-  window.location.href = 'chat.html';
-}
-    function addMessage(text, isUser = false) {
-  const msg = document.createElement('div');
-  msg.className = 'chat-message' + (isUser ? ' user-message' : '');
-  msg.innerHTML = text.replace(/\n/g, '<br>');  // заменяем \n на <br>
-  chatArea.appendChild(msg);
-}
+  let currentCategory = null;
+  let isSecondLayer = false;
+  let buttonAppearanceActive = false;
 
-function handleRole(role) {
-  addMessage(role, true);
+  window.addEventListener('DOMContentLoaded', async () => {
+    // First show the welcome messages in the chat
+    await addMessage('Приветствую! Я — <strong>SOYLE Bot</strong>, ваш виртуальный логопед, который поможет на каждом этапе: от диагностики и выбора упражнений до составления индивидуального плана занятий!');
+    await addMessage('Выберите, пожалуйста,<br>с чего начнем диагностику?');
 
-  roleButtons.style.display = 'none';
+    // Then after the chat messages are done, show the buttons
+    buttonAppearanceActive = true;
+    showButtonsOneByOne(roles);
+  });
 
-  if (role === 'Речевое развитие: нормы и отклонения') {
-    addMessage(
-  '\n<strong>1.⁠ ⁠Почему мой ребёнок молчит в 2 года?</strong>\n👉 Возможно, это задержка речевого развития. Обратитесь к специалисту.<br>' +
-  '\n<strong>2.⁠ ⁠Нужно ли паниковать, если ребёнок не говорит в 3 года?</strong>\n👉 Паниковать — нет, но и ждать — опасно. Лучше не откладывать помощь.<br>' +
-  '\n<strong>3.⁠ ⁠Он говорит “мама”, “дай”, “на” — этого достаточно?</strong>\n👉 После 2 лет — уже недостаточно. Речь должна развиваться до фраз.<br>' +
-  '\n<strong>4.⁠ ⁠Ребёнок говорит только отдельные звуки. Это речь?</strong>\n👉 Нет. Это предречевой этап, требуется речевая стимуляция.<br>' +
-  '\n<strong>5.⁠ ⁠Он говорит “своим языком”. Это нормально?</strong>\n👉 После 2,5 лет — нет. Это может быть признаком речевой патологии.<br>' +
-  '\n<strong>6.⁠ ⁠Ребёнок говорит, но очень нечётко. Это нормально?</strong>\n👉 После 3 лет речь должна становиться понятной. Иначе — к логопеду.<br>' +
-  '\n<strong>7.⁠ ⁠Что важнее – звуки или слова?</strong>\n👉 Сначала важны слова. Произношение звуков формируется позже.<br>' +
-  '\n<strong>8.⁠ ⁠Нужно ли учить алфавит, если он не говорит?</strong>\n👉 Нет. Лучше сосредоточиться на развитии речи и мышления.<br>' +
-  '\n<strong>9.⁠ ⁠Нужно ли учить стишки, если он не говорит?</strong>\n👉 Лучше начать с понимания речи, жестов, игровых взаимодействий.'
-);
-  } else if (role === 'Поведение и особенности общения') {
-    addMessage(
-  `<b>1.⁠ ⁠Он всё понимает, но не говорит. Это нормально?</b><br>👉 Нет. Это может быть экспрессивная задержка речи.<br><br>` +
-  `<b>2.⁠ ⁠Ребёнок не повторяет за взрослыми и капризничает. Это упрямство?</b><br>👉 Иногда — нет. Может быть нарушено понимание речи.<br><br>` +
-  `<b>3.⁠ ⁠В садике молчит, а дома говорит. Почему?</b><br>👉 Может быть избирательный мутизм или сильное стеснение. Нужна консультация психолога.<br><br>` +
-  `<b>4.⁠ ⁠Можно ли ждать, что “перерастёт”?</b><br>👉 Надеяться — рискованно. Чем раньше начата коррекция — тем лучше результат.`
-);
-  } else if (role === 'Мифы и популярные вопросы') {
-    addMessage(
-  `<b>1.⁠ ⁠Мальчики начинают говорить позже девочек — правда?</b><br>👉 Иногда да, но это не оправдание задержке речи.<br><br>` +
-  `<b>2.⁠ ⁠Бабушка говорит: “ты тоже поздно заговорил”. Это наследственность?</b><br>👉 Может быть, но сравнивать нельзя. Каждый ребёнок индивидуален.<br><br>` +
-  `<b>3.⁠ ⁠Мы говорим на двух языках. Может, из-за этого?</b><br>👉 Нет. При правильной подаче двуязычие даже обогащает развитие.`
-);
+  // Modified showButtonsOneByOne function to accept an array of buttons
+  function showButtonsOneByOne(buttonsArray, index = 0) {
+    if (index >= buttonsArray.length || !buttonAppearanceActive) {
+      typingIndicator.style.display = 'none';
+      return;
+    }
 
-  } else if (role === 'Проблемы со слухом') {
-    addMessage(
-  `<b>1.⁠ ⁠Может ли быть проблема со слухом?</b><br>👉 Да. Проверка слуха — обязательна при задержке речи.<br><br>` +
-  `<b>2.⁠ ⁠Ребёнок не откликается на имя. Это слух или аутизм?</b><br>👉 Сначала исключите тугоухость. Если слух в норме — это может быть признак РАС.`
-);
-  } else if (role === 'Признаки аутизма и сенсорных нарушений') {
-    addMessage(
-  `<b>1.⁠ ⁠Может ли задержка речи быть признаком аутизма?</b><br>👉 Да. Это один из ранних признаков РАС, особенно при отсутствии контакта и общения.<br><br>` +
-  `<b>2.⁠ ⁠Он не любит прикосновений, кричит при переодевании. Это нормально?</b><br>👉 Возможно, это сенсорная гиперчувствительность. Часто встречается при аутизме.<br><br>` +
-  `<b>3.⁠ ⁠Он трясёт руками, бегает по кругу. Это что?</b><br>👉 Это стереотипии — типичное поведение при аутизме и способ саморегуляции.<br><br>` +
-  `<b>4.⁠ ⁠Он повторяет слова, но не говорит сам. Это речь?</b><br>👉 Это эхолалия. Бывает и в норме, но при аутизме требует коррекции.<br><br>` +
-  `<b>5.⁠ ⁠Он выстраивает машинки, но не играет в сюжетные игры. Это тревожно?</b><br>👉 Да. Отсутствие ролевой и символической игры — типичный признак аутизма.<br><br>` +
-  `<b>6.⁠ ⁠Он не смотрит в глаза. Это всегда аутизм?</b><br>👉 Не всегда, но это один из тревожных признаков.`
-);
-  } else {
-      addMessage(
-  `<b>1.⁠ ⁠Какие упражнения можно делать дома?</b><br>👉 Простые: артикуляционные игры, звукоподражание, совместные действия с речью.<br><br>` +
-  `<b>2.⁠ ⁠Можно ли адаптировать сенсорную комнату для такого ребёнка?</b><br>👉 Да. Подходящая сенсорная среда помогает снизить тревожность и развивать навыки.<br><br>` +
-  `<b>3.⁠ ⁠Он не переносит громкие звуки и яркий свет. Что делать?</b><br>👉 Используйте шумоподавляющие наушники, мягкое освещение и поддерживающую среду.<br><br>` +
-  `<b>4.⁠ ⁠Как помочь ребёнку с аутизмом развивать речь?</b><br>👉 Используйте альтернативную коммуникацию (жесты, карточки PECS), логопед-дефектолог, ABA-терапия, JASPER и Floortime — всё должно сочетаться.`
-);
+    typingIndicator.style.display = 'flex';
+
+    setTimeout(() => {
+      // Check again if we should continue (user might have clicked while waiting)
+      if (!buttonAppearanceActive) {
+        typingIndicator.style.display = 'none';
+        return;
+      }
+
+      const button = document.createElement("button");
+
+      if (isSecondLayer) {
+        button.onclick = () => {
+          buttonAppearanceActive = false; // Stop any ongoing button appearances
+          handleSecondLayerQuestion(buttonsArray[index], currentCategory);
+        };
+      } else {
+        button.onclick = () => {
+          buttonAppearanceActive = false; // Stop any ongoing button appearances
+          handleCategory(buttonsArray[index]);
+        };
+      }
+
+      const span = document.createElement("span");
+      button.appendChild(span);
+      roleButtonsDiv.appendChild(button);
+
+      typingIndicator.style.display = 'none';
+
+      typeText(span, buttonsArray[index], () => {
+        setTimeout(() => {
+          showButtonsOneByOne(buttonsArray, index + 1);
+        }, 100); // Pause before next button
+      });
+    }, 300); // Delay before each button shows up
   }
-  document.getElementById('back-button').style.display = 'block';
 
+  // Create and show the typing indicator with bouncing dots
+  function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.id = 'typing-indicator';
+    typingDiv.className = 'chat-message';
+    typingDiv.innerHTML = 'SOYLE Bot печатает<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+    chatArea.appendChild(typingDiv);
+  }
+
+  // Remove typing indicator
+  function removeTypingIndicator() {
+    const typingDiv = document.getElementById('typing-indicator');
+    if (typingDiv) typingDiv.remove();
+  }
+
+  // Helper function to create a node from an HTML string (supports <strong>, <br>)
+  function createNodeFromHTML(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
+    return template.content;
+  }
+
+  // Typing effect that supports <br> and <strong> tags
+  async function typeMessage(htmlText) {
+    return new Promise((resolve) => {
+      const msg = document.createElement('div');
+      msg.className = 'chat-message';
+      chatArea.appendChild(msg);
+
+      const fragment = createNodeFromHTML(htmlText);
+
+      const segments = [];
+
+      function processNode(node, parentTag = null) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          segments.push({ text: node.textContent, tag: parentTag });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          if (node.tagName === 'BR') {
+            segments.push({ br: true });
+          } else if (node.tagName === 'STRONG') {
+            node.childNodes.forEach(child => processNode(child, 'strong'));
+          } else {
+            node.childNodes.forEach(child => processNode(child, parentTag));
+          }
+        }
+      }
+
+      fragment.childNodes.forEach(node => processNode(node));
+
+      let idx = 0;
+
+      function typeNextChar() {
+        if (idx >= segments.length) {
+          resolve();
+          return;
+        }
+
+        const segment = segments[idx];
+
+        if (segment.br) {
+          msg.appendChild(document.createElement('br'));
+          idx++;
+          setTimeout(typeNextChar, 30);
+        } else {
+          const { text, tag } = segment;
+          let typedText = '';
+          let charIdx = 0;
+
+          let container;
+          if (tag === 'strong') {
+            container = document.createElement('strong');
+          } else {
+            container = document.createTextNode('');
+            msg.appendChild(container);
+          }
+
+          if (tag === 'strong') {
+            msg.appendChild(container);
+          }
+
+          function typeChar() {
+            if (charIdx < text.length) {
+              typedText += text[charIdx];
+              if (tag === 'strong') {
+                container.textContent = typedText;
+              } else {
+                container.textContent = typedText;
+              }
+              charIdx++;
+              setTimeout(typeChar, 30);
+            } else {
+              idx++;
+              setTimeout(typeNextChar, 30);
+            }
+          }
+
+          typeChar();
+        }
+      }
+
+      typeNextChar();
+    });
+  }
+
+  // Add a message with typing and typing indicator
+  async function addMessage(text, isUser = false) {
+    if (isUser) {
+      // User message - no typing animation
+      const msg = document.createElement('div');
+      msg.className = 'chat-message user-message';
+      msg.innerHTML = text.replace(/\n/g, '<br>');
+      chatArea.appendChild(msg);
+    } else {
+      showTypingIndicator();
+      await new Promise(r => setTimeout(r, 600)); // simulate typing delay
+      removeTypingIndicator();
+      await typeMessage(text);
+    }
+    // Scroll chat to bottom
+    chatArea.scrollTop = chatArea.scrollHeight;
+  }
+
+  function goBack() {
+    if (isSecondLayer) {
+      // Go back to first layer
+      isSecondLayer = false;
+      currentCategory = null;
+      buttonAppearanceActive = false;
+      roleButtonsDiv.innerHTML = '';
+      typingIndicator.style.display = 'none';
+
+      setTimeout(() => {
+        buttonAppearanceActive = true;
+        showButtonsOneByOne(roles);
+      }, 100);
+      backButton.style.display = 'none';
+    } else {
+      // Go back to main page
+      window.location.href = 'chat.html';
+    }
+  }
+
+const roles = [
+  "Речевое развитие: нормы и отклонения",
+  "Поведение и особенности общения",
+  "Проблемы со слухом",
+  "Признаки аутизма и сенсорных нарушений",
+  "Помощь, коррекция и развитие",
+  "Мифы и популярные вопросы",
+];
+
+// Second layer questions for each category
+const secondLayerQuestions = {
+  "Речевое развитие: нормы и отклонения": [
+    "Почему мой ребёнок молчит в 2 года?",
+    "Нужно ли паниковать, если ребёнок не говорит в 3 года?",
+    "Он говорит \"мама\", \"дай\", \"на\" — этого достаточно?",
+    "Ребёнок говорит только отдельные звуки. Это речь?",
+    "Он говорит \"своим языком\". Это нормально?",
+    "Ребёнок говорит, но очень нечётко. Это нормально?",
+    "Что важнее – звуки или слова?",
+    "Нужно ли учить алфавит, если он не говорит?",
+    "Нужно ли учить стишки, если он не говорит?"
+  ],
+  "Поведение и особенности общения": [
+    "Он всё понимает, но не говорит. Это нормально?",
+    "Ребёнок не повторяет за взрослыми и капризничает. Это упрямство?",
+    "В садике молчит, а дома говорит. Почему?",
+    "Можно ли ждать, что \"перерастёт\"?"
+  ],
+  "Проблемы со слухом": [
+    "Может ли быть проблема со слухом?",
+    "Ребёнок не откликается на имя. Это слух или аутизм?"
+  ],
+  "Признаки аутизма и сенсорных нарушений": [
+    "Может ли задержка речи быть признаком аутизма?",
+    "Он не любит прикосновений, кричит при переодевании. Это нормально?",
+    "Он трясёт руками, бегает по кругу. Это что?",
+    "Он повторяет слова, но не говорит сам. Это речь?",
+    "Он выстраивает машинки, но не играет в сюжетные игры. Это тревожно?",
+    "Он не смотрит в глаза. Это всегда аутизм?"
+  ],
+  "Помощь, коррекция и развитие": [
+    "Какие упражнения можно делать дома?",
+    "Можно ли адаптировать сенсорную комнату для такого ребёнка?",
+    "Он не переносит громкие звуки и яркий свет. Что делать?",
+    "Как помочь ребёнку с аутизмом развивать речь?"
+  ],
+  "Мифы и популярные вопросы": [
+    "Мальчики начинают говорить позже девочек — правда?",
+    "Бабушка говорит: \"ты тоже поздно заговорил\". Это наследственность?",
+    "Мы говорим на двух языках. Может, из-за этого?"
+  ]
+};
+
+// Answers for each specific question
+const answers = {
+  "Почему мой ребёнок молчит в 2 года?": "Возможно, это задержка речевого развития. Обратитесь к специалисту.",
+  "Нужно ли паниковать, если ребёнок не говорит в 3 года?": "Паниковать — нет, но и ждать — опасно. Лучше не откладывать помощь.",
+  "Он говорит \"мама\", \"дай\", \"на\" — этого достаточно?": "После 2 лет — уже недостаточно. Речь должна развиваться до фраз.",
+  "Ребёнок говорит только отдельные звуки. Это речь?": "Нет. Это предречевой этап, требуется речевая стимуляция.",
+  "Он говорит \"своим языком\". Это нормально?": "После 2,5 лет — нет. Это может быть признаком речевой патологии.",
+  "Ребёнок говорит, но очень нечётко. Это нормально?": "После 3 лет речь должна становиться понятной. Иначе — к логопеду.",
+  "Что важнее – звуки или слова?": "Сначала важны слова. Произношение звуков формируется позже.",
+  "Нужно ли учить алфавит, если он не говорит?": "Нет. Лучше сосредоточиться на развитии речи и мышления.",
+  "Нужно ли учить стишки, если он не говорит?": "Лучше начать с понимания речи, жестов, игровых взаимодействий.",
+  "Он всё понимает, но не говорит. Это нормально?": "Нет. Это может быть экспрессивная задержка речи.",
+  "Ребёнок не повторяет за взрослыми и капризничает. Это упрямство?": "Иногда — нет. Может быть нарушено понимание речи.",
+  "В садике молчит, а дома говорит. Почему?": "Может быть избирательный мутизм или сильное стеснение. Нужна консультация психолога.",
+  "Можно ли ждать, что \"перерастёт\"?": "Надеяться — рискованно. Чем раньше начата коррекция — тем лучше результат.",
+  "Может ли быть проблема со слухом?": "Да. Проверка слуха — обязательна при задержке речи.",
+  "Ребёнок не откликается на имя. Это слух или аутизм?": "Сначала исключите тугоухость. Если слух в норме — это может быть признак РАС.",
+  "Может ли задержка речи быть признаком аутизма?": "Да. Это один из ранних признаков РАС, особенно при отсутствии контакта и общения.",
+  "Он не любит прикосновений, кричит при переодевании. Это нормально?": "Возможно, это сенсорная гиперчувствительность. Часто встречается при аутизме.",
+  "Он трясёт руками, бегает по кругу. Это что?": "Это стереотипии — типичное поведение при аутизме и способ саморегуляции.",
+  "Он повторяет слова, но не говорит сам. Это речь?": "Это эхолалия. Бывает и в норме, но при аутизме требует коррекции.",
+  "Он выстраивает машинки, но не играет в сюжетные игры. Это тревожно?": "Да. Отсутствие ролевой и символической игры — типичный признак аутизма.",
+  "Он не смотрит в глаза. Это всегда аутизм?": "Не всегда, но это один из тревожных признаков.",
+  "Какие упражнения можно делать дома?": "Простые: артикуляционные игры, звукоподражание, совместные действия с речью.",
+  "Можно ли адаптировать сенсорную комнату для такого ребёнка?": "Да. Подходящая сенсорная среда помогает снизить тревожность и развивать навыки.",
+  "Он не переносит громкие звуки и яркий свет. Что делать?": "Используйте шумоподавляющие наушники, мягкое освещение и поддерживающую среду.",
+  "Как помочь ребёнку с аутизмом развивать речь?": "Используйте альтернативную коммуникацию (жесты, карточки PECS), логопед-дефектолог, ABA-терапия, JASPER и Floortime — всё должно сочетаться.",
+  "Мальчики начинают говорить позже девочек — правда?": "Иногда да, но это не оправдание задержке речи.",
+  "Бабушка говорит: \"ты тоже поздно заговорил\". Это наследственность?": "Может быть, но сравнивать нельзя. Каждый ребёнок индивидуален.",
+  "Мы говорим на двух языках. Может, из-за этого?": "Нет. При правильной подаче двуязычие даже обогащает развитие."
+};
+
+const roleButtonsDiv = document.getElementById("role-buttons");
+const typingIndicator = document.getElementById("typing-indicator");
+
+function typeText(element, text, callback) {
+  let i = 0;
+  const interval = setInterval(() => {
+    element.textContent += text[i];
+    i++;
+    if (i === text.length) {
+      clearInterval(interval);
+      callback();
+    }
+  }, 30);
 }
-  </script>
 
+// Handle first layer category selection
+function handleCategory(category) {
+  addMessage(category, true);
+  currentCategory = category;
+  isSecondLayer = true;
+
+  // Clear all buttons immediately and stop any ongoing appearances
+  buttonAppearanceActive = false;
+  roleButtonsDiv.innerHTML = '';
+  typingIndicator.style.display = 'none';
+
+  setTimeout(async () => {
+    await addMessage('Выберите конкретный вопрос:');
+    buttonAppearanceActive = true;
+    showButtonsOneByOne(secondLayerQuestions[category]);
+    backButton.style.display = 'inline-block';
+  }, 2000);
+}
+
+// Handle second layer question selection - FIXED: No question repetition
+function handleSecondLayerQuestion(question, category) {
+  addMessage(question, true);
+
+  // Clear all buttons immediately and stop any ongoing appearances
+  buttonAppearanceActive = false;
+  roleButtonsDiv.innerHTML = '';
+  typingIndicator.style.display = 'none';
+
+  setTimeout(async () => {
+    const answer = answers[question];
+    // Only show the answer, not the question
+    await addMessage(answer);
+
+    // Show option to go back or ask another question
+    setTimeout(async () => {
+      await addMessage('Хотите задать ещё один вопрос из этой категории или вернуться к выбору категорий?');
+
+      // Create "Another question" button
+      const anotherQuestionBtn = document.createElement("button");
+      anotherQuestionBtn.textContent = "Задать ещё вопрос из этой категории";
+      anotherQuestionBtn.onclick = () => {
+        roleButtonsDiv.innerHTML = '';
+        buttonAppearanceActive = true;
+        showButtonsOneByOne(secondLayerQuestions[category]);
+      };
+      roleButtonsDiv.appendChild(anotherQuestionBtn);
+
+      // Create "Back to categories" button
+      const backToCategoriesBtn = document.createElement("button");
+      backToCategoriesBtn.textContent = "Вернуться к категориям";
+      backToCategoriesBtn.onclick = () => {
+        isSecondLayer = false;
+        currentCategory = null;
+        roleButtonsDiv.innerHTML = '';
+        buttonAppearanceActive = true;
+        showButtonsOneByOne(roles);
+        backButton.style.display = 'none';
+      };
+      roleButtonsDiv.appendChild(backToCategoriesBtn);
+
+      // Create "Contact specialist" button
+      const contactSpecialistBtn = document.createElement("button");
+      contactSpecialistBtn.textContent = "Пройти диагностику у специалиста";
+      contactSpecialistBtn.onclick = () => {
+  window.location.href = 'diagnosis.html#specialist';
+};
+      roleButtonsDiv.appendChild(contactSpecialistBtn);
+
+    }, 1500);
+  }, 2000);
+}
+</script>
+
+<style>
+  /* Bouncing dots animation for typing indicator */
+  #typing-indicator .dot {
+    animation-name: bounce;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  #typing-indicator .dot:nth-child(1) {
+    animation-delay: 0s;
+  }
+  #typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  #typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    0%, 80%, 100% {
+      transform: translateY(0);
+      opacity: 0.3;
+    }
+    40% {
+      transform: translateY(-10px);
+      opacity: 1;
+    }
+  }
+</style>
 </body>
 </html>

@@ -6,6 +6,26 @@
   <title>Бесплатная диагностика — KidSpeech PRO</title>
   <link rel="stylesheet" href="public/css/styles.css">
   <script defer>
+
+    document.addEventListener('DOMContentLoaded', () => {
+  // Check for the hash in the URL
+  if (window.location.hash === '#specialist') {
+    const specialistRadio = document.querySelector('input[value="specialist"]');
+
+    if (specialistRadio) {
+      // Select the radio button
+      specialistRadio.checked = true;
+
+      // Trigger a 'change' event to update the UI (if needed)
+      const event = new Event('change');
+      specialistRadio.dispatchEvent(event);
+
+      // Optional: Scroll to the form
+      const form = document.getElementById('specialist-form');
+      if (form) form.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+});
   document.addEventListener("DOMContentLoaded", () => {
     const methodRadios = document.querySelectorAll('input[name="method"]');
     const continueBtn = document.getElementById('continueBtn');
@@ -155,8 +175,6 @@
   ">Продолжить</button>
 
 </form>
-
-
     <form id="specialist-form" action="/api/register" method="POST" style="display: none;">
       <input type="hidden" name="role" value="parent" />
       <input type="text" name="name" placeholder="Ваше имя" required />
@@ -176,7 +194,7 @@
         <option value="10">10 класс</option>
         <option value="11">11 класс</option>
       </select>
-      <input type="text" name="number" placeholder="Номер" required />
+      <input type="text" name="number" placeholder="Номер телефона" required />
       <button type="submit">Отправить заявку</button>
     </form>
     <p><a href="/">← На главную страницу</a></p>
