@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Управление курсами — Админ</title>
+  <link rel="stylesheet" href="public/css/styles.css">
+  <style>
+    .course-list { margin: 30px 0; }
+    .course-card { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin-bottom: 16px; display: flex; gap: 20px; align-items: flex-start; }
+    .course-card img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; }
+    .course-actions { margin-left: auto; display: flex; flex-direction: column; gap: 8px; }
+    .video-inputs { margin-top: 10px; }
+    .video-input-row { display: flex; gap: 8px; margin-bottom: 6px; }
+    .video-input-row input { flex: 1; }
+    .video-input-row button { padding: 0 10px; }
+  </style>
+</head>
+<body>
+  <main style="max-width: 900px; margin: 0 auto; padding: 30px;">
+    <h2>Управление курсами</h2>
+    <button id="showAddFormBtn">Добавить курс</button>
+    <form id="addCourseForm" style="display:none; margin-top: 20px; border: 1px solid #eee; padding: 20px; border-radius: 8px;">
+      <h3>Добавить новый курс</h3>
+      <input type="text" name="name" placeholder="Название курса" required><br>
+      <textarea name="description" placeholder="Описание курса" required></textarea><br>
+      <input type="number" name="price" placeholder="Цена" min="0" step="0.01" required><br>
+      <label>Логотип/фото: <input type="file" name="image" accept="image/*"></label><br>
+      <div class="video-inputs" id="videoInputs">
+        <label>Видео курса:</label>
+        <div class="video-input-row">
+          <input type="url" name="videos[]" placeholder="Ссылка на видео" required>
+          <button type="button" class="addVideoBtn">+</button>
+        </div>
+      </div>
+      <button type="submit">Сохранить курс</button>
+      <button type="button" id="cancelAddBtn">Отмена</button>
+    </form>
+    <div class="course-list" id="courseList"></div>
+  </main>
+  <script>
+    // Показать/скрыть форму
+    const showAddFormBtn = document.getElementById('showAddFormBtn');
+    const addCourseForm = document.getElementById('addCourseForm');
+    const cancelAddBtn = document.getElementById('cancelAddBtn');
+    showAddFormBtn.onclick = () => { addCourseForm.style.display = 'block'; showAddFormBtn.style.display = 'none'; };
+    cancelAddBtn.onclick = () => { addCourseForm.reset(); addCourseForm.style.display = 'none'; showAddFormBtn.style.display = 'inline-block'; };
+
+    // Динамические поля для видео
+    const videoInputs = document.getElementById('videoInputs');
+    videoInputs.addEventListener('click', function(e) {
+      if (e.target.classList.contains('addVideoBtn')) {
+        const row = document.createElement('div');
+        row.className = 'video-input-row';
+        row.innerHTML = `<input type="url" name="videos[]" placeholder="Ссылка на видео" required> <button type="button" class="removeVideoBtn">-</button>`;
+        videoInputs.appendChild(row);
+      } else if (e.target.classList.contains('removeVideoBtn')) {
+        e.target.parentElement.remove();
+      }
+    });
+
+    // Загрузка курсов
+    async function loadCourses() {
+      const res = await fetch('/api/courses');
+      const courses = await res.json();
+      const list = document.getElementById('courseList');
+      list.innerHTML = '';
+      for (const course of courses) {
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        card.innerHTML = `
+          <img src="${course.image_url || '/images/logo.png'}" alt="logo">
+          <div>
+            <h4>${course.name}</h4>
+            <p>${course.description || ''}</p>
+            <p>Цена: <b>${course.price}₸</b></p>
+          </div>
+          <div class="course-actions">
+            <button onclick="editCourse(${course.id})">Редактировать</button>
+            <button onclick="deleteCourse(${course.id})">Удалить</button>
+          </div>
+        `;
+        list.appendChild(card);
+      }
+    }
+    loadCourses();
+
+    // Добавление курса
+    addCourseForm.onsubmit = async function(e) {
+      e.preventDefault();
+      const formData = new FormData(addCourseForm);
+      const res = await fetch('/api/courses', {
+        method: 'POST',
+        body: formData
+      });
+      if (res.ok) {
+        alert('Курс добавлен!');
+        addCourseForm.reset();
+        addCourseForm.style.display = 'none';
+        showAddFormBtn.style.display = 'inline-block';
+        loadCourses();
+      } else {
+        alert('Ошибка при добавлении курса');
+      }
+    };
+
+    // Удаление курса
+    window.deleteCourse = async function(id) {
+      if (!confirm('Удалить курс?')) return;
+      const res = await fetch(`/api/courses/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        loadCourses();
+      } else {
+        alert('Ошибка при удалении курса');
+      }
+    };
+
+    // (Редактирование курса можно реализовать аналогично)
+  </script>
+</body>
+</html> 

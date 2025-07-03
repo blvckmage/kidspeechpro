@@ -36,35 +36,12 @@
   <main class="form-page">
     <h2>Регистрация</h2>
     <form id="registerForm" action="/api/register" method="POST">
-      <label>
-        <input type="radio" name="role" value="parent" checked /> Я родитель
-      </label>
-      <label>
-        <input type="radio" name="role" value="specialist" /> Я специалист
-      </label>
-
-      <div id="parent-fields">
-        <input type="text" name="name" placeholder="Ваше имя" required />
-        <input type="text" name="childrenName" placeholder="Имя ребёнка" required />
-        <select id="gradeSelect" name="grade" required style="color: #888;">
-          <option value="" disabled selected>Выберите класс/группу</option>
-          <option value="дошкольник">Дошкольник</option>
-          <option value="1">1 класс</option>
-          <option value="2">2 класс</option>
-          <option value="3">3 класс</option>
-          <option value="4">4 класс</option>
-          <option value="5">5 класс</option>
-          <option value="6">6 класс</option>
-          <option value="7">7 класс</option>
-          <option value="8">8 класс</option>
-          <option value="9">9 класс</option>
-          <option value="10">10 класс</option>
-          <option value="11">11 класс</option>
-        </select>
-      </div>
+      <input type="hidden" name="role" value="parent" />
+      <input type="text" name="name" placeholder="Имя" required />
+      <input type="text" name="surname" placeholder="Фамилия" required />
+      <input type="text" name="phone_number" placeholder="Телефон" required />
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Пароль" required />
-
       <button type="submit">Зарегистрироваться</button>
     </form>
     <p>Уже есть аккаунт? <a href="/login">Войти</a></p>
