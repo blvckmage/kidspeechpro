@@ -17,9 +17,10 @@ app.use(session({ secret: 'kidSpeechSecret', resave: false, saveUninitialized: t
 app.use(express.static(__dirname));
 
 // GET маршруты
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'register.html')));
-app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'login.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
+app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'public/register.html')));
+app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public/login.html')));
+app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'public/chat.html')));
 
 // Защищённые маршруты
 function authRequired(req, res, next) {
@@ -30,7 +31,7 @@ function authRequired(req, res, next) {
 app.get('/children-list', async (req, res) => {
   try {
     const children = await models.getAllChildren();
-    let html = `
+      let html = `
       <!DOCTYPE html>
       <html lang="ru">
       <head>
@@ -57,23 +58,23 @@ app.get('/children-list', async (req, res) => {
           </thead>
           <tbody>
       `;
-    for (const c of children) {
-      html += `
-        <tr>
-          <td>${c.name || ''}</td>
-          <td>${c.age || ''}</td>
+      for (const c of children) {
+        html += `
+          <tr>
+            <td>${c.name || ''}</td>
+            <td>${c.age || ''}</td>
           <td>${c.parent_id || ''}</td>
-        </tr>
-      `;
-    }
-    html += `
+          </tr>
+        `;
+      }
+      html += `
           </tbody>
         </table>
         <a href="/parent-dashboard" class="btn">Назад в кабинет</a>
       </body>
       </html>
       `;
-    res.send(html);
+      res.send(html);
   } catch (err) {
     res.status(500).send('Ошибка сервера');
   }
@@ -81,23 +82,45 @@ app.get('/children-list', async (req, res) => {
 
 app.get('/parent-dashboard', authRequired, (req, res) => {
   if (req.session.user.role !== 'parent') return res.status(403).send('Доступ запрещён');
-  res.sendFile(path.join(__dirname, 'parent-dashboard.html'));
+  res.sendFile(path.join(__dirname, 'public/parent/parent-dashboard.html'));
+});
+
+app.get('/parent-settings', authRequired, (req, res) => {
+  if (req.session.user.role !== 'parent') return res.status(403).send('Доступ запрещён');
+  res.sendFile(path.join(__dirname, 'public/parent/parent-settings.html'));
+});
+
+app.get('/parent-courses', authRequired, (req, res) => {
+  if (req.session.user.role !== 'parent') return res.status(403).send('Доступ запрещён');
+  res.sendFile(path.join(__dirname, 'public/parent/parent-courses.html'));
 });
 
 app.get('/specialist-dashboard', (req, res) => {
   if (!req.session.user || req.session.user.role !== 'specialist') {
     return res.status(403).send('Доступ запрещён');
   }
-  res.sendFile(path.join(__dirname, 'specialist-dashboard.html'));
+  res.sendFile(path.join(__dirname, 'public/specialist/specialist-dashboard.html'));
 });
 
-app.get('/logout', (req, res) => { req.session.destroy(); res.redirect('/login'); });
+app.get('/specialist-settings', (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'specialist') {
+    return res.status(403).send('Доступ запрещён');
+  }
+  res.sendFile(path.join(__dirname, 'public/specialist/specialist-settings.html'));
+});
 
 app.get('/admin-courses', (req, res) => {
   if (!req.session.user || req.session.user.role !== 'admin') {
     return res.status(403).send('Доступ запрещён');
   }
-  res.sendFile(path.join(__dirname, 'admin-courses.html'));
+  res.sendFile(path.join(__dirname, 'public/admin/admin-courses.html'));
+});
+
+app.get('/course', (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'parent') {
+    return res.status(403).send('Доступ только для родителей');
+  }
+  res.sendFile(path.join(__dirname, 'public/course/course.html'));
 });
 
 // Регистрация (только родитель, с новыми полями)
@@ -252,12 +275,31 @@ app.delete('/api/courses/:courseId/videos/:videoId', async (req, res) => {
   }
 });
 
+// API: Получить детали курса и видео
+app.get('/api/courses/:id', async (req, res) => {
+  try {
+    const [courseRows] = await models.getCourseById(req.params.id);
+    if (!courseRows.length) return res.status(404).json({ error: 'Курс не найден' });
+    const course = courseRows[0];
+    const [videos] = await models.getCourseVideos(req.params.id);
+    res.json({ course, videos });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/login');
+  });
+});
+
 // Проверка подключения к базе данных перед запуском сервера
 pool.getConnection()
   .then(conn => {
     console.log('✅ Успешное подключение к базе данных MySQL!');
     conn.release();
-    app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
   })
   .catch(err => {
     console.error('❌ Ошибка подключения к базе данных MySQL:', err.message);

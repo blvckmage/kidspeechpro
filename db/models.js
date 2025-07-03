@@ -102,6 +102,13 @@ async function addProgress(child_id, course_id, progress, last_update) {
   await pool.query('INSERT INTO progress (child_id, course_id, progress, last_update) VALUES (?, ?, ?, ?)', [child_id, course_id, progress, last_update]);
 }
 
+async function getCourseById(id) {
+  return await pool.query('SELECT * FROM courses WHERE id=?', [id]);
+}
+async function getCourseVideos(course_id) {
+  return await pool.query('SELECT * FROM course_videos WHERE course_id=? ORDER BY video_order', [course_id]);
+}
+
 module.exports = {
   getAllUsers, addUser,
   getAllChildren, addChild,
@@ -109,5 +116,6 @@ module.exports = {
   getAllAssignments, assignCourse,
   getAllResults, addResult,
   getAllDiagnosis, addDiagnosis,
-  getAllProgress, addProgress
+  getAllProgress, addProgress,
+  getCourseById, getCourseVideos
 }; 
