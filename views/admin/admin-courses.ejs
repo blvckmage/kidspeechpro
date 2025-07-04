@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Управление курсами — Админ</title>
+  <link rel="stylesheet" href="public/css/styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('/images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .tab-menu {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .tab-btn {
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      position: relative;
+      margin: 0 5px;
+      transition: color 0.2s;
+    }
+    .tab-btn.active {
+      color: #A78CE2;
+      font-weight: bold;
+    }
+    .tab-btn.active:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #A78CE2;
+    }
+    .content-section, .tab-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .content-section.active, .tab-section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .btn, button, input[type="submit"] {
+      background-color: #A78CE2;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 6px 4px;
+      display: inline-block;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #A78CE2;
+      color: #A78CE2;
+    }
+    .btn:hover, button:hover, input[type="submit"]:hover {
+      background-color: #A78CE2;
+      opacity: 0.9;
+    }
+    .btn-outline:hover {
+      background: #f0e6ff;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th {
+      background-color: #A78CE2;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .course-card {
+      background: #fff !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 24px rgba(167,140,226,0.10);
+      border: 1px solid #eee;
+      padding: 24px 20px !important;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .course-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body style="background-image: url('/images/background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
+  <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: #fff; border-bottom: 1px solid #eee;">
+    <img src="/images/logo.png" alt="KidSpeech PRO" style="height: 40px;">
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <form id="langForm" style="margin: 0;">
+        <select id="langSelect" name="lang" class="lang-btn">
+          <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+          <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+          <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+        </select>
+      </form>
+      <a href="/logout" class="btn" style="margin-left: 10px;">Выйти</a>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const langSelect = document.getElementById('langSelect');
+        langSelect.addEventListener('change', function() {
+          document.cookie = 'lang=' + this.value + ';path=/';
+          location.reload();
+        });
+      });
+    </script>
+    <style>
+      .lang-btn {
+        background: #A78CE2;
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 24px;
+        font-size: 1rem;
+        margin-right: 0;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(167,140,226,0.08);
+        transition: background 0.2s;
+      }
+      .lang-btn:hover {
+        background: #8c5fd6;
+      }
+      .btn {
+        background: #A78CE2;
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 24px;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(167,140,226,0.08);
+        transition: background 0.2s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn:hover {
+        background: #8c5fd6;
+      }
+      .btn-outline {
+        background: #fff;
+        color: #A78CE2;
+        border: 1px solid #A78CE2;
+      }
+      .btn-outline:hover {
+        background: #f0e6ff;
+      }
+    </style>
+  </header>
+  <main style="max-width: 900px; margin: 0 auto; padding: 40px 30px;">
+    <div class="tab-menu">
+      <button class="tab-btn active" data-tab="courses">Курсы</button>
+      <button class="tab-btn" data-tab="diagnosis">Запросы на диагностику</button>
+    </div>
+    <div id="courses-section" class="tab-section active content-section">
+      <h2 style="margin-bottom: 30px; color: #fff;">Управление курсами</h2>
+      <button id="showAddFormBtn" class="btn" style="margin-bottom: 24px;">Добавить курс</button>
+      <form id="addCourseForm" style="display:none; margin-bottom: 30px; background: #fff; border: 1px solid #eee; padding: 32px 24px; border-radius: 16px; box-shadow: 0 2px 8px rgba(167,140,226,0.06); max-width: 600px;">
+        <h3 style="margin-bottom: 20px; color: #A78CE2;">Добавить новый курс</h3>
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <input type="text" name="name" placeholder="Название курса" required style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem;">
+          <textarea name="description" placeholder="Описание курса" required style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; min-height: 80px;"></textarea>
+          <input type="number" name="price" placeholder="Цена" min="0" step="0.01" required style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem;">
+          <label style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-weight: 500;">Логотип/фото:</span>
+            <input type="file" name="image" accept="image/*" style="flex: 1;">
+          </label>
+          <div class="video-inputs" id="videoInputs" style="margin-top: 10px;">
+            <label style="font-weight: 500;">Видео курса:</label>
+            <div class="video-input-row" style="display: flex; gap: 8px; margin-bottom: 6px;">
+              <input type="url" name="videos[]" placeholder="Ссылка на видео" required style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+              <button type="button" class="addVideoBtn btn" style="padding: 0 16px; min-width: 40px;">+</button>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 16px; margin-top: 24px;">
+          <button type="submit" class="btn" style="flex: 1;">Сохранить курс</button>
+          <button type="button" id="cancelAddBtn" class="btn btn-outline" style="flex: 1;">Отмена</button>
+        </div>
+      </form>
+      <div class="course-list" id="courseList" style="display: flex; flex-direction: column; gap: 32px;"></div>
+    </div>
+    <div id="diagnosis-section" class="tab-section content-section">
+      <h2 style="margin-bottom: 30px; color: #fff;">Запросы на диагностику</h2>
+      <div id="diagnosis-requests-list">
+        <table style="width:100%; background:#fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(167,140,226,0.10); border: 1px solid #eee; overflow: hidden;">
+          <thead style="background: #A78CE2; color: #fff;">
+            <tr>
+              <th style="padding: 12px;">Имя</th>
+              <th style="padding: 12px;">Фамилия</th>
+              <th style="padding: 12px;">Телефон</th>
+              <th style="padding: 12px;">Возраст</th>
+              <th style="padding: 12px;">Проблема</th>
+              <th style="padding: 12px;">Дата</th>
+            </tr>
+          </thead>
+          <tbody id="diagnosis-requests-tbody">
+            <tr><td colspan="6" style="text-align:center; color:#888; padding: 24px;">Загрузка...</td></tr>
+          </tbody>
+        </table>
+        <pre id="diagnosis-debug" style="background:#f9f9f9; color:#333; font-size:13px; padding:12px; border-radius:8px; margin-top:20px; overflow-x:auto; border:1px solid #eee;"></pre>
+      </div>
+    </div>
+    <script>
+      // Переключение табов
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-section').forEach(s => s.style.display = 'none');
+          this.classList.add('active');
+          document.getElementById(this.dataset.tab + '-section').style.display = '';
+          if (this.dataset.tab === 'diagnosis') loadDiagnosisRequests();
+        });
+      });
+      // Загрузка заявок на диагностику
+      async function loadDiagnosisRequests() {
+        const tbody = document.getElementById('diagnosis-requests-tbody');
+        const debug = document.getElementById('diagnosis-debug');
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#888; padding: 24px;">Загрузка...</td></tr>';
+        try {
+          const res = await fetch('/api/diagnosis-requests');
+          const data = await res.json();
+          debug.textContent = JSON.stringify(data, null, 2);
+          if (!data.length) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#888; padding: 24px;">Нет заявок</td></tr>';
+            return;
+          }
+          tbody.innerHTML = data.map(r => `
+            <tr>
+              <td style="padding: 10px;">${r.name || ''}</td>
+              <td style="padding: 10px;">${r.surname || ''}</td>
+              <td style="padding: 10px;">${r.phone || ''}</td>
+              <td style="padding: 10px;">${r.age || ''}</td>
+              <td style="padding: 10px;">${r.problem || ''}</td>
+              <td style="padding: 10px;">${r.created_at ? new Date(r.created_at).toLocaleString('ru-RU') : ''}</td>
+            </tr>
+          `).join('');
+        } catch (e) {
+          debug.textContent = 'Ошибка: ' + e;
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#c00; padding: 24px;">Ошибка загрузки</td></tr>';
+        }
+      }
+    </script>
+    <style>
+      .course-card {
+        background: #fff !important;
+        border-radius: 16px !important;
+        box-shadow: 0 4px 24px rgba(167,140,226,0.10);
+        border: 1px solid #eee;
+        padding: 24px 20px !important;
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+    </style>
+  </main>
+  <script>
+    // Показать/скрыть форму
+    const showAddFormBtn = document.getElementById('showAddFormBtn');
+    const addCourseForm = document.getElementById('addCourseForm');
+    const cancelAddBtn = document.getElementById('cancelAddBtn');
+    showAddFormBtn.onclick = () => { addCourseForm.style.display = 'block'; showAddFormBtn.style.display = 'none'; };
+    cancelAddBtn.onclick = () => { addCourseForm.reset(); addCourseForm.style.display = 'none'; showAddFormBtn.style.display = 'inline-block'; };
+
+    // Динамические поля для видео
+    const videoInputs = document.getElementById('videoInputs');
+    videoInputs.addEventListener('click', function(e) {
+      if (e.target.classList.contains('addVideoBtn')) {
+        const row = document.createElement('div');
+        row.className = 'video-input-row';
+        row.innerHTML = `<input type="url" name="videos[]" placeholder="Ссылка на видео" required> <button type="button" class="removeVideoBtn">-</button>`;
+        videoInputs.appendChild(row);
+      } else if (e.target.classList.contains('removeVideoBtn')) {
+        e.target.parentElement.remove();
+      }
+    });
+
+    // Загрузка курсов
+    async function loadCourses() {
+      const res = await fetch('/api/courses');
+      const courses = await res.json();
+      const list = document.getElementById('courseList');
+      list.innerHTML = '';
+      for (const course of courses) {
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        card.innerHTML = `
+          <img src="${course.image_url || '/images/logo.png'}" alt="logo">
+          <div>
+            <h4>${course.name}</h4>
+            <p>${course.description || ''}</p>
+            <p>Цена: <b>${course.price}₸</b></p>
+          </div>
+          <div class="course-actions">
+            <button onclick="editCourse(${course.id})">Редактировать</button>
+            <button onclick="deleteCourse(${course.id})">Удалить</button>
+          </div>
+        `;
+        list.appendChild(card);
+      }
+    }
+    loadCourses();
+
+    // Добавление курса
+    addCourseForm.onsubmit = async function(e) {
+      e.preventDefault();
+      const formData = new FormData(addCourseForm);
+      const res = await fetch('/api/courses', {
+        method: 'POST',
+        body: formData
+      });
+      if (res.ok) {
+        alert('Курс добавлен!');
+        addCourseForm.reset();
+        addCourseForm.style.display = 'none';
+        showAddFormBtn.style.display = 'inline-block';
+        loadCourses();
+      } else {
+        alert('Ошибка при добавлении курса');
+      }
+    };
+
+    // Удаление курса
+    window.deleteCourse = async function(id) {
+      if (!confirm('Удалить курс?')) return;
+      const res = await fetch(`/api/courses/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        loadCourses();
+      } else {
+        alert('Ошибка при удалении курса');
+      }
+    };
+
+    // (Редактирование курса можно реализовать аналогично)
+  </script>
+</body>
+</html> 

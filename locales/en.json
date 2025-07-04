@@ -1,0 +1,194 @@
+{
+  "site": { "title": "KidSpeech PRO" },
+  "nav": {
+    "about": "About Us",
+    "price": "Pricing",
+    "results": "Our Results",
+    "contacts": "Contacts",
+    "login": "Login"
+  },
+  "hero": {
+    "for_kids": "FOR CHILDREN FROM 2 YEARS OLD",
+    "title": "Speech Therapy of the Future —<br> Today",
+    "desc": "At ERKETAY, we combine the care of a specialist and the power of artificial intelligence to help children speak, <br>think freely and feel confident in this world.",
+    "choose_course": "Choose a Course",
+    "free_diagnosis": "Free Diagnosis",
+    "child_alt": "Girl with headphones"
+  },
+  "features": {
+    "diagnosis_alt": "Speech Diagnosis",
+    "consultation": "Our Consultation",
+    "consultation_desc": "With us, you will definitely know where to go next.",
+    "monitoring_alt": "Progress Monitoring",
+    "before_after": "Before/After",
+    "before_after_desc": "Technology + care = first words, big steps.",
+    "games_alt": "Game Exercises",
+    "advantages": "Our Advantages",
+    "advantages_desc": "Teach your child through game tasks to improve speech."
+  },
+  "login": {
+    "title": "Login",
+    "placeholder_login": "Email or username",
+    "placeholder_password": "Password",
+    "button": "Login",
+    "no_account": "No account?",
+    "register_link": "Register",
+    "to_main": "To main page",
+    "error": "Incorrect email or password!"
+  },
+  "register": {
+    "title": "Register",
+    "placeholder_name": "Name",
+    "placeholder_surname": "Surname",
+    "placeholder_phone": "Phone",
+    "placeholder_password": "Password",
+    "button": "Register",
+    "have_account": "Already have an account?",
+    "login_link": "Login",
+    "to_main": "To main page"
+  },
+  "about": {
+    "why_us_title": "WHY CHOOSE US?",
+    "about_title": "About Us",
+    "about_text": "The Erketay Child Development Center has been operating for 6 years, helping children develop confidently, unlock their abilities, and feel special.\n\nWe use modern teaching methods, an individual approach, and create a warm, safe atmosphere for every child.\n\nOur team consists of experienced specialists: speech therapists, defectologists, psychologists, and teachers who work with love and care.\n\nParents trust us and share warm reviews — because we see real results and progress in our students.\n\nErketay is a place where a child develops with joy!",
+    "individual_title": "Individual Approach",
+    "individual_text": "In our center, every child has their own development path. After the initial diagnosis, we create a personalized lesson plan taking into account age, diagnosis, development level, and family requests. The program includes speech therapy, neurocorrection, physical therapy, sensory therapy, and psychological support — in the right combination and rhythm.",
+    "specialists_title": "Specialists",
+    "specialists_text": "• Speech therapist-defectologist <br>• Neuropsychologist<br>• Psychologist<br>• Physical therapy coach<br>• Sensory therapist<br>• ABA specialist",
+    "methods_title": "Methods",
+    "methods_text": "• JASPER<br>• ABA therapy<br>• Sensory integration<br>• Neurocorrection<br>• Articulation and breathing exercises<br>• Adaptive physical education",
+    "care_title": "Care and Support",
+    "care_text": "In our center, every child is like family. We not only teach, but also accept, understand, and support. We notice moods, protect peace, and sincerely rejoice in every small success. At Erketay, the main thing is a warm atmosphere, trust, and care for the child's soul."
+  },
+  "team": {
+    "title": "OUR TEAM",
+    "members": [
+      {
+        "name": "Zhanna Tursinkhanovna Sultanmuratova",
+        "role": "Center Director<br>Psychologist-defectologist",
+        "stage": "21 years of experience.",
+        "quote": "Small steps are the beginning of big changes."
+      },
+      {
+        "name": "Asemkul Sembaevna Amandykova",
+        "role": "Defectologist-speech therapist",
+        "stage": "18 years of experience.",
+        "quote": "Every effort today is confidence tomorrow."
+      },
+      {
+        "name": "Zhanat Zhumageldievna Kystaubaeva",
+        "role": "Psychologist-defectologist",
+        "stage": "18 years of experience.",
+        "quote": "Development is a journey, not a race."
+      },
+      {
+        "name": "Makpal Aksakalkyzy Kaltaeva",
+        "role": "Defectologist-speech therapist",
+        "stage": "17 years of experience.",
+        "quote": "Patience is the language of love for a child."
+      },
+      {
+        "name": "Zhanerke Farkhatkyzy Bakirova",
+        "role": "Psychologist-defectologist",
+        "stage": "10 years of experience.",
+        "quote": "Children grow where they are understood."
+      },
+      {
+        "name": "Dilobar Nizamitdinqyzy Bekenova",
+        "role": "Defectologist-speech therapist",
+        "stage": "9 years of experience.",
+        "quote": "Words come where they are awaited, not hurried."
+      },
+      {
+        "name": "Gulnara Nurmakhankyzy Tursinkhan",
+        "role": "Defectologist-speech therapist",
+        "stage": "12 years of experience.",
+        "quote": "Love and support are the foundation of development."
+      }
+    ]
+  },
+  "footer": {
+    "contacts_title": "CONTACTS",
+    "address1": "Erketay - 1 Taukehan 290",
+    "address2": "Erketay - 2 Tolebi 50/1",
+    "phone1": "+7(777)-340-73-90",
+    "phone2": "+7(701)-340-73-90",
+    "social_title": "SOCIAL NETWORKS",
+    "instagram": "Turkestan_logoped",
+    "tiktok": "Turkestan_logoped",
+    "copyright": "All rights reserved."
+  },
+  "pricing": {
+    "title": "LEARN IN A CONVENIENT FORMAT",
+    "free_title": "Free Lessons",
+    "free_trial": "Trial lessons",
+    "simple_exercises": "Simple exercises",
+    "diagnostic_tests": "Diagnostic tests",
+    "free_schedule": "Once a week (20–30 min)",
+    "free_lessons": "2 lessons",
+    "free_price": "Free",
+    "signup": "Sign up",
+    "speak_boldly": "Speak Boldly",
+    "special_speech": "Special Speech + Parent Consultations"
+  },
+  "results": {
+    "title": "OUR RESULTS"
+  },
+  "chatbot": {
+    "support": "Support",
+    "greeting": "Hello! How can we help you?",
+    "write": "Write"
+  },
+  "parent_dashboard": {
+    "tab_courses": "My Courses",
+    "tab_performance": "Performance",
+    "tab_achievements": "Achievements",
+    "section_achievements": "My Achievements",
+    "section_awards": "Awards",
+    "section_certificates": "Certificates",
+    "section_diplomas": "Diplomas"
+  },
+  "parent_settings": {
+    "title": "Profile Settings",
+    "save_btn": "Save",
+    "cancel_btn": "Cancel",
+    "label_name": "Name",
+    "label_surname": "Surname",
+    "label_phone": "Phone"
+  },
+  "parent_courses": {
+    "back_btn": "Back to courses"
+  },
+  "specialist_dashboard": {
+    "tab_children": "Children",
+    "tab_results": "Results",
+    "tab_schedule": "Schedule"
+  },
+  "specialist_settings": {
+    "title": "Specialist Settings",
+    "save_btn": "Save",
+    "cancel_btn": "Cancel"
+  },
+  "course": {
+    "back_btn": "Back to courses",
+    "price_label": "Price"
+  },
+  "course1": {
+    "back_btn": "Go back"
+  },
+  "admin_courses": {
+    "title": "Course Management",
+    "add_btn": "Add Course",
+    "edit_btn": "Edit",
+    "delete_btn": "Delete",
+    "save_btn": "Save",
+    "cancel_btn": "Cancel"
+  },
+  "chat": {
+    "title": "Chat with SOYLE Bot",
+    "subtitle": "AI Speech Therapist",
+    "exit": "Exit chat",
+    "send_btn": "Send",
+    "placeholder": "Type a message..."
+  }
+} 

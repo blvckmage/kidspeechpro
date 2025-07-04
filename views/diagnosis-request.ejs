@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Заявка на бесплатную диагностику</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    body {
+      background-image: url('/images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .diagnosis-form-container {
+      max-width: 480px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(167,140,226,0.10);
+      padding: 40px 32px;
+    }
+    h2 {
+      color: #A78CE2;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .diagnosis-form label {
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: block;
+      color: #333;
+    }
+    .diagnosis-form input, .diagnosis-form textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      margin-bottom: 18px;
+      box-sizing: border-box;
+    }
+    .diagnosis-form textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .diagnosis-form button {
+      width: 100%;
+      background: #A78CE2;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 0;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .diagnosis-form button:hover {
+      background: #8c5fd6;
+    }
+    .success-message {
+      color: #4CAF50;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="diagnosis-form-container">
+    <h2>Заявка на бесплатную диагностику</h2>
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="success-message">Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.</div>
+    <% } %>
+    <form class="diagnosis-form" action="/diagnosis-request" method="POST">
+      <label for="name">Имя</label>
+      <input type="text" id="name" name="name" required>
+      <label for="surname">Фамилия</label>
+      <input type="text" id="surname" name="surname" required>
+      <label for="phone">Телефон</label>
+      <input type="text" id="phone" name="phone" required>
+      <label for="age">Возраст ребёнка</label>
+      <input type="number" id="age" name="age" min="0" max="30" required>
+      <label for="problem">Опишите проблему</label>
+      <textarea id="problem" name="problem" required></textarea>
+      <button type="submit">Отправить заявку</button>
+      <a href="/" class="btn-outline" style="width: 100%; margin-top: 12px; display: block; text-align: center;">На главную страницу</a>
+    </form>
+  </div>
+</body>
+</html> 

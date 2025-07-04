@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KidSpeech PRO</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/scripts.js"></script>
+  <style>
+    /* Добавленные стили для навигации */
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #A78CE2;
+    }
+    .logo img {
+      width: 220px; /* Уменьшенный размер лого */
+      height: auto;
+    }
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+    }
+    .lang-btn {
+      background: #A78CE2;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      margin-right: 0;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(167,140,226,0.08);
+      transition: background 0.2s;
+      appearance: none;
+    }
+    .lang-btn:hover {
+      background: #8c5fd6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="/public" class="logo">
+        <img src="/images/logo.png" alt="KidSpeech PRO" />
+      </a>
+      <nav>
+        <div class="nav-links" style="">
+          <a href="#about"><%= t('nav.about') %></a>
+          <a href="#courses"><%= t('nav.price') %></a>
+          <a href="#results"><%= t('nav.results') %></a>
+          <a href="#footer"><%= t('nav.contacts') %></a>
+          <a href="/login" class="btn" style="
+  background: #A78CE2;
+  color: white;
+  font-size: 1rem;
+  padding: 15px 40px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 3000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  white-space: nowrap;
+  display: inline-block;
+"><%= t('nav.login') %></a>
+         <form id="langForm" style="display:inline-block; margin-left: 20px;">
+           <select id="langSelect" name="lang" class="lang-btn">
+             <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+             <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+             <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+           </select>
+         </form>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const langSelect = document.getElementById('langSelect');
+    langSelect.addEventListener('change', function() {
+      document.cookie = 'lang=' + this.value + ';path=/';
+      location.reload();
+    });
+  });
+</script>
+
+  <main>
+<section class="hero" style="
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+  background-image: url('/images/background.jpg');
+  font-family: 'Arial', sans-serif;
+  flex-wrap: wrap;
+">
+  <!-- Левая часть -->
+  <div style="max-width: 50%; min-width: 320px;">
+    <div style="
+      display: inline-block;
+      background-color: #A78CE2;
+      color: white;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    ">
+      <%= t('hero.for_kids') %>
+    </div>
+
+    <h1 style="
+      font-size: 3rem;
+      font-weight: 900;
+      color: #1C1B1F;
+      margin-bottom: 20px;
+    ">
+      <%- t('hero.title') %>
+    </h1>
+
+    <p style="
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 30px;
+    ">
+      <%- t('hero.desc') %>
+    </p>
+
+    <div style="display: flex; gap: 40px; flex-wrap: wrap; margin-left: 100px;">
+      <a href="#courses" class="btn-hover" style="
+  background: #A78CE2;
+  color: white;
+  font-size: 1rem;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: transform 0.3s, box-shadow 0.3s;
+">
+  <%= t('hero.choose_course') %>
+</a>
+
+<a href="/diagnosis-request" class="btn-hover" style="
+  background: white;
+  color: #1C1B1F;
+  border: 2px solid #A78CE2;
+  font-size: 1rem;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: transform 0.3s, box-shadow 0.3s;
+">
+  <%= t('hero.free_diagnosis') %>
+</a>
+
+<style>
+  .btn-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+</style>
+    </div>
+  </div>
+
+  <!-- Правая часть -->
+  <div style="max-width: 30%; min-width: 280px; text-align: left; position: relative;">
+    <img src="/images/child.png" alt="Девочка с наушниками" style="
+      max-width: 100%;
+      border-radius: 20px;
+      z-index: 2;
+    ">
+  </div>
+</section>
+
+
+  <section class="features" >
+  <div class="card">
+    <div class="card-img-container">
+      <img src="../images/diagnosis-icon.png" alt="<%= t('features.diagnosis_alt') %>" class="card-img">
+    </div>
+    <a href="https://youtu.be/NLkROSS30Dk?si=CtSqJspdZQKMF8BF" class="feature-btn" target="_blank">
+  <%= t('features.consultation') %>
+</a>
+    <p><%= t('features.consultation_desc') %></p>
+  </div>
+  <div class="card">
+    <div class="card-img-container">
+      <img src="../images/before_after.jpeg" alt="<%= t('features.monitoring_alt') %>" class="card-img">
+    </div>
+    <a href="https://youtu.be/OWIyb_WLpWI?si=__wD9BUEZH6TDUA1" class="feature-btn" target="_blank">
+  <%= t('features.before_after') %>
+</a>
+    <p><%= t('features.before_after_desc') %></p>
+  </div>
+  <div class="card">
+    <div class="card-img-container">
+      <img src="../images/benefits.jpeg" alt="<%= t('features.games_alt') %>" class="card-img">
+    </div>
+    <a href="https://youtube.com/shorts/cGGCNGEEVdg?si=Vq1gwxjw3ogdyAzq" class="feature-btn" target="_blank">
+  <%= t('features.advantages') %>
+</a>
+    <p><%= t('features.advantages_desc') %></p>
+  </div>
+</section>
+
+<style>
+  .features {
+    display: flex;
+    background: white;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 40px 20px;
+  }
+
+  .card {
+    width: 300px;
+    background-image: url('/images/background.jpg');
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-img-container {
+    width: 300px;
+    height: 300px;
+    margin:  auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 42px;
+    margin-right: 45px;
+  }
+
+  .feature-btn {
+    display: inline-block;
+    background: white;
+    color: #A78CE2;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .feature-btn:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .card p {
+    color: #555;
+    line-height: 1.5;
+    margin-top: 15px;
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      width: 100%;
+      max-width: 350px;
+    }
+  }
+</style>
+
+<style>
+  .feature-btn {
+    display: inline-block;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: none;
+    cursor: pointer;
+  }
+
+  .feature-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .card {
+    text-align: center;
+  }
+</style>
+
+
+
+
+    <section id="about" style="padding: 60px 20px; background-color: white;); /* путь к картинке */">
+  <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+    <h2 style="color:#A78CE2"><%= t('about.why_us_title') %></h2>
+
+    <div class="accordion" style="margin-top: 30px; text-align: left;">
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(1)">
+          <h3>☑️ <%= t('about.about_title') %></h3>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="accordion-content" id="content-1">
+          <p><%= t('about.about_text') %></p>
+
+          <img src="../images/about_us.jpeg" alt="<%= t('features.games_alt') %>" class="card-img">
+        </div>
+      </div>
+
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(2)">
+          <h3>☑️ <%= t('about.individual_title') %> </h3>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="accordion-content" id="content-2">
+          <p><%= t('about.individual_text') %></p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(3)">
+          <h3>☑️ <%= t('about.specialists_title') %></h3>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="accordion-content" id="content-3">
+          <p><%= t('about.specialists_text') %></p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(4)">
+          <h3>☑️ <%= t('about.methods_title') %></h3>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="accordion-content" id="content-4">
+          <p><%= t('about.methods_text') %></p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(5)">
+          <h3>☑️ <%= t('about.care_title') %></h3>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="accordion-content" id="content-5">
+          <p><%= t('about.care_text') %></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .accordion-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .accordion-header {
+    background: white;
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+  }
+
+  .accordion-header:hover {
+    background: #f5f5f5;
+  }
+
+  .accordion-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    background: white;
+    transition: all 0.3s ease;
+  }
+
+  .accordion-item.active .accordion-content {
+    max-height: 1000px;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+  }
+
+  .accordion-item.active .arrow {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  function toggleAccordion(num) {
+    const item = document.querySelector(`#content-${num}`).parentElement;
+    item.classList.toggle('active');
+  }
+</script>
+
+<!-- UPDATED OUR TEAM CAROUSEL -->
+<section class="team-carousel" style="background-color: white">
+  <h2><%= t('team.title') %></h2>
+  <div class="carousel-container">
+    <button class="carousel-btn left-btn" aria-label="Previous"></button>
+
+    <div class="carousel-slide">
+      <div class="carousel-content">
+        <% const members = t('team.members'); %>
+        <% if (Array.isArray(members) && members.length > 0) { %>
+          <img id="team-photo" src="/images/director.jpg" alt="<%= members[0].name %>" />
+          <div class="team-info">
+            <h3 id="team-name"><%= members[0].name %></h3>
+            <h3 id="team-role" style="color: black"><%- members[0].role %></h3>
+            <p id="team-subrole" style="margin: 4px 0 12px; font-size: 18px; color: #777;"><%= members[0].stage %></p>
+            <p class="team-stage" id="team-stage"><%= members[0].stage %></p>
+            <blockquote id="team-quote"><%= members[0].quote %></blockquote>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <button class="carousel-btn right-btn" aria-label="Next"></button>
+  </div>
+</section>
+
+<style>
+  .team-carousel {
+    margin: 60px auto;
+    max-width: 1000px;
+    background-color: white;
+  }
+  .carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .carousel-slide {
+    width: 100%;
+    overflow: hidden;
+  }
+  .carousel-content {
+    display: flex;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .carousel-content img {
+    width: 40%;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+  .team-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .team-info h3 {
+    margin: 0 0 8px;
+    font-size: 38px;
+  }
+  .team-stage {
+    margin: 0 0 12px;
+    font-size: 20px;
+    color: #555;
+  }
+
+  blockquote {
+    margin: 0;
+    font-style: italic;
+    color: #666;
+    border-left: 4px solid #A78CE2;
+    padding-left: 12px;
+  }
+  .carousel-btn {
+  background: transparent;
+  border: none;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1;
+}
+  .carousel-btn {
+  background: transparent;
+  border: none;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.2s;
+  z-index: 1;
+}
+
+/* Левая треугольная стрелка */
+.left-btn {
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right: 20px solid #A78CE2;
+  margin-right: 10px;
+}
+
+.right-btn {
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #A78CE2;
+  margin-left: 10px;
+}
+
+
+</style>
+
+<script>
+  (function() {
+    const team = [
+      {
+        photo: 'images/director.jpg',
+        name: 'Султанмуратова Жанна Турсинхановна',
+        role: 'Директор центра<br>Психолог дефектолог',
+        stage: 'Стаж 21 год.',
+        quote: '«Маленькие шаги — начало больших перемен.»'
+      },
+      {
+        photo: 'images/defec1.jpeg',
+        name: 'Амандыкова Асемкуль Сембаевна',
+        role: 'Дефектолог логопед',
+        stage: 'Стаж 18 лет.',
+        quote: '«Каждое усилие сегодня — уверенность завтра.»'
+      },
+      {
+        photo: 'images/defec2.jpeg',
+        name: 'Кыстаубаева Жанат Жумагелдиевна',
+        role: 'Психолог дефектолог',
+        stage: 'Стаж 18 лет.',
+        quote: '«Развитие — это путь, а не гонка.»'
+      },
+            {
+        photo: 'images/defec3.jpeg',
+        name: 'Калтаева Макпал Аксакалкызы',
+              role: 'Дефектолог логопед',
+        stage: 'Стаж 17 лет.',
+        quote: '«Терпение — это язык любви к ребёнку.»'
+      },
+            {
+        photo: 'images/defec4.jpeg',
+        name: 'Бакирова Жанерке Фархатқызы',
+              role: 'Психолог дефектолог',
+        stage: 'Стаж 10 лет.',
+        quote: '«Дети растут там, где их понимают.»'
+      },
+            {
+        photo: 'images/defec5.jpeg',
+        name: 'Бекенова Дилобар Низамиддинқызы',
+              role: 'Дефектолог логопед',
+        stage: 'Стаж 9 лет.',
+        quote: '«Слова приходят туда, где ждут, а не торопят.»'
+      },
+            {
+        photo: 'images/defec6.jpeg',
+        name: 'Тұрсынхан Гүлнара Нұрмаханқызы',
+              role: 'Дефектолог логопед',
+        stage: 'Стаж 8 лет.',
+        quote: '«Сначала контакт — потом результат.»'
+      },
+            {
+        photo: 'images/defec7.jpeg',
+        name: 'СейділдаТоғжан Полатқызы',
+              role: 'Дефектолог логопед',
+        stage: 'Стаж 6 лет.',
+        quote: '«У каждого ребёнка — свой темп и своя история.»'
+      },
+            {
+        photo: 'images/defec8.jpeg',
+        name: 'Мирзахметова Айсара Байтурсынқызы',
+              role: 'Дефектолог логопед (АВА терапия)',
+
+        stage: 'Стаж 4 года.',
+        quote: '«Понимание важнее оценки.»'
+      },
+            {
+        photo: 'images/defec9.jpeg',
+        name: 'Мамирова Элдора Кадирманқызы',
+              role: 'Дефектолог логопед (АВА терапия)',
+        stage: 'Стаж 3 года.',
+        quote: '«Даже шаг назад — часть большого движения вперёд.»'
+      },
+            {
+        photo: 'images/defec10.jpeg',
+        name: 'Мәдіқызы Нұрай',
+              role: 'Дефектолог логопед (Сенсорная интеграция)',
+        stage: 'Стаж 2 года.',
+        quote: '«Слово начинается с доверия.»'
+      },
+            {
+        photo: 'images/afk.jpeg',
+        name: 'Әбдіқұл Олжас Фархатұлы',
+              role: 'АФК специалист',
+        stage: 'Стаж 2 года.',
+        quote: '«С любовью и принятием развивается всё.»'
+      },
+            {
+        photo: 'images/defec11.jpeg',
+        name: 'Калжанова Айгерим Калдибаевна',
+              role: 'Дефектолог логопед (АВА терапия)',
+        stage: 'Стаж 1 год.',
+        quote: '«Главное — не говорить красиво, а чувствовать смело.»'
+      }
+    ];
+
+    let idx = 0;
+    const photoEl = document.getElementById('team-photo');
+    const nameEl  = document.getElementById('team-name');
+    const roleEl  = document.getElementById('team-role');
+    const subroleEl  = document.getElementById('team-subrole');
+    const stageEl = document.getElementById('team-stage');
+    const quoteEl = document.getElementById('team-quote');
+
+    function render() {
+      const m = team[idx];
+      photoEl.src = m.photo;
+      photoEl.alt = m.name;
+      nameEl.textContent = m.name;
+      roleEl.textContent = m.role;
+      roleEl.innerHTML = m.role;
+      subroleEl.textContent = m.subrole;
+      stageEl.textContent = m.stage;
+      quoteEl.textContent = m.quote;
+    }
+
+    document.querySelector('.left-btn').addEventListener('click', () => {
+      idx = (idx - 1 + team.length) % team.length;
+      render();
+    });
+
+    document.querySelector('.right-btn').addEventListener('click', () => {
+      idx = (idx + 1) % team.length;
+      render();
+    });
+
+    render();
+  })();
+</script>
+
+
+
+  <!-- НОВАЯ СЕКЦИЯ: Прайс-лист -->
+<section class="pricing" id="courses" style="padding: 40px 15px; background-color: white;">
+  <div style="max-width: 7000px; max-height: 3000px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 25px; color: #A78CE2; font-size: 1.8rem;"><%= t('pricing.title') %></h2>
+
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 10px;">
+      <!-- Начальный тариф -->
+      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
+        <a href="/public" class="logo" style="display: block; text-align: center; margin-bottom: 10px;">
+          <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
+        </a>
+        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.free_title') %></h3>
+        <div style="margin-bottom: 15px; flex-grow: 1;">
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span><%= t('pricing.free_trial') %></span>
+          </div>
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span><%= t('pricing.simple_exercises') %></span>
+          </div>
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span><%= t('pricing.diagnostic_tests') %></span>
+          </div>
+
+          <div style="margin-bottom: 64px; display: flex; align-items: flex-start; font-size: 1.2rem;">
+            <span><%= t('pricing.free_schedule') %></span>
+          </div>
+
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.6rem; font-weight: bolder">
+            <span><%= t('pricing.free_lessons') %></span>
+          </div>
+        </div>
+        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
+          <%= t('pricing.free_price') %>
+        </div>
+        <div style="text-align: center;">
+          <button onclick="window.location.href='register.html'" class="btn-hover" style="
+  background: #A78CE2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+">
+  <%= t('pricing.signup') %>
+</button>
+
+<style>
+  .btn-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+        </div>
+      </div>
+
+
+
+      <!-- Базовый тариф -->
+      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
+
+        <a href="/public" class="logo" style="display: block; text-align: center; margin-bottom: 10px;">
+          <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
+        </a>
+        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.speak_boldly') %></h3>
+        <div style="margin-bottom: 15px; flex-grow: 1;">
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Расширение словарного запаса</span>
+          </div>
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Построение фраз и предложений</span>
+          </div>
+
+          <div style="margin-bottom: 90px; display: flex; align-items: flex-start; font-size: 1.2rem;">
+            <span>2–3 раза в неделю (по 40 мин)</span>
+          </div>
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.6rem; font-weight: bolder">
+            <span>4 занятий</span>
+          </div>
+        </div>
+        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
+          36 000 тг/мес
+        </div>
+        <div style="text-align: center;">
+          <button onclick="window.location.href='register.html'" class="btn-hover" style="
+  background: #A78CE2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+">
+  Записаться
+</button>
+
+<style>
+  .btn-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+        </div>
+      </div>
+
+      <!-- Профессиональный тариф -->
+      <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
+
+        <a href="/public" class="logo" style="display: block; text-align: center; margin-bottom: 10px; margin-top: 10px;">
+          <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
+        </a>
+        <h3 style="margin: 10px 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.special_speech') %></h3>
+        <div style="margin-bottom: 15px; flex-grow: 1;">
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Участие родителей</span>
+          </div>
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Социальные навыки</span>
+          </div>
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+            <span>Сенсорные игры</span>
+          </div>
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.2rem;">
+            <span>2–3 раза в неделю (30–40 мин)</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.6rem; font-weight: bolder">
+            <span>6 занятий</span>
+          </div>
+        <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
+          42 000 тг/мес
+        </div>
+        <div style="text-align: center;">
+          <button onclick="window.location.href='register.html'" class="btn-hover" style="
+  background: #A78CE2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+">
+  Записаться
+</button>
+
+<style>
+  .btn-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <section id="results" style="padding: 60px 20px; background-color: white; /* путь к картинке */;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 40px; color: #A78CE2;"><%= t('results.title') %></h2>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+      <!-- Video 1 with Thumbnail -->
+      <div style="width: 100%; max-width: 300px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: relative;">
+        <div style="position: relative; padding-bottom: 177.78%; height: 0; overflow: hidden; cursor: pointer;">
+          <!-- Thumbnail image with play button overlay -->
+          <img src="/images/video1.mp4"
+               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+
+      <!-- Video 2 with Thumbnail -->
+      <div style="width: 100%; max-width: 300px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: relative;">
+        <div style="position: relative; padding-bottom: 177.78%; height: 0; overflow: hidden; cursor: pointer;">
+          <img src="/images/video2.mp4"
+               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+
+      <!-- Video 3 with Thumbnail -->
+      <div style="width: 100%; max-width: 300px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: relative;">
+          <img src="/images/video3.mp4"
+               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+  @media (max-width: 768px) {
+    #results > div > div {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Add click handlers for video cards
+  document.querySelectorAll('#results [style*="position: relative"]').forEach(video => {
+    video.addEventListener('click', function() {
+      // Replace with actual video URL or lightbox opening code
+      alert('Video playback would start here');
+    });
+  });
+</script>
+
+
+    <!-- Chat bot stub -->
+<div id="chatbot-button" class="btn-hover" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+" title="<%= t('chatbot.support') %>">
+  <img src="/images/chatbot.png" alt="Chatbot Icon" style="width: 136px; height: 136px; object-fit: cover;">
+</div>
+
+<style>
+  .btn-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+
+<!-- Chat popup -->
+<div id="chatbot-popup" style="
+  display: none;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 16px;
+  font-family: sans-serif;
+  z-index: 1000;
+">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <strong>SOYLE Bot</strong>
+    <button id="chatbot-close" style="
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #999;
+    ">&times;</button>
+  </div>
+  <p style="margin: 0 0 10px;"><%= t('chatbot.greeting') %></p>
+  <button style="
+    background-color: #A78CE2;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+  " onclick="window.location.href='/chat'"><%= t('chatbot.write') %></button>
+</div>
+
+<script>
+  const button = document.getElementById('chatbot-button');
+  const popup = document.getElementById('chatbot-popup');
+  const close = document.getElementById('chatbot-close');
+
+  button.addEventListener('click', () => {
+    popup.style.display = 'block';
+  });
+
+  close.addEventListener('click', () => {
+    popup.style.display = 'none';
+  });
+</script>
+
+
+</main>
+
+<footer id="footer" style="
+  background-image: url('/images/footer_background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: black;
+  padding: 40px 20px;
+">
+  <div class="footer-container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; max-width: 1200px; margin: auto;">
+
+    <!-- Контакты -->
+    <div class="footer-section" style="flex: 1; min-width: 250px;">
+      <h4><%= t('footer.contacts_title') %></h4>
+
+      <p>
+        <img src="/images/icons/locat.png" alt="map icon" style="width:50px; vertical-align:middle; margin-right:6px;">
+        <a href="https://2gis.kz/turkestan/geo/70030076333206295" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+          <%= t('footer.address1') %>
+        </a>
+      </p>
+
+      <p>
+        <img src="/images/icons/locat.png" alt="map icon" style="width:50px; vertical-align:middle; margin-right:6px;">
+        <a href="https://2gis.kz/turkestan/geo/70030076259062236/68.215277%2C43.2899" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+          <%= t('footer.address2') %>
+        </a>
+      </p>
+
+      <p>
+        <img src="/images/icons/whats.png" alt="phone icon" style="width:32px; vertical-align:middle; margin-right:6px;">
+        <%= t('footer.phone1') %>
+      </p>
+
+      <p>
+        <img src="/images/icons/whats.png" alt="phone icon" style="width:32px; vertical-align:middle; margin-right:6px;">
+        <%= t('footer.phone2') %>
+      </p>
+    </div>
+
+    <!-- Социальные сети -->
+    <div class="footer-section" style="flex: 1; min-width: 250px;">
+      <h4><%= t('footer.social_title') %></h4>
+
+      <p>
+        <img src="/images/icons/inst.png" alt="inst icon" style="width:50px; vertical-align:middle; margin-right:6px;">
+        <a href="https://www.instagram.com/turkestan_logoped" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">
+          <%= t('footer.instagram') %>
+        </a>
+      </p>
+
+      <p>
+        <img src="/images/icons/tiktok.png" alt="tiktok icon" style="width:50px; vertical-align:middle; margin-right:6px;">
+        <a href="https://www.instagram.com/turkestan_logoped" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">
+          <%= t('footer.tiktok') %>
+        </a>
+      </p>
+    </div>
+
+    <!-- Авторские права -->
+    <div class="footer-section" style="flex: 1; min-width: 250px;">
+      <h4>KID SPEECH PRO</h4>
+      <p><%= t('footer.copyright') %></p>
+    </div>
+
+  </div>
+</footer>
+
+
+</body>
+</html>

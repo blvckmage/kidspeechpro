@@ -2,7 +2,7 @@ const pool = require('./db');
 
 async function resetDatabase() {
   const dropTablesSQL = `
-    DROP TABLE IF EXISTS user_courses, course_videos, courses, users;
+    DROP TABLE IF EXISTS user_courses, course_videos, courses, users, diagnosis_requests;
   `;
 
   const createTablesSQL = [
@@ -41,6 +41,16 @@ async function resetDatabase() {
       purchased_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
       FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+    ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`,
+
+    `CREATE TABLE diagnosis_requests (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      first_name VARCHAR(255) NOT NULL,
+      last_name VARCHAR(255) NOT NULL,
+      phone VARCHAR(32) NOT NULL,
+      child_age INT NOT NULL,
+      problem TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
   ];
 

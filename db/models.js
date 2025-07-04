@@ -93,6 +93,15 @@ async function addDiagnosis(child_id, diagnosis, date) {
   await pool.query('INSERT INTO diagnosis (child_id, diagnosis, date) VALUES (?, ?, ?)', [child_id, diagnosis, date]);
 }
 
+// Заявки на диагностику
+async function addDiagnosisRequest(name, surname, phone, age, problem) {
+  await pool.query('INSERT INTO diagnosis_requests (name, surname, phone, age, problem) VALUES (?, ?, ?, ?, ?)', [name, surname, phone, age, problem]);
+}
+async function getAllDiagnosisRequests() {
+  const [rows] = await pool.query('SELECT * FROM diagnosis_requests ORDER BY id DESC');
+  return rows;
+}
+
 // PROGRESS
 async function getAllProgress() {
   const [rows] = await pool.query('SELECT * FROM progress');
@@ -117,5 +126,6 @@ module.exports = {
   getAllResults, addResult,
   getAllDiagnosis, addDiagnosis,
   getAllProgress, addProgress,
-  getCourseById, getCourseVideos
+  getCourseById, getCourseVideos,
+  addDiagnosisRequest, getAllDiagnosisRequests
 }; 

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Кабинет родителя — KidSpeech PRO</title>
+  <style>
+    /* === Общие стили === */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+    }
+
+    header {
+      background-color: white;
+      color: #A78CE2;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      margin: 0;
+      color: #A78CE2;
+    }
+
+    header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      margin: 0;
+      font-size: 28px;
+      color: #A78CE2;
+      z-index: 1;
+    }
+
+    header nav a {
+      font-weight: bold;
+      color: #A78CE2;
+    }
+
+    header nav a:hover {
+      text-decoration: none;
+    }
+
+    /* === Основной раздел === */
+    .dashboard {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* === Таб-меню === */
+    .tab-menu {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .tab-btn {
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      position: relative;
+      margin: 0 5px;
+    }
+
+    .tab-btn.active {
+      color: #A78CE2;
+      font-weight: bold;
+    }
+
+    .tab-btn.active:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #A78CE2;
+    }
+
+    /* Секции контента */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* === Кнопки === */
+    .btn,
+    button,
+    input[type="submit"] {
+      background-color: #A78CE2;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 6px 4px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #A78CE2;
+      color: #A78CE2;
+    }
+
+    .btn:hover,
+    button:hover,
+    input[type="submit"]:hover {
+      background-color: #A78CE2;
+      opacity: 0.9;
+    }
+
+    .btn-outline:hover {
+      background: #f0e6ff;
+    }
+
+    /* === Форма добавления ребёнка === */
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    h3 {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* Стили для секции курсов */
+    .courses-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .courses-title {
+      font-size: 24px;
+      color: #333;
+      margin: 0;
+    }
+
+    .courses-title span {
+      color: #A78CE2;
+    }
+
+    .find-courses {
+      color: #A78CE2;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .find-courses:hover {
+      text-decoration: underline;
+    }
+
+    .find-courses::after {
+      content: "→";
+      margin-left: 5px;
+    }
+
+    .course-recommendations {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .course-card {
+      background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+    }
+
+    .course-content {
+      flex: 1;
+      min-width: 0;
+      margin-top: 40px;
+    }
+    .course-logo {
+  width: 200px;
+  height: auto;
+  transform: rotate(-90deg);
+
+}
+
+    .course-card h4 {
+      margin-top: 0;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .course-card p {
+      color: #666;
+      margin: 10px 0;
+    }
+
+    .course-tag {
+      display: inline-block;
+      background: #f0e6ff;
+      color: #A78CE2;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .course-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .course-free {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .course-image {
+      width: 240px;
+      height: 240px;
+      border-radius: 8px;
+      object-fit: cover;
+
+    }
+
+    .achievement-section {
+  margin-bottom: 40px;
+}
+
+
+    .achievement-divider {
+  border: none;
+  border-top: 2px dashed #A78CE2;
+  margin: 30px 0;
+}
+
+.achievement-icon {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.achievement-cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* расстояние между карточками */
+}
+
+.achievement-card {
+  /* Для наглядности — можно добавить фон, отступы, тень */
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Для иконок — сделать их размер фиксированным и отцентрированным */
+.achievement-icon img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+}
+
+/* New styles for performance section */
+.performance-section {
+  margin-bottom: 30px;
+}
+
+.performance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.performance-title {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.course-select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.progress-container {
+  margin-bottom: 30px;
+}
+
+.progress-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #A78CE2;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #A78CE2;
+  border-radius: 10px;
+  width: 65%; /* Example value */
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+}
+
+.attendance-table, .problems-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.attendance-table th, .problems-table th {
+  background-color: #f0e6ff;
+  padding: 10px;
+  text-align: left;
+}
+
+.attendance-table td, .problems-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.attendance-table tr:last-child td, .problems-table tr:last-child td {
+  border-bottom: none;
+}
+
+.completed {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.missed {
+  color: #F44336;
+  font-weight: bold;
+}
+
+  .lang-btn {
+    background: #A78CE2;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 24px;
+    font-size: 1rem;
+    margin-right: 0;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(167,140,226,0.08);
+    transition: background 0.2s;
+  }
+  .lang-btn:hover {
+    background: #8c5fd6;
+  }
+</style>
+</head>
+
+<body>
+  <header>
+    <img src="/images/logo.png" alt="KidSpeech PRO" style="height: 40px;">
+    <form id="langForm" style="display:inline-block; margin-left:20px;">
+      <select id="langSelect" name="lang" class="lang-btn">
+        <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+        <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+        <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+      </select>
+    </form>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const langSelect = document.getElementById('langSelect');
+        langSelect.addEventListener('change', function() {
+          document.cookie = 'lang=' + this.value + ';path=/';
+          location.reload();
+        });
+      });
+    </script>
+    <button id="menuButton" class="btn" style="margin-left: auto;">☰</button>
+    <div id="menuPopup" style="
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 10px;
+      text-align: right;
+    ">
+      <a href="parent_settings.html" class="btn" style="display:block; margin: 6px 0;">Личный кабинет</a>
+      <a href="/logout" class="btn" style="display:block; margin: 6px 0;">Выйти</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard">
+      <div class="tab-menu">
+        <button class="tab-btn active" data-tab="courses"><%= t('parent_dashboard.tab_courses') %></button>
+        <button class="tab-btn" data-tab="performance"><%= t('parent_dashboard.tab_performance') %></button>
+        <button class="tab-btn" data-tab="achievements"><%= t('parent_dashboard.tab_achievements') %></button>
+      </div>
+
+      <div id="courses-section" class="content-section active">
+        <div class="courses-header">
+          <h2 class="courses-title">Мои курсы <span>/ 2</span></h2>
+          <a href="index.html#courses" class="find-courses">Подобрать новые курсы</a>
+        </div>
+
+        <div class="course-recommendations">
+          <div class="course-card">
+            <img src="/images/logo.png" alt="logo" class="course-logo">
+            <div class="course-content">
+              <h4>Бесплатные занятия</h4>
+              <p>Пробные занятия</p>
+              <p>Простые упражнения</p>
+              <p>Диагностические тесты</p>
+              <div>
+                <span class="course-tag">1 раз в неделю (20–30 мин)</span>
+                <span class="course-tag">2 занятий</span>
+              </div>
+              <div class="course-actions">
+                <a href="course1.html" class="btn" style="display:block; margin: 6px 0;">Начать обучение</a>
+              </div>
+            </div>
+            <img src="/images/free-lessons.jpg" alt="Бесплатные занятия" class="course-image">
+          </div>
+
+          <div class="course-card">
+            <img src="/images/logo.png" alt="logo" class="course-logo">
+            <div class="course-content">
+              <h4>Говори смело</h4>
+              <p>Расширение словарного запаса</p>
+              <p>Построение фраз и предложений</p>
+              <div>
+                <span class="course-tag">2–3 раза в неделю (по 40 мин)</span>
+                <span class="course-tag">4 занятий</span>
+              </div>
+              <div class="course-actions">
+                <a href="course2.html" class="btn" style="display:block; margin: 6px 0;">Начать обучение</a>
+              </div>
+            </div>
+            <img src="/images/speak-boldly.jpg" alt="Говори смело" class="course-image">
+          </div>
+        </div>
+      </div>
+
+      <div id="performance-section" class="content-section">
+        <div class="performance-header">
+          <h2 class="performance-title" style="color: #A78CE2">Успеваемость курса "Говори смело"</h2>
+        </div>
+
+        <div class="progress-container">
+          <h3 class="progress-title">Общий прогресс курса</h3>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="progress-stats">
+            <span>Начало: 01.05.2025</span>
+            <span>65% завершено</span>
+            <span>Конец: 30.06.2025</span>
+          </div>
+        </div>
+
+        <div class="performance-section">
+          <h3 class="progress-title">Посещаемость</h3>
+          <table class="attendance-table">
+            <thead>
+              <tr>
+                <th>Дата</th>
+                <th>Тема занятия</th>
+                <th>Статус</th>
+                <th>Длительность</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>02.05.2025</td>
+                <td>Знакомство с платформой</td>
+                <td class="completed">Посещено</td>
+                <td>25 мин</td>
+              </tr>
+              <tr>
+                <td>09.05.2025</td>
+                <td>Основные звуки</td>
+                <td class="completed">Посещено</td>
+                <td>30 мин</td>
+              </tr>
+              <tr>
+                <td>16.05.2025</td>
+                <td>Простые слова</td>
+                <td class="missed">Пропущено</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>23.05.2025</td>
+                <td>Составление фраз</td>
+                <td class="completed">Посещено</td>
+                <td>28 мин</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="performance-section">
+          <h3 class="progress-title">Решенные задачи</h3>
+          <table class="problems-table">
+            <thead>
+              <tr>
+                <th>Тема</th>
+                <th>Заданий всего</th>
+                <th>Выполнено</th>
+                <th>Успешность</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Звуки</td>
+                <td>12</td>
+                <td>10</td>
+                <td>83%</td>
+              </tr>
+              <tr>
+                <td>Слова</td>
+                <td>15</td>
+                <td>8</td>
+                <td>53%</td>
+              </tr>
+              <tr>
+                <td>Фразы</td>
+                <td>10</td>
+                <td>5</td>
+                <td>50%</td>
+              </tr>
+              <tr>
+                <td>Диалоги</td>
+                <td>5</td>
+                <td>2</td>
+                <td>40%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="achievements-section" class="content-section">
+        <h3 style="color: #A78CE2"><%= t('parent_dashboard.section_achievements') %></h3>
+
+        <section class="achievement-section">
+          <h4><%= t('parent_dashboard.section_awards') %></h4>
+      <div class="achievement-cards-container">
+          <div class="achievement-card">
+            <div class="achievement-icon">
+              <img src="/images/icons/badge.png" alt="Медаль 'Успешный старт'" />
+            </div>
+            <h5>Медаль "Успешный старт"</h5>
+            <p>За успешное прохождение первых 5 уроков</p>
+            <button class="btn">Поделиться</button>
+          </div>
+
+          <div class="achievement-card">
+            <div class="achievement-icon">
+              <img src="/images/icons/badge.png" alt="Значок 'Настойчивость'" />
+            </div>
+            <h5>Значок "Настойчивость"</h5>
+            <p>7 дней подряд активности</p>
+            <button class="btn">Поделиться</button>
+          </div>
+
+          <div class="achievement-card">
+            <div class="achievement-icon">
+              <img src="/images/icons/badge.png" alt="Награда 'Исследователь'" />
+            </div>
+            <h5>Награда "Исследователь"</h5>
+            <p>Изучено 3 разных курса</p>
+            <button class="btn">Поделиться</button>
+          </div>
+      </div>
+        </section>
+
+        <hr class="achievement-divider">
+
+        <section class="achievement-section">
+          <h4><%= t('parent_dashboard.section_certificates') %></h4>
+      <div class="achievement-cards-container">
+          <div class="achievement-card">
+            <div class="achievement-icon">
+              <img src="/images/icons/badge.png" alt="Сертификат об окончании курса" />
+            </div>
+            <h5>Сертификат об окончании курса "Говори смело"</h5>
+            <p>Дата получения: 15.05.2025</p>
+            <button class="btn">Скачать</button>
+          </div>
+
+          <div class="achievement-card">
+            <div class="achievement-icon">
+              <img src="/images/icons/badge.png" alt="Сертификат 'Диагностика речи'" />
+            </div>
+            <h5>Сертификат "Диагностика речи"</h5>
+            <p>Дата получения: 01.04.2025</p>
+            <button class="btn">Скачать</button>
+          </div>
+      </div>
+        </section>
+
+        <hr class="achievement-divider">
+
+        <section class="achievement-section">
+          <h4><%= t('parent_dashboard.section_diplomas') %></h4>
+      <div class="achievement-cards-container">
+          <div class="achievement-card">
+            <div class="achievement-icon">
+              <img src="/images/icons/badge.png" alt="Диплом 'Юный оратор'" />
+            </div>
+            <h5>Диплом "Юный оратор"</h5>
+            <p>За завершение всех упражнений курса "Бесплатные занятия"</p>
+            <button class="btn">Скачать</button>
+          </div>
+      </div>
+        </section>
+
+        <div class="btn-group" style="margin-top: 30px;">
+          <button class="btn">Мой прогресс</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const menuPopup = document.getElementById('menuPopup');
+
+    menuButton.addEventListener('click', () => {
+      menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!menuPopup.contains(event.target) && !menuButton.contains(event.target)) {
+        menuPopup.style.display = 'none';
+      }
+    });
+
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        contentSections.forEach(section => section.classList.remove('active'));
+
+        button.classList.add('active');
+
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(`${tabId}-section`).classList.add('active');
+      });
+    });
+      const subTabButtons = document.querySelectorAll('.sub-tab-btn');
+      const subContentSections = document.querySelectorAll('.sub-content-section');
+
+      subTabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        subTabButtons.forEach(btn => btn.classList.remove('active'));
+        subContentSections.forEach(sec => sec.classList.remove('active'));
+
+        button.classList.add('active');
+        const subTabId = button.getAttribute('data-subtab');
+        document.getElementById(`${subTabId}-section`).classList.add('active');
+      });
+    });
+
+
+  </script>
+</body>
+</html>
