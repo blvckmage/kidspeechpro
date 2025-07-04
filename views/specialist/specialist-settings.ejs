@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Настройки — KidSpeech PRO</title>
+  <style>
+    /* === Общие стили === */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+    }
+
+    header {
+      background-color: white;
+      color: #A78CE2;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      margin: 0;
+      color: #A78CE2;
+    }
+
+    header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      margin: 0;
+      font-size: 28px;
+      color: #A78CE2;
+      z-index: 1;
+    }
+
+    /* === Основной раздел === */
+    .dashboard {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* === Кнопки === */
+    .btn,
+    button,
+    input[type="submit"] {
+      background-color: #A78CE2;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 6px 4px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #A78CE2;
+      color: #A78CE2;
+    }
+
+    .btn:hover,
+    button:hover,
+    input[type="submit"]:hover {
+      background-color: #A78CE2;
+      opacity: 0.9;
+    }
+
+    .btn-outline:hover {
+      background: #f0e6ff;
+    }
+
+    /* Стили для формы настроек */
+    .settings-form {
+      margin-top: 20px;
+    }
+
+    .form-section {
+      margin-bottom: 30px;
+    }
+
+    .form-section h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-section h3 {
+      font-size: 18px;
+      margin: 20px 0 10px 0;
+      color: #666;
+    }
+
+    .form-note {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .form-row {
+      margin-bottom: 15px;
+    }
+
+    .form-row label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-row input[type="text"],
+    .form-row input[type="date"],
+    .form-row select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .btn-cancel {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    .btn-cancel:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <!-- Логотип -->
+    <img src="/images/logo.png" alt="KidSpeech PRO" style="height: 40px;">
+
+    <!-- Меню-кнопка справа -->
+    <button id="menuButton" class="btn" style="margin-left: auto;">☰</button>
+
+    <!-- Всплывающее меню -->
+    <div id="menuPopup" style="
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 10px;
+      text-align: right;
+    ">
+      <a href="specialist-dashboard.html" class="btn" style="display:block; margin: 6px 0;">Личный кабинет</a>
+      <a href="/logout" class="btn" style="display:block; margin: 6px 0;">Выйти</a>
+    </div>
+
+    <form id="langForm" style="display:inline-block; margin-left:20px;">
+      <select id="langSelect" name="lang">
+        <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+        <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+        <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+      </select>
+    </form>
+  </header>
+
+  <main>
+    <section class="dashboard">
+      <div class="settings-form">
+        <div class="form-section">
+          <h2 style="color: #A78CE2">Личная информация</h2>
+
+          <div class="form-row">
+            <label>Фамилия</label>
+            <input type="text">
+          </div>
+
+          <div class="form-row">
+            <label>Имя</label>
+            <input type="text">
+          </div>
+
+            <div class="form-row">
+            <label>Номер</label>
+            <input type="text">
+          </div>
+
+            <div class="form-row">
+            <label>Адрес электронной почты</label>
+            <input type="text">
+          </div>
+
+            <div class="form-row">
+            <label>Новый пароль</label>
+            <input type="text">
+          </div>
+
+            <div class="form-row">
+            <label>Подтвердить новый пароль</label>
+            <input type="text">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a href="/logout" class="btn" style="display:block; margin: 6px 0;">Отменить</a>
+          <button class="btn">Сохранить</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const menuPopup = document.getElementById('menuPopup');
+
+    menuButton.addEventListener('click', () => {
+      menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Закрытие по клику вне меню
+    document.addEventListener('click', function (event) {
+      if (!menuPopup.contains(event.target) && !menuButton.contains(event.target)) {
+        menuPopup.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const langSelect = document.getElementById('langSelect');
+      langSelect.addEventListener('change', function() {
+        document.cookie = 'lang=' + this.value + ';path=/';
+        location.reload();
+      });
+    });
+  </script>
+</body>
+</html>

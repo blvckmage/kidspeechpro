@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Курс</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .course-header { display: flex; gap: 30px; align-items: flex-start; margin-bottom: 30px; }
+    .course-header img { width: 180px; height: 180px; object-fit: cover; border-radius: 12px; }
+    .video-list { margin-top: 30px; }
+    .video-item { margin-bottom: 30px; }
+    .video-title { font-weight: bold; margin-bottom: 8px; }
+    .video-player { width: 100%; max-width: 700px; aspect-ratio: 16/9; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/images/logo.png" alt="KidSpeech PRO" style="height: 40px;">
+    <form id="langForm" style="display:inline-block; margin-left:20px;">
+      <select id="langSelect" name="lang">
+        <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+        <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+        <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+      </select>
+    </form>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const langSelect = document.getElementById('langSelect');
+        langSelect.addEventListener('change', function() {
+          document.cookie = 'lang=' + this.value + ';path=/';
+          location.reload();
+        });
+      });
+    </script>
+  </header>
+  <main style="max-width: 900px; margin: 0 auto; padding: 30px;">
+    <a href="/parent-dashboard">← Назад к курсам</a>
+    <div id="courseInfo"></div>
+    <div class="video-list" id="videoList"></div>
+  </main>
+  <script>
+    function getCourseId() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('id');
+    }
+    async function loadCourse() {
+      const id = getCourseId();
+      if (!id) return;
+      const res = await fetch(`/api/courses/${id}`);
+      if (!res.ok) return alert('Курс не найден');
+      const data = await res.json();
+      const info = document.getElementById('courseInfo');
+      info.innerHTML = `
+        <div class="course-header">
+          <img src="${data.course.image_url || '/images/logo.png'}" alt="logo">
+          <div>
+            <h2>${data.course.name}</h2>
+            <p>${data.course.description || ''}</p>
+            <p>Цена: <b>${data.course.price}₸</b></p>
+          </div>
+        </div>
+      `;
+      const videoList = document.getElementById('videoList');
+      videoList.innerHTML = '';
+      for (const v of data.videos) {
+        const videoId = extractYouTubeId(v.video_url);
+        let player = '';
+        if (videoId) {
+          player = `<iframe class="video-player" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+        } else {
+          player = `<video class="video-player" src="${v.video_url}" controls></video>`;
+        }
+        videoList.innerHTML += `<div class="video-item">${player}</div>`;
+      }
+    }
+    function extractYouTubeId(url) {
+      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+      return match ? match[1] : null;
+    }
+    loadCourse();
+  </script>
+</body>
+</html> 

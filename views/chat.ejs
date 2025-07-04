@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Чат с SOYLE Bot</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+  <style>
+    body {
+      font-family: sans-serif;
+        background-image: url('/images/background.jpg');
+    }
+
+    .chat-container {
+      background-color: white;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      min-height: 500px; /* Minimum height to ensure container grows */
+    }
+
+    .chat-buttons{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .chat-message {
+      background-color: aliceblue;
+      color: rgb(37, 38, 44);
+      padding: 10px 14px;
+      border-radius: 5px;
+      margin-bottom: 12px;
+      max-width: 80%;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      line-height: 1.4;
+    }
+
+    #chat-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .user-message {
+      align-self: flex-end;
+      display: inline-block;
+      background-color: #A78CE2;
+      color: black;
+      border-radius: 40px;
+      text-align: center;
+      padding: 8px 16px;
+      max-width: 80%;
+      word-wrap: break-word;
+      white-space: normal;
+      line-height: 1.3;
+    }
+
+    .chat-buttons button {
+      display: block;
+      padding: 10px 16px;
+      margin: 6px 0;
+      border: none;
+      border-radius: 25px;
+      background-color: #e8ba76;
+      color: #333;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      white-space: normal;
+      word-wrap: break-word;
+      line-height: 1.3;
+      min-height: 40px;
+    }
+
+    .chat-buttons button:hover {
+      background-color: #A78CE2;
+    }
+
+    #back-button {
+      display: none;
+      align-self: center;
+      background-color: #A78CE2;
+      color: black;
+      border: none;
+      border-radius: 40px;
+      padding: 8px 16px;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-top: 10px;
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 480px) {
+      .chat-container {
+        max-width: 95%;
+        margin: 10px auto;
+        padding: 15px;
+      }
+
+      .chat-message, .user-message {
+        max-width: 90%;
+        font-size: 14px;
+      }
+    }
+  </style>
+    <header style="
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+">
+  <div style="display: flex; align-items: center;">
+      <img src="/images/chatbot.png" alt="Логотип" style="height: 60px;">
+    <div style="display: flex; flex-direction: column; font-size: 15px; color: #555;">
+      <span style="font-weight: bolder">SOYLE Bot</span>
+      <span><%= t('chat.subtitle') %></span>
+    </div>
+  </div>
+  <form id="langForm" style="display:inline-block; margin-left:20px;">
+    <select id="langSelect" name="lang">
+      <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+      <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+      <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+    </select>
+  </form>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const langSelect = document.getElementById('langSelect');
+      langSelect.addEventListener('change', function() {
+        document.cookie = 'lang=' + this.value + ';path=/';
+        location.reload();
+      });
+    });
+  </script>
+  <a href="index.html" style="text-decoration: none; color: #A78CE2; font-weight: bold; margin-right: 10px;">
+    <%= t('chat.exit') %>
+  </a>
+</header>
+
+</head>
+<body>
+
+  <div class="chat-container">
+    <div id="chat-area">
+    </div>
+
+    <div class="typing-indicator" id="typing-indicator">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>
+
+    <div class="chat-buttons" id="role-buttons"></div>
+      <button id="back-button" style="display:none;" onclick="goBack()">Вернуться</button>
+
+  </div>
+
+<script>
+  const chatArea = document.getElementById('chat-area');
+  const roleButtons = document.getElementById('role-buttons');
+  const backButton = document.getElementById('back-button');
+
+  let currentCategory = null;
+  let isSecondLayer = false;
+  let buttonAppearanceActive = false;
+
+  window.addEventListener('DOMContentLoaded', async () => {
+    // First show the welcome messages in the chat
+    await addMessage('Приветствую! Я — <strong>SOYLE Bot</strong>, ваш виртуальный логопед, который поможет на каждом этапе: от диагностики и выбора упражнений до составления индивидуального плана занятий!');
+    await addMessage('Выберите, пожалуйста,<br>с чего начнем диагностику?');
+
+    // Then after the chat messages are done, show the buttons
+    buttonAppearanceActive = true;
+    showButtonsOneByOne(roles);
+  });
+
+  // Modified showButtonsOneByOne function to accept an array of buttons
+  function showButtonsOneByOne(buttonsArray, index = 0) {
+    if (index >= buttonsArray.length || !buttonAppearanceActive) {
+      typingIndicator.style.display = 'none';
+      return;
+    }
+
+    typingIndicator.style.display = 'flex';
+
+    setTimeout(() => {
+      // Check again if we should continue (user might have clicked while waiting)
+      if (!buttonAppearanceActive) {
+        typingIndicator.style.display = 'none';
+        return;
+      }
+
+      const button = document.createElement("button");
+
+      if (isSecondLayer) {
+        button.onclick = () => {
+          buttonAppearanceActive = false; // Stop any ongoing button appearances
+          handleSecondLayerQuestion(buttonsArray[index], currentCategory);
+        };
+      } else {
+        button.onclick = () => {
+          buttonAppearanceActive = false; // Stop any ongoing button appearances
+          handleCategory(buttonsArray[index]);
+        };
+      }
+
+      const span = document.createElement("span");
+      button.appendChild(span);
+      roleButtonsDiv.appendChild(button);
+
+      typingIndicator.style.display = 'none';
+
+      typeText(span, buttonsArray[index], () => {
+        setTimeout(() => {
+          showButtonsOneByOne(buttonsArray, index + 1);
+        }, 100); // Pause before next button
+      });
+    }, 300); // Delay before each button shows up
+  }
+
+  // Create and show the typing indicator with bouncing dots
+  function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.id = 'typing-indicator';
+    typingDiv.className = 'chat-message';
+    typingDiv.innerHTML = 'SOYLE Bot печатает<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+    chatArea.appendChild(typingDiv);
+  }
+
+  // Remove typing indicator
+  function removeTypingIndicator() {
+    const typingDiv = document.getElementById('typing-indicator');
+    if (typingDiv) typingDiv.remove();
+  }
+
+  // Helper function to create a node from an HTML string (supports <strong>, <br>)
+  function createNodeFromHTML(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
+    return template.content;
+  }
+
+  // Typing effect that supports <br> and <strong> tags
+  async function typeMessage(htmlText) {
+    return new Promise((resolve) => {
+      const msg = document.createElement('div');
+      msg.className = 'chat-message';
+      chatArea.appendChild(msg);
+
+      const fragment = createNodeFromHTML(htmlText);
+
+      const segments = [];
+
+      function processNode(node, parentTag = null) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          segments.push({ text: node.textContent, tag: parentTag });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          if (node.tagName === 'BR') {
+            segments.push({ br: true });
+          } else if (node.tagName === 'STRONG') {
+            node.childNodes.forEach(child => processNode(child, 'strong'));
+          } else {
+            node.childNodes.forEach(child => processNode(child, parentTag));
+          }
+        }
+      }
+
+      fragment.childNodes.forEach(node => processNode(node));
+
+      let idx = 0;
+
+      function typeNextChar() {
+        if (idx >= segments.length) {
+          resolve();
+          return;
+        }
+
+        const segment = segments[idx];
+
+        if (segment.br) {
+          msg.appendChild(document.createElement('br'));
+          idx++;
+          setTimeout(typeNextChar, 30);
+        } else {
+          const { text, tag } = segment;
+          let typedText = '';
+          let charIdx = 0;
+
+          let container;
+          if (tag === 'strong') {
+            container = document.createElement('strong');
+          } else {
+            container = document.createTextNode('');
+            msg.appendChild(container);
+          }
+
+          if (tag === 'strong') {
+            msg.appendChild(container);
+          }
+
+          function typeChar() {
+            if (charIdx < text.length) {
+              typedText += text[charIdx];
+              if (tag === 'strong') {
+                container.textContent = typedText;
+              } else {
+                container.textContent = typedText;
+              }
+              charIdx++;
+              setTimeout(typeChar, 30);
+            } else {
+              idx++;
+              setTimeout(typeNextChar, 30);
+            }
+          }
+
+          typeChar();
+        }
+      }
+
+      typeNextChar();
+    });
+  }
+
+  // Add a message with typing and typing indicator
+  async function addMessage(text, isUser = false) {
+    if (isUser) {
+      // User message - no typing animation
+      const msg = document.createElement('div');
+      msg.className = 'chat-message user-message';
+      msg.innerHTML = text.replace(/\n/g, '<br>');
+      chatArea.appendChild(msg);
+    } else {
+      showTypingIndicator();
+      await new Promise(r => setTimeout(r, 600)); // simulate typing delay
+      removeTypingIndicator();
+      await typeMessage(text);
+    }
+    // Scroll chat to bottom
+    chatArea.scrollTop = chatArea.scrollHeight;
+  }
+
+  function goBack() {
+    if (isSecondLayer) {
+      // Go back to first layer
+      isSecondLayer = false;
+      currentCategory = null;
+      buttonAppearanceActive = false;
+      roleButtonsDiv.innerHTML = '';
+      typingIndicator.style.display = 'none';
+
+      setTimeout(() => {
+        buttonAppearanceActive = true;
+        showButtonsOneByOne(roles);
+      }, 100);
+      backButton.style.display = 'none';
+    } else {
+      // Go back to main page
+      window.location.href = 'chat.html';
+    }
+  }
+
+const roles = [
+  "Речевое развитие: нормы и отклонения",
+  "Поведение и особенности общения",
+  "Проблемы со слухом",
+  "Признаки аутизма и сенсорных нарушений",
+  "Помощь, коррекция и развитие",
+  "Мифы и популярные вопросы",
+];
+
+// Second layer questions for each category
+const secondLayerQuestions = {
+  "Речевое развитие: нормы и отклонения": [
+    "Почему мой ребёнок молчит в 2 года?",
+    "Нужно ли паниковать, если ребёнок не говорит в 3 года?",
+    "Он говорит \"мама\", \"дай\", \"на\" — этого достаточно?",
+    "Ребёнок говорит только отдельные звуки. Это речь?",
+    "Он говорит \"своим языком\". Это нормально?",
+    "Ребёнок говорит, но очень нечётко. Это нормально?",
+    "Что важнее – звуки или слова?",
+    "Нужно ли учить алфавит, если он не говорит?",
+    "Нужно ли учить стишки, если он не говорит?"
+  ],
+  "Поведение и особенности общения": [
+    "Он всё понимает, но не говорит. Это нормально?",
+    "Ребёнок не повторяет за взрослыми и капризничает. Это упрямство?",
+    "В садике молчит, а дома говорит. Почему?",
+    "Можно ли ждать, что \"перерастёт\"?"
+  ],
+  "Проблемы со слухом": [
+    "Может ли быть проблема со слухом?",
+    "Ребёнок не откликается на имя. Это слух или аутизм?"
+  ],
+  "Признаки аутизма и сенсорных нарушений": [
+    "Может ли задержка речи быть признаком аутизма?",
+    "Он не любит прикосновений, кричит при переодевании. Это нормально?",
+    "Он трясёт руками, бегает по кругу. Это что?",
+    "Он повторяет слова, но не говорит сам. Это речь?",
+    "Он выстраивает машинки, но не играет в сюжетные игры. Это тревожно?",
+    "Он не смотрит в глаза. Это всегда аутизм?"
+  ],
+  "Помощь, коррекция и развитие": [
+    "Какие упражнения можно делать дома?",
+    "Можно ли адаптировать сенсорную комнату для такого ребёнка?",
+    "Он не переносит громкие звуки и яркий свет. Что делать?",
+    "Как помочь ребёнку с аутизмом развивать речь?"
+  ],
+  "Мифы и популярные вопросы": [
+    "Мальчики начинают говорить позже девочек — правда?",
+    "Бабушка говорит: \"ты тоже поздно заговорил\". Это наследственность?",
+    "Мы говорим на двух языках. Может, из-за этого?"
+  ]
+};
+
+// Answers for each specific question
+const answers = {
+  "Почему мой ребёнок молчит в 2 года?": "Возможно, это задержка речевого развития. Обратитесь к специалисту.",
+  "Нужно ли паниковать, если ребёнок не говорит в 3 года?": "Паниковать — нет, но и ждать — опасно. Лучше не откладывать помощь.",
+  "Он говорит \"мама\", \"дай\", \"на\" — этого достаточно?": "После 2 лет — уже недостаточно. Речь должна развиваться до фраз.",
+  "Ребёнок говорит только отдельные звуки. Это речь?": "Нет. Это предречевой этап, требуется речевая стимуляция.",
+  "Он говорит \"своим языком\". Это нормально?": "После 2,5 лет — нет. Это может быть признаком речевой патологии.",
+  "Ребёнок говорит, но очень нечётко. Это нормально?": "После 3 лет речь должна становиться понятной. Иначе — к логопеду.",
+  "Что важнее – звуки или слова?": "Сначала важны слова. Произношение звуков формируется позже.",
+  "Нужно ли учить алфавит, если он не говорит?": "Нет. Лучше сосредоточиться на развитии речи и мышления.",
+  "Нужно ли учить стишки, если он не говорит?": "Лучше начать с понимания речи, жестов, игровых взаимодействий.",
+  "Он всё понимает, но не говорит. Это нормально?": "Нет. Это может быть экспрессивная задержка речи.",
+  "Ребёнок не повторяет за взрослыми и капризничает. Это упрямство?": "Иногда — нет. Может быть нарушено понимание речи.",
+  "В садике молчит, а дома говорит. Почему?": "Может быть избирательный мутизм или сильное стеснение. Нужна консультация психолога.",
+  "Можно ли ждать, что \"перерастёт\"?": "Надеяться — рискованно. Чем раньше начата коррекция — тем лучше результат.",
+  "Может ли быть проблема со слухом?": "Да. Проверка слуха — обязательна при задержке речи.",
+  "Ребёнок не откликается на имя. Это слух или аутизм?": "Сначала исключите тугоухость. Если слух в норме — это может быть признак РАС.",
+  "Может ли задержка речи быть признаком аутизма?": "Да. Это один из ранних признаков РАС, особенно при отсутствии контакта и общения.",
+  "Он не любит прикосновений, кричит при переодевании. Это нормально?": "Возможно, это сенсорная гиперчувствительность. Часто встречается при аутизме.",
+  "Он трясёт руками, бегает по кругу. Это что?": "Это стереотипии — типичное поведение при аутизме и способ саморегуляции.",
+  "Он повторяет слова, но не говорит сам. Это речь?": "Это эхолалия. Бывает и в норме, но при аутизме требует коррекции.",
+  "Он выстраивает машинки, но не играет в сюжетные игры. Это тревожно?": "Да. Отсутствие ролевой и символической игры — типичный признак аутизма.",
+  "Он не смотрит в глаза. Это всегда аутизм?": "Не всегда, но это один из тревожных признаков.",
+  "Какие упражнения можно делать дома?": "Простые: артикуляционные игры, звукоподражание, совместные действия с речью.",
+  "Можно ли адаптировать сенсорную комнату для такого ребёнка?": "Да. Подходящая сенсорная среда помогает снизить тревожность и развивать навыки.",
+  "Он не переносит громкие звуки и яркий свет. Что делать?": "Используйте шумоподавляющие наушники, мягкое освещение и поддерживающую среду.",
+  "Как помочь ребёнку с аутизмом развивать речь?": "Используйте альтернативную коммуникацию (жесты, карточки PECS), логопед-дефектолог, ABA-терапия, JASPER и Floortime — всё должно сочетаться.",
+  "Мальчики начинают говорить позже девочек — правда?": "Иногда да, но это не оправдание задержке речи.",
+  "Бабушка говорит: \"ты тоже поздно заговорил\". Это наследственность?": "Может быть, но сравнивать нельзя. Каждый ребёнок индивидуален.",
+  "Мы говорим на двух языках. Может, из-за этого?": "Нет. При правильной подаче двуязычие даже обогащает развитие."
+};
+
+const roleButtonsDiv = document.getElementById("role-buttons");
+const typingIndicator = document.getElementById("typing-indicator");
+
+function typeText(element, text, callback) {
+  let i = 0;
+  const interval = setInterval(() => {
+    element.textContent += text[i];
+    i++;
+    if (i === text.length) {
+      clearInterval(interval);
+      callback();
+    }
+  }, 30);
+}
+
+// Handle first layer category selection
+function handleCategory(category) {
+  addMessage(category, true);
+  currentCategory = category;
+  isSecondLayer = true;
+
+  // Clear all buttons immediately and stop any ongoing appearances
+  buttonAppearanceActive = false;
+  roleButtonsDiv.innerHTML = '';
+  typingIndicator.style.display = 'none';
+
+  setTimeout(async () => {
+    await addMessage('Выберите конкретный вопрос:');
+    buttonAppearanceActive = true;
+    showButtonsOneByOne(secondLayerQuestions[category]);
+    backButton.style.display = 'inline-block';
+  }, 2000);
+}
+
+// Handle second layer question selection - FIXED: No question repetition
+function handleSecondLayerQuestion(question, category) {
+  addMessage(question, true);
+
+  // Clear all buttons immediately and stop any ongoing appearances
+  buttonAppearanceActive = false;
+  roleButtonsDiv.innerHTML = '';
+  typingIndicator.style.display = 'none';
+
+  setTimeout(async () => {
+    const answer = answers[question];
+    // Only show the answer, not the question
+    await addMessage(answer);
+
+    // Show option to go back or ask another question
+    setTimeout(async () => {
+      await addMessage('Хотите задать ещё один вопрос из этой категории или вернуться к выбору категорий?');
+
+      // Create "Another question" button
+      const anotherQuestionBtn = document.createElement("button");
+      anotherQuestionBtn.textContent = "Задать ещё вопрос из этой категории";
+      anotherQuestionBtn.onclick = () => {
+        roleButtonsDiv.innerHTML = '';
+        buttonAppearanceActive = true;
+        showButtonsOneByOne(secondLayerQuestions[category]);
+      };
+      roleButtonsDiv.appendChild(anotherQuestionBtn);
+
+      // Create "Back to categories" button
+      const backToCategoriesBtn = document.createElement("button");
+      backToCategoriesBtn.textContent = "Вернуться к категориям";
+      backToCategoriesBtn.onclick = () => {
+        isSecondLayer = false;
+        currentCategory = null;
+        roleButtonsDiv.innerHTML = '';
+        buttonAppearanceActive = true;
+        showButtonsOneByOne(roles);
+        backButton.style.display = 'none';
+      };
+      roleButtonsDiv.appendChild(backToCategoriesBtn);
+
+      // Create "Contact specialist" button
+      const contactSpecialistBtn = document.createElement("button");
+      contactSpecialistBtn.textContent = "Пройти диагностику у специалиста";
+      contactSpecialistBtn.onclick = () => {
+  window.location.href = 'diagnosis.html#specialist';
+};
+      roleButtonsDiv.appendChild(contactSpecialistBtn);
+
+    }, 1500);
+  }, 2000);
+}
+</script>
+
+<style>
+  /* Bouncing dots animation for typing indicator */
+  #typing-indicator .dot {
+    animation-name: bounce;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  #typing-indicator .dot:nth-child(1) {
+    animation-delay: 0s;
+  }
+  #typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  #typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    0%, 80%, 100% {
+      transform: translateY(0);
+      opacity: 0.3;
+    }
+    40% {
+      transform: translateY(-10px);
+      opacity: 1;
+    }
+  }
+</style>
+</body>
+</html>

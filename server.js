@@ -8,6 +8,7 @@ const pool = require('./db/db');
 const multer = require('multer');
 const upload = multer({ dest: 'images/courses/' });
 const fs = require('fs');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = 3000;
@@ -15,12 +16,38 @@ const PORT = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 'kidSpeechSecret', resave: false, saveUninitialized: true }));
 app.use(express.static(__dirname));
+app.use(cookieParser());
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Middleware для локализации
+function getLocale(req) {
+  return req.cookies.lang || 'ru';
+}
+
+function loadLocale(lang) {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(__dirname, 'locales', lang + '.json'), 'utf8'));
+  } catch (e) {
+    return {};
+  }
+}
+
+app.use((req, res, next) => {
+  const lang = getLocale(req);
+  res.locals.t = function (key) {
+    const locale = loadLocale(lang);
+    return key.split('.').reduce((o, i) => (o ? o[i] : undefined), locale) || key;
+  };
+  res.locals.lang = lang;
+  next();
+});
 
 // GET маршруты
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
-app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'public/register.html')));
-app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public/login.html')));
-app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'public/chat.html')));
+app.get('/', (req, res) => res.render('index'));
+app.get('/register', (req, res) => res.render('register'));
+app.get('/login', (req, res) => res.render('login'));
+app.get('/chat', (req, res) => res.render('chat'));
 
 // Защищённые маршруты
 function authRequired(req, res, next) {
@@ -82,45 +109,45 @@ app.get('/children-list', async (req, res) => {
 
 app.get('/parent-dashboard', authRequired, (req, res) => {
   if (req.session.user.role !== 'parent') return res.status(403).send('Доступ запрещён');
-  res.sendFile(path.join(__dirname, 'public/parent/parent-dashboard.html'));
+  res.render('parent/parent-dashboard');
 });
 
 app.get('/parent-settings', authRequired, (req, res) => {
   if (req.session.user.role !== 'parent') return res.status(403).send('Доступ запрещён');
-  res.sendFile(path.join(__dirname, 'public/parent/parent-settings.html'));
+  res.render('parent/parent-settings');
 });
 
 app.get('/parent-courses', authRequired, (req, res) => {
   if (req.session.user.role !== 'parent') return res.status(403).send('Доступ запрещён');
-  res.sendFile(path.join(__dirname, 'public/parent/parent-courses.html'));
+  res.render('parent/parent-courses');
 });
 
 app.get('/specialist-dashboard', (req, res) => {
   if (!req.session.user || req.session.user.role !== 'specialist') {
     return res.status(403).send('Доступ запрещён');
   }
-  res.sendFile(path.join(__dirname, 'public/specialist/specialist-dashboard.html'));
+  res.render('specialist/specialist-dashboard');
 });
 
 app.get('/specialist-settings', (req, res) => {
   if (!req.session.user || req.session.user.role !== 'specialist') {
     return res.status(403).send('Доступ запрещён');
   }
-  res.sendFile(path.join(__dirname, 'public/specialist/specialist-settings.html'));
+  res.render('specialist/specialist-settings');
 });
 
 app.get('/admin-courses', (req, res) => {
   if (!req.session.user || req.session.user.role !== 'admin') {
     return res.status(403).send('Доступ запрещён');
   }
-  res.sendFile(path.join(__dirname, 'public/admin/admin-courses.html'));
+  res.render('admin/admin-courses');
 });
 
 app.get('/course', (req, res) => {
   if (!req.session.user || req.session.user.role !== 'parent') {
     return res.status(403).send('Доступ только для родителей');
   }
-  res.sendFile(path.join(__dirname, 'public/course/course.html'));
+  res.render('course/course');
 });
 
 // Регистрация (только родитель, с новыми полями)

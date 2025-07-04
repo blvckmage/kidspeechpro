@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Кабинет специалиста — KidSpeech PRO</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+    }
+
+    header {
+      background-color: white;
+      color: #A78CE2;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      margin: 0;
+      color: #A78CE2;
+    }
+
+    header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      margin: 0;
+      font-size: 28px;
+      color: #A78CE2;
+      z-index: 1;
+    }
+
+    header nav a {
+      font-weight: bold;
+      color: #A78CE2;
+    }
+
+    header nav a:hover {
+      text-decoration: none;
+    }
+
+    /* === Основной раздел === */
+    .dashboard {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* === Таб-меню === */
+    .tab-menu {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #f0f0f0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      position: relative;
+      margin: 0 5px;
+    }
+
+    .tab-btn.active {
+      color: #A78CE2;
+      font-weight: bold;
+    }
+
+    .tab-btn.active:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #A78CE2;
+    }
+
+    /* Секции контента */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* === Кнопки === */
+    .btn,
+    button,
+    input[type="submit"] {
+      background-color: #A78CE2;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 6px 4px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #A78CE2;
+      color: #A78CE2;
+    }
+
+    .btn:hover,
+    button:hover,
+    input[type="submit"]:hover {
+      background-color: #A78CE2;
+      opacity: 0.9;
+    }
+
+    .btn-outline:hover {
+      background: #f0e6ff;
+    }
+
+    /* === Форма добавления ребёнка === */
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    h3 {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* Children list styles */
+    .children-list-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .children-list-table th {
+      background-color: #A78CE2;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .children-list-table td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .children-list-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .children-list-table tr:hover {
+      background-color: #f0e6ff;
+    }
+
+    /* Lesson plan styles */
+    .lesson-plan {
+      margin-top: 20px;
+    }
+
+    .lesson-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-left: 4px solid #A78CE2;
+    }
+
+    .lesson-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .lesson-title {
+      font-weight: bold;
+      color: #A78CE2;
+    }
+
+    .lesson-date {
+      color: #666;
+    }
+
+    .lesson-materials {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #eee;
+    }
+
+    .material-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .material-icon {
+      margin-right: 8px;
+      color: #A78CE2;
+    }
+
+    /* Calendar styles */
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-title {
+      font-size: 20px;
+      color: #333;
+      margin: 0;
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .calendar-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .calendar-table th {
+      background-color: #f0e6ff;
+      color: #A78CE2;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .calendar-table td {
+      height: 80px;
+      padding: 5px;
+      border: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    .calendar-day {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .calendar-event {
+      background-color: #f0e6ff;
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-size: 12px;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .other-month {
+      color: #ccc;
+      background-color: #f9f9f9;
+    }
+
+    .today {
+      background-color: #f0e6ff;
+    }
+
+    @media (max-width: 768px) {
+      .tab-menu {
+        justify-content: flex-start;
+        overflow-x: auto;
+      }
+
+      .children-list-table {
+        display: block;
+        overflow-x: auto;
+      }
+
+      .calendar-table td {
+        height: 60px;
+        font-size: 12px;
+      }
+    }
+    /* === Общие стили === */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+    }
+
+    header {
+      background-color: white;
+      color: #A78CE2;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      margin: 0;
+      color: #A78CE2;
+    }
+
+    header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      margin: 0;
+      font-size: 28px;
+      color: #A78CE2;
+      z-index: 1;
+    }
+
+    header nav a {
+      font-weight: bold;
+      color: #A78CE2;
+    }
+
+    header nav a:hover {
+      text-decoration: none;
+    }
+
+    /* === Основной раздел === */
+    .dashboard {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* === Таб-меню === */
+    .tab-menu {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .tab-btn {
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      position: relative;
+      margin: 0 5px;
+    }
+
+    .tab-btn.active {
+      color: #A78CE2;
+      font-weight: bold;
+    }
+
+    .tab-btn.active:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #A78CE2;
+    }
+
+    /* Секции контента */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* === Кнопки === */
+    .btn,
+    button,
+    input[type="submit"] {
+      background-color: #A78CE2;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 6px 4px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #A78CE2;
+      color: #A78CE2;
+    }
+
+    .btn:hover,
+    button:hover,
+    input[type="submit"]:hover {
+      background-color: #A78CE2;
+      opacity: 0.9;
+    }
+
+    .btn-outline:hover {
+      background: #f0e6ff;
+    }
+
+    /* === Форма добавления ребёнка === */
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    h3 {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* Стили для секции курсов */
+    .courses-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .courses-title {
+      font-size: 24px;
+      color: #333;
+      margin: 0;
+    }
+
+    .courses-title span {
+      color: #A78CE2;
+    }
+
+    .find-courses {
+      color: #A78CE2;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .find-courses:hover {
+      text-decoration: underline;
+    }
+
+    .find-courses::after {
+      content: "→";
+      margin-left: 5px;
+    }
+
+    .course-recommendations {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .course-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .course-content {
+      flex: 1;
+      min-width: 0;
+      margin-top: 40px;
+    }
+    .course-logo {
+      width: 200px;
+      height: auto;
+      transform: rotate(-90deg);
+    }
+
+    .course-card h4 {
+      margin-top: 0;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .course-card p {
+      color: #666;
+      margin: 10px 0;
+    }
+
+    .course-tag {
+      display: inline-block;
+      background: #f0e6ff;
+      color: #A78CE2;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .course-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .course-free {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .course-image {
+      width: 240px;
+      height: 240px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .achievement-section {
+      margin-bottom: 40px;
+    }
+
+    .achievement-divider {
+      border: none;
+      border-top: 2px dashed #A78CE2;
+      margin: 30px 0;
+    }
+
+    .achievement-icon {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .achievement-cards-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px; /* расстояние между карточками */
+    }
+
+    .achievement-card {
+      /* Для наглядности — можно добавить фон, отступы, тень */
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    /* Для иконок — сделать их размер фиксированным и отцентрированным */
+    .achievement-icon img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 8px;
+    }
+
+    /* New styles for performance section */
+    .performance-section {
+      margin-bottom: 30px;
+    }
+
+    .performance-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .performance-title {
+      font-size: 24px;
+      color: #333;
+      margin: 0;
+    }
+
+    .course-select {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .progress-container {
+      margin-bottom: 30px;
+    }
+
+    .progress-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #A78CE2;
+    }
+
+    .progress-bar {
+      height: 20px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: #A78CE2;
+      border-radius: 10px;
+      width: 65%; /* Example value */
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+    }
+
+    .attendance-table, .problems-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .attendance-table th, .problems-table th {
+      background-color: #f0e6ff;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .attendance-table td, .problems-table td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .attendance-table tr:last-child td, .problems-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .completed {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .missed {
+      color: #F44336;
+      font-weight: bold;
+    }
+
+    .selection-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      align-items: center;
+      background: rgba(247, 243, 255, 0.8);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(167, 140, 226, 0.1);
+    }
+
+    .selection-group {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .selection-label {
+      font-weight: 600;
+      color: #A78CE2;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .selection-dropdown {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 2px solid #E9E0FF;
+      background-color: white;
+      color: #333;
+      font-size: 15px;
+      width: 100%;
+      transition: all 0.3s ease;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23A78CE2'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 18px;
+    }
+
+    .selection-dropdown:focus {
+      outline: none;
+      border-color: #A78CE2;
+      box-shadow: 0 0 0 3px rgba(167, 140, 226, 0.2);
+    }
+
+    .selection-dropdown:hover {
+      border-color: #C7B3F0;
+    }
+
+    /* Children list styles */
+    .children-list-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .children-list-table th {
+      background-color: #A78CE2;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .children-list-table td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .children-list-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .children-list-table tr:hover {
+      background-color: #f0e6ff;
+    }
+
+    @media (max-width: 768px) {
+      .selection-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .children-list-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="/images/logo.png" alt="KidSpeech PRO" style="height: 40px;">
+    <form id="langForm" style="display:inline-block; margin-left:20px;">
+      <select id="langSelect" name="lang">
+        <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+        <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+        <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+      </select>
+    </form>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const langSelect = document.getElementById('langSelect');
+        langSelect.addEventListener('change', function() {
+          document.cookie = 'lang=' + this.value + ';path=/';
+          location.reload();
+        });
+      });
+    </script>
+    <button id="menuButton" class="btn" style="margin-left: auto;">☰</button>
+    <div id="menuPopup" style="
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 10px;
+      text-align: right;
+    ">
+      <a href="../specialist-dashboard.html" class="btn" style="display:block; margin: 6px 0;">Личный кабинет</a>
+      <a href="/logout" class="btn" style="display:block; margin: 6px 0;">Выйти</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard">
+      <div class="tab-menu">
+        <button class="tab-btn active" data-tab="performance" style="color: grey">Мониторинг прогресса</button>
+        <button class="tab-btn" data-tab="plan">План</button>
+        <button class="tab-btn" data-tab="schedule">Расписание</button>
+        <button class="tab-btn" data-tab="children">Список заявок</button>
+      </div>
+
+      <div id="performance-section" class="content-section active">
+        <div class="selection-container">
+          <span class="selection-label">Ребёнок:</span>
+          <select class="selection-dropdown" id="child-select">
+            <option value="1">Иван Петров</option>
+            <option value="2">Мария Петрова</option>
+            <option value="3">Алексей Петров</option>
+          </select>
+
+          <span class="selection-label">Курс:</span>
+          <select class="selection-dropdown" id="course-select">
+            <option value="1">Говори смело</option>
+            <option value="2">Бесплатные занятия</option>
+            <option value="3">Чистая речь</option>
+            <option value="4">Азбука общения</option>
+          </select>
+        </div>
+
+        <div class="progress-container">
+          <h3 class="progress-title">Общий прогресс курса</h3>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="progress-stats">
+            <span>Начало: 01.05.2025</span>
+            <span>65% завершено</span>
+            <span>Конец: 30.06.2025</span>
+          </div>
+        </div>
+
+        <div class="performance-section">
+          <h3 class="progress-title">Посещаемость</h3>
+          <table class="attendance-table">
+            <thead>
+              <tr>
+                <th>Дата</th>
+                <th>Тема занятия</th>
+                <th>Статус</th>
+                <th>Длительность</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>02.05.2025</td>
+                <td>Знакомство с платформой</td>
+                <td class="completed">Посещено</td>
+                <td>25 мин</td>
+              </tr>
+              <tr>
+                <td>09.05.2025</td>
+                <td>Основные звуки</td>
+                <td class="completed">Посещено</td>
+                <td>30 мин</td>
+              </tr>
+              <tr>
+                <td>16.05.2025</td>
+                <td>Простые слова</td>
+                <td class="missed">Пропущено</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>23.05.2025</td>
+                <td>Составление фраз</td>
+                <td class="completed">Посещено</td>
+                <td>28 мин</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="performance-section">
+          <h3 class="progress-title">Решенные задачи</h3>
+          <table class="problems-table">
+            <thead>
+              <tr>
+                <th>Тема</th>
+                <th>Заданий всего</th>
+                <th>Выполнено</th>
+                <th>Успешность</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Звуки</td>
+                <td>12</td>
+                <td>10</td>
+                <td>83%</td>
+              </tr>
+              <tr>
+                <td>Слова</td>
+                <td>15</td>
+                <td>8</td>
+                <td>53%</td>
+              </tr>
+              <tr>
+                <td>Фразы</td>
+                <td>10</td>
+                <td>5</td>
+                <td>50%</td>
+              </tr>
+              <tr>
+                <td>Диалоги</td>
+                <td>5</td>
+                <td>2</td>
+                <td>40%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="plan-section" class="content-section">
+        <div class="lesson-plan">
+          <div class="lesson-card">
+            <div class="lesson-header">
+              <span class="lesson-title">Задача 1: Знакомство с платформой</span>
+              <span class="lesson-date">02.05.2025</span>
+            </div>
+            <p>Знакомство с интерфейсом платформы, основные функции и возможности.</p>
+            <div class="lesson-materials">
+              <div class="material-item">
+                <span class="material-icon">📎</span>
+                <span>Презентация платформы.pdf</span>
+              </div>
+              <div class="material-item">
+                <span class="material-icon">🎥</span>
+                <span>Видео-инструкция.mp4</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-card">
+            <div class="lesson-header">
+              <span class="lesson-title">Задача 2: Основные звуки</span>
+              <span class="lesson-date">09.05.2025</span>
+            </div>
+            <p>Изучение базовых звуков русского языка, упражнения на артикуляцию.</p>
+            <div class="lesson-materials">
+              <div class="material-item">
+                <span class="material-icon">📎</span>
+                <span>Таблица звуков.pdf</span>
+              </div>
+              <div class="material-item">
+                <span class="material-icon">🔊</span>
+                <span>Аудио-упражнения.zip</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-card">
+            <div class="lesson-header">
+              <span class="lesson-title">Задача 3: Простые слова</span>
+              <span class="lesson-date">16.05.2025</span>
+            </div>
+            <p>Составление простых слов из изученных звуков, практика произношения.</p>
+            <div class="lesson-materials">
+              <div class="material-item">
+                <span class="material-icon">📎</span>
+                <span>Карточки со словами.pdf</span>
+              </div>
+              <div class="material-item">
+                <span class="material-icon">🖼️</span>
+                <span>Изображения для ассоциаций.zip</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="schedule-section" class="content-section">
+        <div class="selection-container">
+          <span class="selection-label">Ребёнок:</span>
+          <select class="selection-dropdown" id="schedule-child-select">
+            <option value="1">Иван Петров</option>
+            <option value="2">Мария Петрова</option>
+            <option value="3">Алексей Петров</option>
+          </select>
+
+          <span class="selection-label">Месяц:</span>
+          <select class="selection-dropdown" id="month-select">
+            <option value="4">Апрель 2025</option>
+            <option value="5" selected>Май 2025</option>
+            <option value="6">Июнь 2025</option>
+          </select>
+        </div>
+
+        <div class="calendar-header">
+          <h3 class="calendar-title">Май 2025</h3>
+          <div class="calendar-nav">
+            <button class="btn-outline" id="prev-month">← Предыдущий</button>
+            <button class="btn-outline" id="next-month">Следующий →</button>
+          </div>
+        </div>
+
+        <table class="calendar-table">
+          <thead>
+            <tr>
+              <th>Пн</th>
+              <th>Вт</th>
+              <th>Ср</th>
+              <th>Чт</th>
+              <th>Пт</th>
+              <th>Сб</th>
+              <th>Вс</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="other-month">29</td>
+              <td class="other-month">30</td>
+              <td>
+                <div class="calendar-day">1</div>
+              </td>
+              <td>
+                <div class="calendar-day">2</div>
+                <div class="calendar-event">Знакомство с платформой 15:00</div>
+              </td>
+              <td>
+                <div class="calendar-day">3</div>
+              </td>
+              <td>
+                <div class="calendar-day">4</div>
+              </td>
+              <td>
+                <div class="calendar-day">5</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="calendar-day">6</div>
+              </td>
+              <td>
+                <div class="calendar-day">7</div>
+              </td>
+              <td>
+                <div class="calendar-day">8</div>
+              </td>
+              <td class="today">
+                <div class="calendar-day">9</div>
+                <div class="calendar-event">Основные звуки 15:00</div>
+              </td>
+              <td>
+                <div class="calendar-day">10</div>
+              </td>
+              <td>
+                <div class="calendar-day">11</div>
+              </td>
+              <td>
+                <div class="calendar-day">12</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="calendar-day">13</div>
+              </td>
+              <td>
+                <div class="calendar-day">14</div>
+              </td>
+              <td>
+                <div class="calendar-day">15</div>
+              </td>
+              <td>
+                <div class="calendar-day">16</div>
+                <div class="calendar-event">Простые слова 15:00</div>
+              </td>
+              <td>
+                <div class="calendar-day">17</div>
+              </td>
+              <td>
+                <div class="calendar-day">18</div>
+              </td>
+              <td>
+                <div class="calendar-day">19</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="calendar-day">20</div>
+              </td>
+              <td>
+                <div class="calendar-day">21</div>
+              </td>
+              <td>
+                <div class="calendar-day">22</div>
+              </td>
+              <td>
+                <div class="calendar-day">23</div>
+                <div class="calendar-event">Составление фраз 15:00</div>
+              </td>
+              <td>
+                <div class="calendar-day">24</div>
+              </td>
+              <td>
+                <div class="calendar-day">25</div>
+              </td>
+              <td>
+                <div class="calendar-day">26</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="calendar-day">27</div>
+              </td>
+              <td>
+                <div class="calendar-day">28</div>
+              </td>
+              <td>
+                <div class="calendar-day">29</div>
+              </td>
+              <td>
+                <div class="calendar-day">30</div>
+                <div class="calendar-event">Диалоги 15:00</div>
+              </td>
+              <td>
+                <div class="calendar-day">31</div>
+              </td>
+              <td class="other-month">1</td>
+              <td class="other-month">2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="children-section" class="content-section">
+        <h2>Список заявок</h2>
+        <table class="children-list-table">
+          <thead>
+            <tr>
+              <th>Имя ребёнка</th>
+              <th>Возраст</th>
+              <th>Имя родителя</th>
+              <th>Номер телефона</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Анна Смирнова</td>
+              <td>5</td>
+              <td>Елена Смирнова</td>
+              <td>+7 (912) 345-67-89</td>
+            </tr>
+            <tr>
+              <td>Дмитрий Иванов</td>
+              <td>6</td>
+              <td>Ольга Иванова</td>
+              <td>+7 (923) 456-78-90</td>
+            </tr>
+            <tr>
+              <td>София Петрова</td>
+              <td>7</td>
+              <td>Алексей Петров</td>
+              <td>+7 (934) 567-89-01</td>
+            </tr>
+            <tr>
+              <td>Максим Васильев</td>
+              <td>5</td>
+              <td>Ирина Васильева</td>
+              <td>+7 (945) 678-90-12</td>
+            </tr>
+            <tr>
+              <td>Алиса Козлова</td>
+              <td>6</td>
+              <td>Сергей Козлов</td>
+              <td>+7 (956) 789-01-23</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const menuPopup = document.getElementById('menuPopup');
+
+    menuButton.addEventListener('click', () => {
+      menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!menuPopup.contains(event.target) && !menuButton.contains(event.target)) {
+        menuPopup.style.display = 'none';
+      }
+    });
+
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        contentSections.forEach(section => section.classList.remove('active'));
+
+        button.classList.add('active');
+
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(`${tabId}-section`).classList.add('active');
+      });
+    });
+
+    const subTabButtons = document.querySelectorAll('.sub-tab-btn');
+    const subContentSections = document.querySelectorAll('.sub-content-section');
+
+    subTabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        subTabButtons.forEach(btn => btn.classList.remove('active'));
+        subContentSections.forEach(sec => sec.classList.remove('active'));
+
+        button.classList.add('active');
+        const subTabId = button.getAttribute('data-subtab');
+        document.getElementById(`${subTabId}-section`).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
