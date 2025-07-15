@@ -137,7 +137,9 @@
   "chatbot": {
     "support": "Support",
     "greeting": "Hello! How can we help you?",
-    "write": "Write"
+    "write": "Write",
+    "another_question_btn": "Ask another question from this category",
+    "back_to_categories_btn": "Back to categories"
   },
   "parent_dashboard": {
     "tab_courses": "My Courses",
@@ -189,6 +191,96 @@
     "subtitle": "AI Speech Therapist",
     "exit": "Exit chat",
     "send_btn": "Send",
-    "placeholder": "Type a message..."
+    "placeholder": "Type a message...",
+    "typing": "SOYLE Bot is typing...",
+    "back_btn": "Back",
+    "another_question_btn": "Ask another question from this category",
+    "back_to_categories_btn": "Back to categories"
+  },
+  "chatbot_full": {
+    "welcome_1": "Hello! I am <strong>SOYLE Bot</strong>, your virtual speech therapist. I will help you at every stage: from diagnosis and exercise selection to creating an individual lesson plan!",
+    "welcome_2": "Please choose where to start the diagnosis?",
+    "choose_question": "Select a specific question:",
+    "another_question": "Would you like to ask another question from this category or return to category selection?",
+    "categories": [
+      "Speech development: norms and deviations",
+      "Behavior and communication features",
+      "Hearing problems",
+      "Signs of autism and sensory disorders",
+      "Help, correction and development",
+      "Myths and popular questions"
+    ],
+    "questions": {
+      "Speech development: norms and deviations": [
+        "My child is 2 years old but does not speak. Is this normal?",
+        "Should I worry if my child does not speak at 3 years old?",
+        "He says 'mom', 'give', 'take' — is that enough?",
+        "The child only says individual sounds. Is this speech?",
+        "He speaks in his own language. Is this normal?",
+        "The child speaks, but very unclearly. Is this normal?",
+        "What is more important – sounds or words?",
+        "Should I teach the alphabet if he does not speak?",
+        "Should I teach poems if he does not speak?"
+      ],
+      "Behavior and communication features": [
+        "He understands everything but does not speak. Is this normal?",
+        "The child does not repeat after adults and is capricious. Is this stubbornness?",
+        "Silent in kindergarten, but speaks at home. Why?",
+        "Can I just wait and see if he 'grows out of it'?"
+      ],
+      "Hearing problems": [
+        "Could there be a hearing problem?",
+        "The child does not respond to his name. Is it hearing or autism?"
+      ],
+      "Signs of autism and sensory disorders": [
+        "Can speech delay be a sign of autism?",
+        "He does not like touch, screams when dressing. Is this normal?",
+        "He flaps his hands, runs in circles. What is this?",
+        "He repeats words but does not speak himself. Is this speech?",
+        "He lines up cars but does not play story games. Is this worrying?",
+        "He does not make eye contact. Is it always autism?"
+      ],
+      "Help, correction and development": [
+        "What exercises can be done at home?",
+        "Can a sensory room be adapted for such a child?",
+        "He cannot tolerate loud sounds and bright light. What to do?",
+        "How to help a child with autism develop speech?"
+      ],
+      "Myths and popular questions": [
+        "Do boys start talking later than girls?",
+        "Grandma says: 'you also spoke late.' Is it hereditary?",
+        "We speak two languages. Could that be the reason?"
+      ]
+    },
+    "answers": {
+      "My child is 2 years old but does not speak. Is this normal?": "This may be a speech development delay. Consult a specialist.",
+      "Should I worry if my child does not speak at 3 years old?": "No need to panic, but do not wait. Do not delay getting help.",
+      "He says 'mom', 'give', 'take' — is that enough?": "After 2 years old — not enough. Speech should develop into phrases.",
+      "The child only says individual sounds. Is this speech?": "No. This is a pre-speech stage, speech stimulation is needed.",
+      "He speaks in his own language. Is this normal?": "After 2.5 years — no. This may be a sign of a speech disorder.",
+      "The child speaks, but very unclearly. Is this normal?": "After 3 years, speech should become clear. Otherwise, see a speech therapist.",
+      "What is more important – sounds or words?": "Words are more important at first. Pronunciation of sounds develops later.",
+      "Should I teach the alphabet if he does not speak?": "No. Focus on developing speech and thinking.",
+      "Should I teach poems if he does not speak?": "Start with understanding speech, gestures, and play interactions.",
+      "He understands everything but does not speak. Is this normal?": "No. This may be an expressive speech delay.",
+      "The child does not repeat after adults and is capricious. Is this stubbornness?": "Sometimes — no. There may be a problem with understanding speech.",
+      "Silent in kindergarten, but speaks at home. Why?": "May be selective mutism or strong shyness. Consult a psychologist.",
+      "Can I just wait and see if he 'grows out of it'?": "It is not worth waiting. Show the child to a specialist.",
+      "Could there be a hearing problem?": "Yes, be sure to check hearing with a specialist.",
+      "The child does not respond to his name. Is it hearing or autism?": "It could be either. Diagnosis is needed.",
+      "Can speech delay be a sign of autism?": "Yes, but not always. Other signs should also be assessed.",
+      "He does not like touch, screams when dressing. Is this normal?": "This may be sensory sensitivity. Consult a specialist.",
+      "He flaps his hands, runs in circles. What is this?": "These may be stereotypies typical for autism.",
+      "He repeats words but does not speak himself. Is this speech?": "This is echolalia. Work with a speech therapist is needed.",
+      "He lines up cars but does not play story games. Is this worrying?": "This may be a sign of autism. Consult a specialist.",
+      "He does not make eye contact. Is it always autism?": "No, but it is a worrying sign. Better to consult a specialist.",
+      "What exercises can be done at home?": "Breathing, articulation, and play exercises. Preferably with a specialist's recommendation.",
+      "Can a sensory room be adapted for such a child?": "Yes, sensory integration is useful for many children.",
+      "He cannot tolerate loud sounds and bright light. What to do?": "Use headphones, avoid overload, consult a specialist.",
+      "How to help a child with autism develop speech?": "Regular sessions with a speech therapist, support at home, sensory integration.",
+      "Do boys start talking later than girls?": "On average — yes, but the difference is small.",
+      "Grandma says: 'you also spoke late.' Is it hereditary?": "Heredity can influence, but does not always determine development.",
+      "We speak two languages. Could that be the reason?": "Bilingualism does not cause speech delay, but may affect the pace."
+    }
   }
 } 

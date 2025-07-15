@@ -125,9 +125,18 @@
       <span><%= t('chat.subtitle') %></span>
     </div>
   </div>
-  <a href="index.html" style="text-decoration: none; color: #A78CE2; font-weight: bold; margin-right: 10px;">
-    <%= t('chat.exit') %>
-  </a>
+  <div style="display: flex; align-items: center; gap: 16px;">
+    <form id="langForm" style="display:inline-block; margin-right: 16px;">
+      <select id="langSelect" name="lang" class="lang-btn">
+        <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+        <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+        <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+      </select>
+    </form>
+    <a href="/" style="text-decoration: none; color: #A78CE2; font-weight: bold; margin-right: 10px;">
+      <%= t('chat.exit') %>
+    </a>
+  </div>
 </header>
 
 </head>
@@ -144,71 +153,81 @@
     </div>
 
     <div class="chat-buttons" id="role-buttons"></div>
-      <button id="back-button" style="display:none;" onclick="goBack()">Вернуться</button>
+      <button id="back-button" style="display:none;" onclick="goBack()"><%= t('chat.back_btn') %></button>
 
   </div>
 
 <script>
+  // Получаем все тексты чата из локализации
+  const chatbotData = <%- JSON.stringify(t('chatbot_full')) %>;
+  const typingText = <%- JSON.stringify(t('chat.typing')) %>;
+
+  // Обработчик смены языка (гарантированная перезагрузка)
+  document.addEventListener('DOMContentLoaded', function() {
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) {
+      langSelect.addEventListener('change', function() {
+        document.cookie = 'lang=' + this.value + ';path=/';
+        window.location.reload();
+      });
+    }
+  });
+
   const chatArea = document.getElementById('chat-area');
   const roleButtons = document.getElementById('role-buttons');
   const backButton = document.getElementById('back-button');
+  const typingIndicator = document.getElementById('typing-indicator');
 
   let currentCategory = null;
   let isSecondLayer = false;
   let buttonAppearanceActive = false;
 
   window.addEventListener('DOMContentLoaded', async () => {
-    // First show the welcome messages in the chat
-    await addMessage('Приветствую! Я — <strong>SOYLE Bot</strong>, ваш виртуальный логопед, который поможет на каждом этапе: от диагностики и выбора упражнений до составления индивидуального плана занятий!');
-    await addMessage('Выберите, пожалуйста,<br>с чего начнем диагностику?');
-
-    // Then after the chat messages are done, show the buttons
+    // Приветственные сообщения из локализации
+    await addMessage(chatbotData.welcome_1);
+    await addMessage(chatbotData.welcome_2);
     buttonAppearanceActive = true;
-    showButtonsOneByOne(roles);
+    // Проверка на наличие категорий
+    if (Array.isArray(chatbotData.categories) && chatbotData.categories.length > 0) {
+      showButtonsOneByOne(chatbotData.categories);
+    } else {
+      console.error('Нет категорий для отображения. Проверьте локализацию chatbot_full.categories');
+    }
   });
 
-  // Modified showButtonsOneByOne function to accept an array of buttons
   function showButtonsOneByOne(buttonsArray, index = 0) {
     if (index >= buttonsArray.length || !buttonAppearanceActive) {
       typingIndicator.style.display = 'none';
       return;
     }
-
     typingIndicator.style.display = 'flex';
-
     setTimeout(() => {
-      // Check again if we should continue (user might have clicked while waiting)
       if (!buttonAppearanceActive) {
         typingIndicator.style.display = 'none';
         return;
       }
-
       const button = document.createElement("button");
-
       if (isSecondLayer) {
         button.onclick = () => {
-          buttonAppearanceActive = false; // Stop any ongoing button appearances
+          buttonAppearanceActive = false;
           handleSecondLayerQuestion(buttonsArray[index], currentCategory);
         };
       } else {
         button.onclick = () => {
-          buttonAppearanceActive = false; // Stop any ongoing button appearances
+          buttonAppearanceActive = false;
           handleCategory(buttonsArray[index]);
         };
       }
-
       const span = document.createElement("span");
       button.appendChild(span);
-      roleButtonsDiv.appendChild(button);
-
+      roleButtons.appendChild(button);
       typingIndicator.style.display = 'none';
-
       typeText(span, buttonsArray[index], () => {
         setTimeout(() => {
           showButtonsOneByOne(buttonsArray, index + 1);
-        }, 100); // Pause before next button
+        }, 100);
       });
-    }, 300); // Delay before each button shows up
+    }, 300);
   }
 
   // Create and show the typing indicator with bouncing dots
@@ -216,7 +235,7 @@
     const typingDiv = document.createElement('div');
     typingDiv.id = 'typing-indicator';
     typingDiv.className = 'chat-message';
-    typingDiv.innerHTML = 'SOYLE Bot печатает<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+    typingDiv.innerHTML = typingText + '<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
     chatArea.appendChild(typingDiv);
   }
 
@@ -335,195 +354,95 @@
 
   function goBack() {
     if (isSecondLayer) {
-      // Go back to first layer
       isSecondLayer = false;
       currentCategory = null;
       buttonAppearanceActive = false;
-      roleButtonsDiv.innerHTML = '';
+      roleButtons.innerHTML = '';
       typingIndicator.style.display = 'none';
-
       setTimeout(() => {
         buttonAppearanceActive = true;
-        showButtonsOneByOne(roles);
+        showButtonsOneByOne(chatbotData.categories);
       }, 100);
       backButton.style.display = 'none';
     } else {
-      // Go back to main page
       window.location.href = 'chat.html';
     }
   }
 
-const roles = [
-  "Речевое развитие: нормы и отклонения",
-  "Поведение и особенности общения",
-  "Проблемы со слухом",
-  "Признаки аутизма и сенсорных нарушений",
-  "Помощь, коррекция и развитие",
-  "Мифы и популярные вопросы",
-];
+  function typeText(element, text, callback) {
+    let i = 0;
+    const interval = setInterval(() => {
+      element.textContent += text[i];
+      i++;
+      if (i === text.length) {
+        clearInterval(interval);
+        callback();
+      }
+    }, 30);
+  }
 
-// Second layer questions for each category
-const secondLayerQuestions = {
-  "Речевое развитие: нормы и отклонения": [
-    "Почему мой ребёнок молчит в 2 года?",
-    "Нужно ли паниковать, если ребёнок не говорит в 3 года?",
-    "Он говорит \"мама\", \"дай\", \"на\" — этого достаточно?",
-    "Ребёнок говорит только отдельные звуки. Это речь?",
-    "Он говорит \"своим языком\". Это нормально?",
-    "Ребёнок говорит, но очень нечётко. Это нормально?",
-    "Что важнее – звуки или слова?",
-    "Нужно ли учить алфавит, если он не говорит?",
-    "Нужно ли учить стишки, если он не говорит?"
-  ],
-  "Поведение и особенности общения": [
-    "Он всё понимает, но не говорит. Это нормально?",
-    "Ребёнок не повторяет за взрослыми и капризничает. Это упрямство?",
-    "В садике молчит, а дома говорит. Почему?",
-    "Можно ли ждать, что \"перерастёт\"?"
-  ],
-  "Проблемы со слухом": [
-    "Может ли быть проблема со слухом?",
-    "Ребёнок не откликается на имя. Это слух или аутизм?"
-  ],
-  "Признаки аутизма и сенсорных нарушений": [
-    "Может ли задержка речи быть признаком аутизма?",
-    "Он не любит прикосновений, кричит при переодевании. Это нормально?",
-    "Он трясёт руками, бегает по кругу. Это что?",
-    "Он повторяет слова, но не говорит сам. Это речь?",
-    "Он выстраивает машинки, но не играет в сюжетные игры. Это тревожно?",
-    "Он не смотрит в глаза. Это всегда аутизм?"
-  ],
-  "Помощь, коррекция и развитие": [
-    "Какие упражнения можно делать дома?",
-    "Можно ли адаптировать сенсорную комнату для такого ребёнка?",
-    "Он не переносит громкие звуки и яркий свет. Что делать?",
-    "Как помочь ребёнку с аутизмом развивать речь?"
-  ],
-  "Мифы и популярные вопросы": [
-    "Мальчики начинают говорить позже девочек — правда?",
-    "Бабушка говорит: \"ты тоже поздно заговорил\". Это наследственность?",
-    "Мы говорим на двух языках. Может, из-за этого?"
-  ]
-};
+  // Handle first layer category selection
+  function handleCategory(category) {
+    addMessage(category, true);
+    currentCategory = category;
+    isSecondLayer = true;
 
-// Answers for each specific question
-const answers = {
-  "Почему мой ребёнок молчит в 2 года?": "Возможно, это задержка речевого развития. Обратитесь к специалисту.",
-  "Нужно ли паниковать, если ребёнок не говорит в 3 года?": "Паниковать — нет, но и ждать — опасно. Лучше не откладывать помощь.",
-  "Он говорит \"мама\", \"дай\", \"на\" — этого достаточно?": "После 2 лет — уже недостаточно. Речь должна развиваться до фраз.",
-  "Ребёнок говорит только отдельные звуки. Это речь?": "Нет. Это предречевой этап, требуется речевая стимуляция.",
-  "Он говорит \"своим языком\". Это нормально?": "После 2,5 лет — нет. Это может быть признаком речевой патологии.",
-  "Ребёнок говорит, но очень нечётко. Это нормально?": "После 3 лет речь должна становиться понятной. Иначе — к логопеду.",
-  "Что важнее – звуки или слова?": "Сначала важны слова. Произношение звуков формируется позже.",
-  "Нужно ли учить алфавит, если он не говорит?": "Нет. Лучше сосредоточиться на развитии речи и мышления.",
-  "Нужно ли учить стишки, если он не говорит?": "Лучше начать с понимания речи, жестов, игровых взаимодействий.",
-  "Он всё понимает, но не говорит. Это нормально?": "Нет. Это может быть экспрессивная задержка речи.",
-  "Ребёнок не повторяет за взрослыми и капризничает. Это упрямство?": "Иногда — нет. Может быть нарушено понимание речи.",
-  "В садике молчит, а дома говорит. Почему?": "Может быть избирательный мутизм или сильное стеснение. Нужна консультация психолога.",
-  "Можно ли ждать, что \"перерастёт\"?": "Надеяться — рискованно. Чем раньше начата коррекция — тем лучше результат.",
-  "Может ли быть проблема со слухом?": "Да. Проверка слуха — обязательна при задержке речи.",
-  "Ребёнок не откликается на имя. Это слух или аутизм?": "Сначала исключите тугоухость. Если слух в норме — это может быть признак РАС.",
-  "Может ли задержка речи быть признаком аутизма?": "Да. Это один из ранних признаков РАС, особенно при отсутствии контакта и общения.",
-  "Он не любит прикосновений, кричит при переодевании. Это нормально?": "Возможно, это сенсорная гиперчувствительность. Часто встречается при аутизме.",
-  "Он трясёт руками, бегает по кругу. Это что?": "Это стереотипии — типичное поведение при аутизме и способ саморегуляции.",
-  "Он повторяет слова, но не говорит сам. Это речь?": "Это эхолалия. Бывает и в норме, но при аутизме требует коррекции.",
-  "Он выстраивает машинки, но не играет в сюжетные игры. Это тревожно?": "Да. Отсутствие ролевой и символической игры — типичный признак аутизма.",
-  "Он не смотрит в глаза. Это всегда аутизм?": "Не всегда, но это один из тревожных признаков.",
-  "Какие упражнения можно делать дома?": "Простые: артикуляционные игры, звукоподражание, совместные действия с речью.",
-  "Можно ли адаптировать сенсорную комнату для такого ребёнка?": "Да. Подходящая сенсорная среда помогает снизить тревожность и развивать навыки.",
-  "Он не переносит громкие звуки и яркий свет. Что делать?": "Используйте шумоподавляющие наушники, мягкое освещение и поддерживающую среду.",
-  "Как помочь ребёнку с аутизмом развивать речь?": "Используйте альтернативную коммуникацию (жесты, карточки PECS), логопед-дефектолог, ABA-терапия, JASPER и Floortime — всё должно сочетаться.",
-  "Мальчики начинают говорить позже девочек — правда?": "Иногда да, но это не оправдание задержке речи.",
-  "Бабушка говорит: \"ты тоже поздно заговорил\". Это наследственность?": "Может быть, но сравнивать нельзя. Каждый ребёнок индивидуален.",
-  "Мы говорим на двух языках. Может, из-за этого?": "Нет. При правильной подаче двуязычие даже обогащает развитие."
-};
+    // Clear all buttons immediately and stop any ongoing appearances
+    buttonAppearanceActive = false;
+    roleButtons.innerHTML = '';
+    typingIndicator.style.display = 'none';
 
-const roleButtonsDiv = document.getElementById("role-buttons");
-const typingIndicator = document.getElementById("typing-indicator");
-
-function typeText(element, text, callback) {
-  let i = 0;
-  const interval = setInterval(() => {
-    element.textContent += text[i];
-    i++;
-    if (i === text.length) {
-      clearInterval(interval);
-      callback();
-    }
-  }, 30);
-}
-
-// Handle first layer category selection
-function handleCategory(category) {
-  addMessage(category, true);
-  currentCategory = category;
-  isSecondLayer = true;
-
-  // Clear all buttons immediately and stop any ongoing appearances
-  buttonAppearanceActive = false;
-  roleButtonsDiv.innerHTML = '';
-  typingIndicator.style.display = 'none';
-
-  setTimeout(async () => {
-    await addMessage('Выберите конкретный вопрос:');
-    buttonAppearanceActive = true;
-    showButtonsOneByOne(secondLayerQuestions[category]);
-    backButton.style.display = 'inline-block';
-  }, 2000);
-}
-
-// Handle second layer question selection - FIXED: No question repetition
-function handleSecondLayerQuestion(question, category) {
-  addMessage(question, true);
-
-  // Clear all buttons immediately and stop any ongoing appearances
-  buttonAppearanceActive = false;
-  roleButtonsDiv.innerHTML = '';
-  typingIndicator.style.display = 'none';
-
-  setTimeout(async () => {
-    const answer = answers[question];
-    // Only show the answer, not the question
-    await addMessage(answer);
-
-    // Show option to go back or ask another question
     setTimeout(async () => {
-      await addMessage('Хотите задать ещё один вопрос из этой категории или вернуться к выбору категорий?');
+      await addMessage(chatbotData.choose_question);
+      buttonAppearanceActive = true;
+      showButtonsOneByOne(chatbotData.questions[category]);
+      backButton.style.display = 'inline-block';
+    }, 2000);
+  }
 
-      // Create "Another question" button
-      const anotherQuestionBtn = document.createElement("button");
-      anotherQuestionBtn.textContent = "Задать ещё вопрос из этой категории";
-      anotherQuestionBtn.onclick = () => {
-        roleButtonsDiv.innerHTML = '';
-        buttonAppearanceActive = true;
-        showButtonsOneByOne(secondLayerQuestions[category]);
-      };
-      roleButtonsDiv.appendChild(anotherQuestionBtn);
+  // Handle second layer question selection - FIXED: No question repetition
+  function handleSecondLayerQuestion(question, category) {
+    addMessage(question, true);
 
-      // Create "Back to categories" button
-      const backToCategoriesBtn = document.createElement("button");
-      backToCategoriesBtn.textContent = "Вернуться к категориям";
-      backToCategoriesBtn.onclick = () => {
-        isSecondLayer = false;
-        currentCategory = null;
-        roleButtonsDiv.innerHTML = '';
-        buttonAppearanceActive = true;
-        showButtonsOneByOne(roles);
-        backButton.style.display = 'none';
-      };
-      roleButtonsDiv.appendChild(backToCategoriesBtn);
+    // Clear all buttons immediately and stop any ongoing appearances
+    buttonAppearanceActive = false;
+    roleButtons.innerHTML = '';
+    typingIndicator.style.display = 'none';
 
-      // Create "Contact specialist" button
-      const contactSpecialistBtn = document.createElement("button");
-      contactSpecialistBtn.textContent = "Пройти диагностику у специалиста";
-      contactSpecialistBtn.onclick = () => {
-  window.location.href = 'diagnosis.html#specialist';
-};
-      roleButtonsDiv.appendChild(contactSpecialistBtn);
+    setTimeout(async () => {
+      const answer = chatbotData.answers[question];
+      // Only show the answer, not the question
+      await addMessage(answer);
 
-    }, 1500);
-  }, 2000);
-}
+      // Show option to go back or ask another question
+      setTimeout(async () => {
+        await addMessage(chatbotData.another_question);
+
+        // Кнопка "Задать ещё вопрос из этой категории"
+        const anotherQuestionBtn = document.createElement("button");
+        anotherQuestionBtn.textContent = chatbotData.another_question_btn || 'Задать ещё вопрос из этой категории';
+        anotherQuestionBtn.onclick = () => {
+          roleButtons.innerHTML = '';
+          buttonAppearanceActive = true;
+          showButtonsOneByOne(chatbotData.questions[category]);
+        };
+        roleButtons.appendChild(anotherQuestionBtn);
+
+        // Кнопка "Вернуться к категориям"
+        const backToCategoriesBtn = document.createElement("button");
+        backToCategoriesBtn.textContent = chatbotData.back_to_categories_btn || 'Вернуться к категориям';
+        backToCategoriesBtn.onclick = () => {
+          isSecondLayer = false;
+          currentCategory = null;
+          roleButtons.innerHTML = '';
+          buttonAppearanceActive = true;
+          showButtonsOneByOne(chatbotData.categories);
+          backButton.style.display = 'none';
+        };
+        roleButtons.appendChild(backToCategoriesBtn);
+      }, 1500);
+    }, 2000);
+  }
 </script>
 
 <style>
