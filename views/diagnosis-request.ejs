@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заявка на бесплатную диагностику</title>
+  <title><%= t('diagnosis.title') %></title>
   <link rel="stylesheet" href="/css/styles.css">
   <style>
     body {
@@ -70,24 +70,44 @@
   </style>
 </head>
 <body>
+  <div style="width:100%; display:flex; justify-content:flex-end; margin-top: 24px; margin-bottom: 8px;">
+    <form id="langForm" style="display:inline-block; margin-right: 32px;">
+      <select id="langSelect" name="lang" class="lang-btn">
+        <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+        <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+        <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+      </select>
+    </form>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.addEventListener('change', function() {
+          document.cookie = 'lang=' + this.value + ';path=/';
+          location.reload();
+        });
+      }
+    });
+  </script>
   <div class="diagnosis-form-container">
-    <h2>Заявка на бесплатную диагностику</h2>
+    <h2><%= t('diagnosis.title') %></h2>
     <% if (typeof success !== 'undefined' && success) { %>
-      <div class="success-message">Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.</div>
+      <div class="success-message"><%= t('diagnosis.success') %></div>
     <% } %>
     <form class="diagnosis-form" action="/diagnosis-request" method="POST">
-      <label for="name">Имя</label>
+      <label for="name"><%= t('diagnosis.label_name') %></label>
       <input type="text" id="name" name="name" required>
-      <label for="surname">Фамилия</label>
+      <label for="surname"><%= t('diagnosis.label_surname') %></label>
       <input type="text" id="surname" name="surname" required>
-      <label for="phone">Телефон</label>
+      <label for="phone"><%= t('diagnosis.label_phone') %></label>
       <input type="text" id="phone" name="phone" required>
-      <label for="age">Возраст ребёнка</label>
+      <label for="age"><%= t('diagnosis.label_age') %></label>
       <input type="number" id="age" name="age" min="0" max="30" required>
-      <label for="problem">Опишите проблему</label>
+      <label for="problem"><%= t('diagnosis.label_problem') %></label>
       <textarea id="problem" name="problem" required></textarea>
-      <button type="submit">Отправить заявку</button>
-      <a href="/" class="btn-outline" style="width: 100%; margin-top: 12px; display: block; text-align: center;">На главную страницу</a>
+      <button type="submit"><%= t('diagnosis.submit_btn') %></button>
+      <a href="/" class="btn-outline" style="width: 100%; margin-top: 12px; display: block; text-align: center;"><%= t('diagnosis.back_btn') %></a>
     </form>
   </div>
 </body>

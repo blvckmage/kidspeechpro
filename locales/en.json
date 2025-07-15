@@ -54,7 +54,14 @@
     "individual_title": "Individual Approach",
     "individual_text": "In our center, every child has their own development path. After the initial diagnosis, we create a personalized lesson plan taking into account age, diagnosis, development level, and family requests. The program includes speech therapy, neurocorrection, physical therapy, sensory therapy, and psychological support — in the right combination and rhythm.",
     "specialists_title": "Specialists",
-    "specialists_text": "• Speech therapist-defectologist <br>• Neuropsychologist<br>• Psychologist<br>• Physical therapy coach<br>• Sensory therapist<br>• ABA specialist",
+    "specialists_text": [
+      "Speech therapist-defectologist",
+      "Neuropsychologist",
+      "Psychologist",
+      "Physical therapy coach",
+      "Sensory therapist",
+      "ABA specialist"
+    ],
     "methods_title": "Methods",
     "methods_text": "• JASPER<br>• ABA therapy<br>• Sensory integration<br>• Neurocorrection<br>• Articulation and breathing exercises<br>• Adaptive physical education",
     "care_title": "Care and Support",
@@ -282,5 +289,16 @@
       "Grandma says: 'you also spoke late.' Is it hereditary?": "Heredity can influence, but does not always determine development.",
       "We speak two languages. Could that be the reason?": "Bilingualism does not cause speech delay, but may affect the pace."
     }
+  },
+  "diagnosis": {
+    "title": "Free Diagnosis Application",
+    "success": "Your application has been sent! We will contact you soon.",
+    "label_name": "Name",
+    "label_surname": "Surname",
+    "label_phone": "Phone",
+    "label_age": "Child's age",
+    "label_problem": "Describe the problem",
+    "submit_btn": "Submit application",
+    "back_btn": "To main page"
   }
 } 
