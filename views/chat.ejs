@@ -128,14 +128,14 @@
   <div style="display: flex; align-items: center; gap: 16px;">
     <form id="langForm" style="display:inline-block; margin-right: 16px;">
       <select id="langSelect" name="lang" class="lang-btn">
-        <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
-        <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
-        <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
-      </select>
-    </form>
+      <option value="ru" <%= lang === 'ru' ? 'selected' : '' %>>Русский</option>
+      <option value="kk" <%= lang === 'kk' ? 'selected' : '' %>>Қазақша</option>
+      <option value="en" <%= lang === 'en' ? 'selected' : '' %>>English</option>
+    </select>
+  </form>
     <a href="/" style="text-decoration: none; color: #A78CE2; font-weight: bold; margin-right: 10px;">
-      <%= t('chat.exit') %>
-    </a>
+    <%= t('chat.exit') %>
+  </a>
   </div>
 </header>
 
@@ -369,80 +369,80 @@
     }
   }
 
-  function typeText(element, text, callback) {
-    let i = 0;
-    const interval = setInterval(() => {
-      element.textContent += text[i];
-      i++;
-      if (i === text.length) {
-        clearInterval(interval);
-        callback();
-      }
-    }, 30);
-  }
+function typeText(element, text, callback) {
+  let i = 0;
+  const interval = setInterval(() => {
+    element.textContent += text[i];
+    i++;
+    if (i === text.length) {
+      clearInterval(interval);
+      callback();
+    }
+  }, 30);
+}
 
-  // Handle first layer category selection
-  function handleCategory(category) {
-    addMessage(category, true);
-    currentCategory = category;
-    isSecondLayer = true;
+// Handle first layer category selection
+function handleCategory(category) {
+  addMessage(category, true);
+  currentCategory = category;
+  isSecondLayer = true;
 
-    // Clear all buttons immediately and stop any ongoing appearances
-    buttonAppearanceActive = false;
+  // Clear all buttons immediately and stop any ongoing appearances
+  buttonAppearanceActive = false;
     roleButtons.innerHTML = '';
-    typingIndicator.style.display = 'none';
+  typingIndicator.style.display = 'none';
 
-    setTimeout(async () => {
+  setTimeout(async () => {
       await addMessage(chatbotData.choose_question);
-      buttonAppearanceActive = true;
+    buttonAppearanceActive = true;
       showButtonsOneByOne(chatbotData.questions[category]);
-      backButton.style.display = 'inline-block';
-    }, 2000);
-  }
+    backButton.style.display = 'inline-block';
+  }, 2000);
+}
 
-  // Handle second layer question selection - FIXED: No question repetition
-  function handleSecondLayerQuestion(question, category) {
-    addMessage(question, true);
+// Handle second layer question selection - FIXED: No question repetition
+function handleSecondLayerQuestion(question, category) {
+  addMessage(question, true);
 
-    // Clear all buttons immediately and stop any ongoing appearances
-    buttonAppearanceActive = false;
+  // Clear all buttons immediately and stop any ongoing appearances
+  buttonAppearanceActive = false;
     roleButtons.innerHTML = '';
-    typingIndicator.style.display = 'none';
+  typingIndicator.style.display = 'none';
 
-    setTimeout(async () => {
+  setTimeout(async () => {
       const answer = chatbotData.answers[question];
-      // Only show the answer, not the question
-      await addMessage(answer);
+    // Only show the answer, not the question
+    await addMessage(answer);
 
-      // Show option to go back or ask another question
-      setTimeout(async () => {
+    // Show option to go back or ask another question
+    setTimeout(async () => {
         await addMessage(chatbotData.another_question);
 
         // Кнопка "Задать ещё вопрос из этой категории"
-        const anotherQuestionBtn = document.createElement("button");
+      const anotherQuestionBtn = document.createElement("button");
         anotherQuestionBtn.textContent = chatbotData.another_question_btn || 'Задать ещё вопрос из этой категории';
-        anotherQuestionBtn.onclick = () => {
+      anotherQuestionBtn.onclick = () => {
           roleButtons.innerHTML = '';
-          buttonAppearanceActive = true;
+        buttonAppearanceActive = true;
           showButtonsOneByOne(chatbotData.questions[category]);
-        };
+      };
         roleButtons.appendChild(anotherQuestionBtn);
 
         // Кнопка "Вернуться к категориям"
-        const backToCategoriesBtn = document.createElement("button");
+      const backToCategoriesBtn = document.createElement("button");
         backToCategoriesBtn.textContent = chatbotData.back_to_categories_btn || 'Вернуться к категориям';
-        backToCategoriesBtn.onclick = () => {
-          isSecondLayer = false;
-          currentCategory = null;
+      backToCategoriesBtn.onclick = () => {
+        isSecondLayer = false;
+        currentCategory = null;
           roleButtons.innerHTML = '';
-          buttonAppearanceActive = true;
+        buttonAppearanceActive = true;
           showButtonsOneByOne(chatbotData.categories);
-          backButton.style.display = 'none';
-        };
+        backButton.style.display = 'none';
+      };
         roleButtons.appendChild(backToCategoriesBtn);
-      }, 1500);
-    }, 2000);
-  }
+    }, 1500);
+  }, 2000);
+}
 </script>
 
 <style>

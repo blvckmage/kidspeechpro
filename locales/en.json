@@ -127,16 +127,31 @@
   },
   "pricing": {
     "title": "LEARN IN A CONVENIENT FORMAT",
-    "free_title": "Free Lessons",
-    "free_trial": "Trial lessons",
-    "simple_exercises": "Simple exercises",
-    "diagnostic_tests": "Diagnostic tests",
-    "free_schedule": "Once a week (20–30 min)",
-    "free_lessons": "2 lessons",
-    "free_price": "Free",
-    "signup": "Sign up",
-    "speak_boldly": "Speak Boldly",
-    "special_speech": "Special Speech + Parent Consultations"
+    "free": {
+      "title": "Free Lessons",
+      "features": ["Trial lessons", "Simple exercises", "Diagnostic tests"],
+      "schedule": "Once a week (20–30 min)",
+      "lessons": "2 lessons",
+      "price": "Free",
+      "button": "Sign up"
+    },
+    "basic": {
+      "title": "Speak Boldly",
+      "features": ["Vocabulary expansion", "Building phrases and sentences"],
+      "schedule": "2–3 times a week (40 min)",
+      "lessons": "4 lessons",
+      "price": "36,000 KZT/month",
+      "button": "Sign up"
+    },
+    "pro": {
+      "title": "Special Speech + Parent Consultations",
+      "features": ["Parent participation", "Social skills", "Sensory games"],
+      "schedule": "2–3 times a week (30–40 min)",
+      "lessons": "6 lessons",
+      "price": "42,000 KZT/month",
+      "button": "Sign up"
+    },
+    "per_month": "KZT/month"
   },
   "results": {
     "title": "OUR RESULTS"

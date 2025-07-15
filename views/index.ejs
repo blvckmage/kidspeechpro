@@ -566,99 +566,23 @@
 
 <script>
   (function() {
-    const team = [
-      {
-        photo: 'images/director.jpg',
-        name: 'Султанмуратова Жанна Турсинхановна',
-        role: 'Директор центра<br>Психолог дефектолог',
-        stage: 'Стаж 21 год.',
-        quote: '«Маленькие шаги — начало больших перемен.»'
-      },
-      {
-        photo: 'images/defec1.jpeg',
-        name: 'Амандыкова Асемкуль Сембаевна',
-        role: 'Дефектолог логопед',
-        stage: 'Стаж 18 лет.',
-        quote: '«Каждое усилие сегодня — уверенность завтра.»'
-      },
-      {
-        photo: 'images/defec2.jpeg',
-        name: 'Кыстаубаева Жанат Жумагелдиевна',
-        role: 'Психолог дефектолог',
-        stage: 'Стаж 18 лет.',
-        quote: '«Развитие — это путь, а не гонка.»'
-      },
-            {
-        photo: 'images/defec3.jpeg',
-        name: 'Калтаева Макпал Аксакалкызы',
-              role: 'Дефектолог логопед',
-        stage: 'Стаж 17 лет.',
-        quote: '«Терпение — это язык любви к ребёнку.»'
-      },
-            {
-        photo: 'images/defec4.jpeg',
-        name: 'Бакирова Жанерке Фархатқызы',
-              role: 'Психолог дефектолог',
-        stage: 'Стаж 10 лет.',
-        quote: '«Дети растут там, где их понимают.»'
-      },
-            {
-        photo: 'images/defec5.jpeg',
-        name: 'Бекенова Дилобар Низамиддинқызы',
-              role: 'Дефектолог логопед',
-        stage: 'Стаж 9 лет.',
-        quote: '«Слова приходят туда, где ждут, а не торопят.»'
-      },
-            {
-        photo: 'images/defec6.jpeg',
-        name: 'Тұрсынхан Гүлнара Нұрмаханқызы',
-              role: 'Дефектолог логопед',
-        stage: 'Стаж 8 лет.',
-        quote: '«Сначала контакт — потом результат.»'
-      },
-            {
-        photo: 'images/defec7.jpeg',
-        name: 'СейділдаТоғжан Полатқызы',
-              role: 'Дефектолог логопед',
-        stage: 'Стаж 6 лет.',
-        quote: '«У каждого ребёнка — свой темп и своя история.»'
-      },
-            {
-        photo: 'images/defec8.jpeg',
-        name: 'Мирзахметова Айсара Байтурсынқызы',
-              role: 'Дефектолог логопед (АВА терапия)',
-
-        stage: 'Стаж 4 года.',
-        quote: '«Понимание важнее оценки.»'
-      },
-            {
-        photo: 'images/defec9.jpeg',
-        name: 'Мамирова Элдора Кадирманқызы',
-              role: 'Дефектолог логопед (АВА терапия)',
-        stage: 'Стаж 3 года.',
-        quote: '«Даже шаг назад — часть большого движения вперёд.»'
-      },
-            {
-        photo: 'images/defec10.jpeg',
-        name: 'Мәдіқызы Нұрай',
-              role: 'Дефектолог логопед (Сенсорная интеграция)',
-        stage: 'Стаж 2 года.',
-        quote: '«Слово начинается с доверия.»'
-      },
-            {
-        photo: 'images/afk.jpeg',
-        name: 'Әбдіқұл Олжас Фархатұлы',
-              role: 'АФК специалист',
-        stage: 'Стаж 2 года.',
-        quote: '«С любовью и принятием развивается всё.»'
-      },
-            {
-        photo: 'images/defec11.jpeg',
-        name: 'Калжанова Айгерим Калдибаевна',
-              role: 'Дефектолог логопед (АВА терапия)',
-        stage: 'Стаж 1 год.',
-        quote: '«Главное — не говорить красиво, а чувствовать смело.»'
-      }
+    // Локализованный массив участников команды
+    const team = <%- JSON.stringify(t('team.members')) %>;
+    // Массив фото (индексы должны совпадать с team)
+    const photos = [
+      'images/director.jpg',
+      'images/defec1.jpeg',
+      'images/defec2.jpeg',
+      'images/defec3.jpeg',
+      'images/defec4.jpeg',
+      'images/defec5.jpeg',
+      'images/defec6.jpeg',
+      'images/defec7.jpeg',
+      'images/defec8.jpeg',
+      'images/defec9.jpeg',
+      'images/defec10.jpeg',
+      'images/afk.jpeg',
+      'images/defec11.jpeg'
     ];
 
     let idx = 0;
@@ -671,14 +595,14 @@
 
     function render() {
       const m = team[idx];
-      photoEl.src = m.photo;
+      photoEl.src = photos[idx] || '';
       photoEl.alt = m.name;
       nameEl.textContent = m.name;
-      roleEl.textContent = m.role;
       roleEl.innerHTML = m.role;
-      subroleEl.textContent = m.subrole;
       stageEl.textContent = m.stage;
-      quoteEl.textContent = m.quote;
+      quoteEl.textContent = m.quote || '';
+      // subroleEl не используется, очищаем
+      if(subroleEl) subroleEl.textContent = '';
     }
 
     document.querySelector('.left-btn').addEventListener('click', () => {
@@ -701,174 +625,96 @@
 <section class="pricing" id="courses" style="padding: 40px 15px; background-color: white;">
   <div style="max-width: 7000px; max-height: 3000px; margin: 0 auto;">
     <h2 style="text-align: center; margin-bottom: 25px; color: #A78CE2; font-size: 1.8rem;"><%= t('pricing.title') %></h2>
-
     <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 10px;">
-      <!-- Начальный тариф -->
+      <!-- Бесплатный тариф -->
       <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
         <a href="/public" class="logo" style="display: block; text-align: center; margin-bottom: 10px;">
           <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
         </a>
-        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.free_title') %></h3>
+        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.free.title') %></h3>
         <div style="margin-bottom: 15px; flex-grow: 1;">
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span><%= t('pricing.free_trial') %></span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span><%= t('pricing.simple_exercises') %></span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span><%= t('pricing.diagnostic_tests') %></span>
-          </div>
-
+          <% t('pricing.free.features').forEach(function(item) { %>
+            <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+              <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+              <span><%= item %></span>
+            </div>
+          <% }); %>
           <div style="margin-bottom: 64px; display: flex; align-items: flex-start; font-size: 1.2rem;">
-            <span><%= t('pricing.free_schedule') %></span>
+            <span><%= t('pricing.free.schedule') %></span>
           </div>
-
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.6rem; font-weight: bolder">
-            <span><%= t('pricing.free_lessons') %></span>
+            <span><%= t('pricing.free.lessons') %></span>
           </div>
         </div>
         <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
-          <%= t('pricing.free_price') %>
+          <%= t('pricing.free.price') %>
         </div>
         <div style="text-align: center;">
-          <button onclick="window.location.href='register.html'" class="btn-hover" style="
-  background: #A78CE2;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 100%;
-  transition: transform 0.3s, box-shadow 0.3s;
-">
-  <%= t('pricing.signup') %>
-</button>
-
-<style>
-  .btn-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-</style>
-
+          <button onclick="window.location.href='register.html'" class="btn-hover" style="background: #A78CE2; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%; transition: transform 0.3s, box-shadow 0.3s;">
+            <%= t('pricing.free.button') %>
+          </button>
         </div>
       </div>
-
-
-
       <!-- Базовый тариф -->
       <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
-
         <a href="/public" class="logo" style="display: block; text-align: center; margin-bottom: 10px;">
           <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
         </a>
-        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.speak_boldly') %></h3>
+        <h3 style="margin: 0 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.basic.title') %></h3>
         <div style="margin-bottom: 15px; flex-grow: 1;">
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Расширение словарного запаса</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Построение фраз и предложений</span>
-          </div>
-
+          <% t('pricing.basic.features').forEach(function(item) { %>
+            <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+              <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+              <span><%= item %></span>
+            </div>
+          <% }); %>
           <div style="margin-bottom: 90px; display: flex; align-items: flex-start; font-size: 1.2rem;">
-            <span>2–3 раза в неделю (по 40 мин)</span>
+            <span><%= t('pricing.basic.schedule') %></span>
           </div>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.6rem; font-weight: bolder">
-            <span>4 занятий</span>
+            <span><%= t('pricing.basic.lessons') %></span>
           </div>
         </div>
+        <% const basicPrice = t('pricing.basic.price'); %>
+        <% const basicNum = basicPrice.match(/[\d\s]+/) ? basicPrice.match(/[\d\s]+/)[0].trim() : basicPrice; %>
         <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
-          36 000 тг/мес
+          <span><%= basicNum %></span><span><%= ' ' + t('pricing.per_month') %></span>
         </div>
         <div style="text-align: center;">
-          <button onclick="window.location.href='register.html'" class="btn-hover" style="
-  background: #A78CE2;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 100%;
-  transition: transform 0.3s, box-shadow 0.3s;
-">
-  Записаться
-</button>
-
-<style>
-  .btn-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-</style>
-
+          <button onclick="window.location.href='register.html'" class="btn-hover" style="background: #A78CE2; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%; transition: transform 0.3s, box-shadow 0.3s;">
+            <%= t('pricing.basic.button') %>
+          </button>
         </div>
       </div>
-
       <!-- Профессиональный тариф -->
       <div style="flex: 0 0 300px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #A78CE2; position: relative; display: flex; flex-direction: column;">
-
         <a href="/public" class="logo" style="display: block; text-align: center; margin-bottom: 10px; margin-top: 10px;">
           <img src="/images/logo.png" alt="KidSpeech PRO" style="width: 200px; height: auto;"/>
         </a>
-        <h3 style="margin: 10px 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.special_speech') %></h3>
+        <h3 style="margin: 10px 0 15px; font-size: 1.3rem; color: #A78CE2; text-align: center;"><%= t('pricing.pro.title') %></h3>
         <div style="margin-bottom: 15px; flex-grow: 1;">
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Участие родителей</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Социальные навыки</span>
-          </div>
-          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
-            <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
-            <span>Сенсорные игры</span>
-          </div>
+          <% t('pricing.pro.features').forEach(function(item) { %>
+            <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 0.9rem;">
+              <span style="color: #A78CE2; margin-right: 8px; flex-shrink: 0;">✓</span>
+              <span><%= item %></span>
+            </div>
+          <% }); %>
           <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.2rem;">
-            <span>2–3 раза в неделю (30–40 мин)</span>
+            <span><%= t('pricing.pro.schedule') %></span>
+          </div>
+          <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.6rem; font-weight: bolder">
+            <span><%= t('pricing.pro.lessons') %></span>
           </div>
         </div>
-
-        <div style="margin-bottom: 8px; display: flex; align-items: flex-start; font-size: 1.6rem; font-weight: bolder">
-            <span>6 занятий</span>
-          </div>
+        <% const proPrice = t('pricing.pro.price'); %>
+        <% const proNum = proPrice.match(/[\d\s]+/) ? proPrice.match(/[\d\s]+/)[0].trim() : proPrice; %>
         <div style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; color: #A78CE2;">
-          42 000 тг/мес
+          <span><%= proNum %></span><span><%= ' ' + t('pricing.per_month') %></span>
         </div>
         <div style="text-align: center;">
-          <button onclick="window.location.href='register.html'" class="btn-hover" style="
-  background: #A78CE2;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 100%;
-  transition: transform 0.3s, box-shadow 0.3s;
-">
-  Записаться
-</button>
-
-<style>
-  .btn-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-</style>
-
+          <button onclick="window.location.href='register.html'" class="btn-hover" style="background: #A78CE2; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%; transition: transform 0.3s, box-shadow 0.3s;">
+            <%= t('pricing.pro.button') %>
+          </button>
         </div>
       </div>
     </div>
